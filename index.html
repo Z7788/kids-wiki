@@ -811,12 +811,14 @@
       const opened = p.openDone || 0;
       const openMax = p.openTotal || 0;
 
+      if (stars === 0 && opened === 0) return;
+
       totalStars += stars;
       totalMax += max;
-      if (stars > 0 || opened > 0) touched++;
+      touched++;
 
       const row = document.createElement('div');
-      row.className = 'card-stars' + (stars === 0 && opened === 0 ? ' none' : '');
+      row.className = 'card-stars';
       const filled = '⭐'.repeat(stars);
       const empty = '☆'.repeat(Math.max(0, max - stars));
       const openNote = openMax > 0 ? ` · открытых ${opened}/${openMax}` : '';

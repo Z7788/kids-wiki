@@ -73,10 +73,9 @@
     let starsEarned = 0;
     let openDone = 0;
 
-    const updateScore = () => {
+    const updateScore = (persist = true) => {
       const filled = '⭐'.repeat(starsEarned);
       const empty = '☆'.repeat(maxStars - starsEarned);
-      const allDone = starsEarned + (maxStars - starsEarned === 0 ? 0 : 0) === maxStars && openDone === openTotal;
       const finalMsg = (starsEarned === maxStars && openDone === openTotal && maxStars > 0)
         ? `<div class="kw-final">🔥 Полный разгром, ${name}!</div>`
         : '';
@@ -85,10 +84,12 @@
         <p>${starsEarned} из ${maxStars} звёзд${openTotal > 0 ? ` · открытых ответов: ${openDone}/${openTotal}` : ''}</p>
         ${finalMsg}
       `;
-      saveProgress({
-        ...getProgress(),
-        [articleId]: { stars: starsEarned, maxStars, openDone, openTotal, name, ts: Date.now() }
-      });
+      if (persist) {
+        saveProgress({
+          ...getProgress(),
+          [articleId]: { stars: starsEarned, maxStars, openDone, openTotal, name, ts: Date.now() }
+        });
+      }
     };
 
     questions.forEach((q, idx) => {
@@ -176,7 +177,7 @@
       qContainer.appendChild(qEl);
     });
 
-    updateScore();
+    updateScore(false);
 
     const backHome = document.querySelector('.back-home');
     const backSection = backHome ? backHome.closest('section') : null;
