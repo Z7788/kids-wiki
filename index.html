@@ -424,6 +424,52 @@
     line-height: 1.5;
   }
 
+  /* USER GREETING */
+  .user-greeting {
+    margin: 18px auto 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 14px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.12), rgba(167, 139, 250, 0.12));
+    border: 1px solid rgba(255, 217, 61, 0.3);
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    backdrop-filter: blur(4px);
+  }
+  .user-greeting .greet-name { color: var(--yellow); }
+  .user-greeting .greet-sep { color: var(--muted); opacity: 0.5; }
+  .user-greeting .greet-stars {
+    color: var(--yellow);
+    font-weight: 700;
+  }
+  .user-greeting.empty { border-color: rgba(167, 139, 250, 0.3); }
+  .user-greeting.empty .greet-stars { display: none; }
+
+  /* CARD STARS */
+  .card-stars {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    letter-spacing: 4px;
+    font-size: 1rem;
+    color: var(--yellow);
+  }
+  .card-stars .cs-text {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+    font-weight: 600;
+  }
+  .card-stars.none { color: var(--muted); opacity: 0.6; }
+
   footer {
     text-align: center;
     padding: 40px 20px 60px;
@@ -470,6 +516,7 @@
   <h1>Kids Wiki</h1>
   <p>Объяснения сложных вещей простым языком — с картинками, аналогиями и капелькой удивления</p>
   <div class="hero-planet">🪐</div>
+  <div id="user-greeting"></div>
 </div>
 
 <div class="toolbar">
@@ -739,6 +786,78 @@
       searchInput.focus();
     }
   });
+
+  // --- User progress (name + stars from localStorage) ---
+  (function renderProgress() {
+    const name = localStorage.getItem('kidsWikiName');
+    let progress = {};
+    try { progress = JSON.parse(localStorage.getItem('kidsWikiProgress')) || {}; } catch {}
+
+    // Per-card stars
+    let totalStars = 0;
+    let totalMax = 0;
+    let touched = 0;
+
+    cards.forEach(card => {
+      const href = card.getAttribute('href') || '';
+      const m = href.match(/articles\/(.+)\.html$/);
+      if (!m) return;
+      const id = m[1];
+      const p = progress[id];
+      if (!p || !p.maxStars) return;
+
+      const stars = p.stars || 0;
+      const max = p.maxStars || 0;
+      const opened = p.openDone || 0;
+      const openMax = p.openTotal || 0;
+
+      totalStars += stars;
+      totalMax += max;
+      if (stars > 0 || opened > 0) touched++;
+
+      const row = document.createElement('div');
+      row.className = 'card-stars' + (stars === 0 && opened === 0 ? ' none' : '');
+      const filled = '⭐'.repeat(stars);
+      const empty = '☆'.repeat(Math.max(0, max - stars));
+      const openNote = openMax > 0 ? ` · открытых ${opened}/${openMax}` : '';
+      row.innerHTML = `${filled}${empty}<span class="cs-text">${stars}/${max}${openNote}</span>`;
+      card.appendChild(row);
+    });
+
+    // Hero greeting
+    const slot = document.getElementById('user-greeting');
+    if (!slot || !name) return;
+
+    const safeName = document.createElement('span');
+    safeName.className = 'greet-name';
+    safeName.textContent = name;
+
+    const container = document.createElement('div');
+    container.className = 'user-greeting' + (totalMax === 0 ? ' empty' : '');
+    container.append('Привет, ');
+    container.appendChild(safeName);
+    container.append('!');
+
+    if (totalMax > 0) {
+      const sep = document.createElement('span');
+      sep.className = 'greet-sep';
+      sep.textContent = '•';
+      const stars = document.createElement('span');
+      stars.className = 'greet-stars';
+      stars.textContent = `⭐ ${totalStars} из ${totalMax}`;
+      const progressed = document.createElement('span');
+      progressed.className = 'greet-sep';
+      progressed.textContent = `· ${touched} из ${cards.length} статей`;
+      container.append(' ', sep, ' ', stars, ' ', progressed);
+    } else {
+      const hint = document.createElement('span');
+      hint.className = 'greet-sep';
+      hint.textContent = 'Читай статьи и открывай звёзды 🎯';
+      container.append(' ', hint);
+    }
+
+    slot.appendChild(container);
+  })();
 </script>
 
 </body>
