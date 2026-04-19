@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kids Wiki — Объяснения сложных вещей простым языком</title>
+<meta name="description" content="Мини-википедия, где сложные темы объясняются простым языком, с картинками и аналогиями.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 55% 25%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 70px 20px 30px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(78, 205, 196, 0.15);
+    border: 2px solid var(--cyan);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .hero p {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .hero-planet {
+    margin-top: 28px;
+    font-size: 3rem;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(8deg); }
+  }
+
+  /* TOOLBAR */
+  .toolbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .search-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .search-wrap::before {
+    content: '🔍';
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 14px 46px 14px 50px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text);
+    background: rgba(26, 33, 80, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(6px);
+  }
+
+  .search-input::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
+  .search-input:focus {
+    border-color: var(--cyan);
+    background: rgba(26, 33, 80, 0.9);
+    box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.12);
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .search-clear:hover {
+    background: rgba(255, 71, 87, 0.3);
+    color: var(--text);
+  }
+
+  .search-clear.visible { display: flex; }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .filter-btn {
+    padding: 9px 18px;
+    border-radius: 50px;
+    background: rgba(26, 33, 80, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .filter-btn:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text);
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.25), rgba(74, 158, 255, 0.2));
+    border-color: var(--purple);
+    color: var(--text);
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
+  }
+
+  .filter-btn .count-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    margin-left: 2px;
+  }
+
+  .filter-btn.active .count-badge {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* WIKI GRID */
+  .wiki-section {
+    padding: 10px 20px 60px;
+  }
+
+  .results-info {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    min-height: 20px;
+  }
+
+  .results-info .highlight {
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  .wiki-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .wiki-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 28px 26px 22px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wiki-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--accent, linear-gradient(90deg, var(--yellow), var(--orange), var(--red)));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .wiki-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-hover, rgba(255, 217, 61, 0.3));
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 40px var(--glow, rgba(255, 140, 66, 0.15));
+  }
+
+  .wiki-card:hover::before { transform: scaleX(1); }
+
+  .wiki-card.c-nuclear { --accent: linear-gradient(90deg, var(--yellow), var(--orange), var(--red)); --border-hover: rgba(255, 140, 66, 0.4); --glow: rgba(255, 140, 66, 0.2); }
+  .wiki-card.c-black-hole { --accent: linear-gradient(90deg, var(--purple), var(--pink), var(--blue)); --border-hover: rgba(167, 139, 250, 0.4); --glow: rgba(167, 139, 250, 0.2); }
+  .wiki-card.c-earth { --accent: linear-gradient(90deg, var(--red), var(--orange), var(--yellow)); --border-hover: rgba(255, 71, 87, 0.4); --glow: rgba(255, 71, 87, 0.2); }
+  .wiki-card.c-lightning { --accent: linear-gradient(90deg, var(--yellow), var(--blue)); --border-hover: rgba(255, 217, 61, 0.4); --glow: rgba(255, 217, 61, 0.2); }
+  .wiki-card.c-dna { --accent: linear-gradient(90deg, var(--cyan), var(--green), var(--purple)); --border-hover: rgba(78, 205, 196, 0.4); --glow: rgba(78, 205, 196, 0.2); }
+  .wiki-card.c-immunity { --accent: linear-gradient(90deg, var(--green), var(--cyan), var(--red)); --border-hover: rgba(107, 207, 127, 0.4); --glow: rgba(107, 207, 127, 0.2); }
+
+  .wiki-emoji {
+    font-size: 3.4rem;
+    margin-bottom: 14px;
+    line-height: 1;
+    display: block;
+    filter: drop-shadow(0 4px 15px rgba(255, 140, 66, 0.3));
+  }
+
+  .wiki-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+    line-height: 1.25;
+  }
+
+  .wiki-card p {
+    color: var(--muted);
+    line-height: 1.55;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .card-tag {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: lowercase;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .card-tag.t-physics { color: var(--yellow); border-color: rgba(255, 217, 61, 0.2); background: rgba(255, 217, 61, 0.05); }
+  .card-tag.t-space { color: var(--purple); border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.05); }
+  .card-tag.t-earth { color: var(--orange); border-color: rgba(255, 140, 66, 0.2); background: rgba(255, 140, 66, 0.05); }
+  .card-tag.t-nature { color: var(--green); border-color: rgba(107, 207, 127, 0.2); background: rgba(107, 207, 127, 0.05); }
+  .card-tag.t-bio { color: var(--cyan); border-color: rgba(78, 205, 196, 0.2); background: rgba(78, 205, 196, 0.05); }
+  .card-tag.t-human { color: var(--pink); border-color: rgba(255, 107, 157, 0.2); background: rgba(255, 107, 157, 0.05); }
+  .card-tag.t-history { color: var(--red); border-color: rgba(255, 71, 87, 0.2); background: rgba(255, 71, 87, 0.05); }
+  .card-tag.t-energy { color: var(--orange); border-color: rgba(255, 140, 66, 0.2); background: rgba(255, 140, 66, 0.05); }
+  .card-tag.t-time { color: var(--blue); border-color: rgba(74, 158, 255, 0.2); background: rgba(74, 158, 255, 0.05); }
+  .card-tag.t-health { color: var(--green); border-color: rgba(107, 207, 127, 0.2); background: rgba(107, 207, 127, 0.05); }
+
+  .wiki-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.8;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .wiki-meta .dot { color: var(--cyan); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.02);
+    border: 2px dashed rgba(255,255,255,0.1);
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .empty-state.visible { display: block; }
+
+  .empty-state .big-emoji {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .empty-state h3 {
+    color: var(--text);
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  .empty-state p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px 60px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .count-pill {
+    display: inline-block;
+    background: rgba(167, 139, 250, 0.15);
+    color: var(--purple);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin: 0 4px;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 700px) {
+    .hero { min-height: 40vh; padding: 50px 20px 20px; }
+    .wiki-grid { grid-template-columns: 1fr; gap: 16px; }
+    .wiki-card { padding: 24px 22px 20px; }
+    .wiki-emoji { font-size: 3rem; }
+    .wiki-card h3 { font-size: 1.2rem; }
+    .filter-pills { gap: 8px; }
+    .filter-btn { padding: 8px 14px; font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-badge">🧠 Мини-википедия</span>
+  <h1>Kids Wiki</h1>
+  <p>Объяснения сложных вещей простым языком — с картинками, аналогиями и капелькой удивления</p>
+  <div class="hero-planet">🪐</div>
+</div>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <input type="text" id="search" class="search-input" placeholder="Ищи тему… например: «атом», «солнце», «вирус»" autocomplete="off">
+    <button type="button" id="search-clear" class="search-clear" aria-label="Очистить">✕</button>
+  </div>
+
+  <div class="filter-pills" id="filters">
+    <button class="filter-btn active" data-category="all">Все <span class="count-badge" data-count="all">6</span></button>
+    <button class="filter-btn" data-category="space">🌌 Космос <span class="count-badge" data-count="space">2</span></button>
+    <button class="filter-btn" data-category="earth">🌍 Земля <span class="count-badge" data-count="earth">2</span></button>
+    <button class="filter-btn" data-category="life">🧬 Жизнь <span class="count-badge" data-count="life">2</span></button>
+  </div>
+</div>
+
+<section class="wiki-section container">
+  <div class="results-info" id="results-info"></div>
+
+  <div class="wiki-grid" id="grid">
+    <a class="wiki-card c-nuclear"
+       href="articles/nuclear.html"
+       data-category="space"
+       data-tags="физика энергия история атом солнце ядро уран чернобыль хиросима фукусима термояд">
+      <span class="wiki-emoji">⚛️</span>
+      <h3>Ядерная и термоядерная реакции</h3>
+      <p>Как устроен атом, что такое деление и синтез ядер, почему светит Солнце, и чему нас научили Хиросима, Чернобыль и Фукусима.</p>
+      <div class="card-tags">
+        <span class="card-tag t-physics">физика</span>
+        <span class="card-tag t-energy">энергия</span>
+        <span class="card-tag t-history">история</span>
+      </div>
+      <div class="wiki-meta">
+        <span>18 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+      </div>
+    </a>
+
+    <a class="wiki-card c-black-hole"
+       href="articles/black-holes.html"
+       data-category="space"
+       data-tags="физика космос время эйнштейн сингулярность горизонт событий звезды галактика">
+      <span class="wiki-emoji">🕳️</span>
+      <h3>Чёрные дыры</h3>
+      <p>Откуда берутся чёрные дыры, что там внутри, почему рядом с ними время течёт иначе, и что случится, если туда провалиться.</p>
+      <div class="card-tags">
+        <span class="card-tag t-space">космос</span>
+        <span class="card-tag t-physics">физика</span>
+        <span class="card-tag t-time">время</span>
+      </div>
+      <div class="wiki-meta">
+        <span>18 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+      </div>
+    </a>
+
+    <a class="wiki-card c-earth"
+       href="articles/tectonics.html"
+       data-category="earth"
+       data-tags="земля природа история плиты пангея вулкан магма лава землетрясение цунами помпеи">
+      <span class="wiki-emoji">🌋</span>
+      <h3>Плиты, вулканы и землетрясения</h3>
+      <p>Как устроена Земля внутри, почему континенты плывут, откуда берутся горы и почему дрожит земля.</p>
+      <div class="card-tags">
+        <span class="card-tag t-earth">земля</span>
+        <span class="card-tag t-nature">природа</span>
+        <span class="card-tag t-history">история</span>
+      </div>
+      <div class="wiki-meta">
+        <span>18 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+      </div>
+    </a>
+
+    <a class="wiki-card c-lightning"
+       href="articles/lightning.html"
+       data-category="earth"
+       data-tags="физика природа молния ток электрон розетка гром статика заряд провод">
+      <span class="wiki-emoji">⚡</span>
+      <h3>Молнии и электричество</h3>
+      <p>Что такое ток, почему молния зигзагом, и почему её канал в 5 раз горячее Солнца.</p>
+      <div class="card-tags">
+        <span class="card-tag t-physics">физика</span>
+        <span class="card-tag t-nature">природа</span>
+      </div>
+      <div class="wiki-meta">
+        <span>18 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+      </div>
+    </a>
+
+    <a class="wiki-card c-dna"
+       href="articles/dna.html"
+       data-category="life"
+       data-tags="биология человек днк ген клетка наследственность мутация эволюция хромосома crispr">
+      <span class="wiki-emoji">🧬</span>
+      <h3>ДНК и гены</h3>
+      <p>Что такое ДНК, почему ты похож на родителей, и почему у тебя с бананом 50% общего кода.</p>
+      <div class="card-tags">
+        <span class="card-tag t-bio">биология</span>
+        <span class="card-tag t-human">человек</span>
+      </div>
+      <div class="wiki-meta">
+        <span>18 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+      </div>
+    </a>
+
+    <a class="wiki-card c-immunity"
+       href="articles/immunity.html"
+       data-category="life"
+       data-tags="биология здоровье иммунитет вирус бактерия прививка вакцина антитело лимфоцит болезнь">
+      <span class="wiki-emoji">🛡</span>
+      <h3>Иммунитет, вирусы и прививки</h3>
+      <p>Кто сражается внутри тебя, когда ты болеешь, и почему прививка — это фоторобот врага для твоих иммунных клеток.</p>
+      <div class="card-tags">
+        <span class="card-tag t-bio">биология</span>
+        <span class="card-tag t-health">здоровье</span>
+      </div>
+      <div class="wiki-meta">
+        <span>18 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="empty-state" id="empty-state">
+    <span class="big-emoji">🔎</span>
+    <h3>Ничего не нашлось</h3>
+    <p>Попробуй другое слово или сбрось фильтры</p>
+  </div>
+</section>
+
+<footer>
+  Всего статей: <span class="count-pill" id="total-count">6</span>
+  <div style="margin-top:14px">Сделано с <span class="heart">❤</span> для любопытных</div>
+</footer>
+
+<script>
+  const searchInput = document.getElementById('search');
+  const searchClear = document.getElementById('search-clear');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.wiki-card');
+  const emptyState = document.getElementById('empty-state');
+  const resultsInfo = document.getElementById('results-info');
+  const totalCount = document.getElementById('total-count');
+
+  totalCount.textContent = cards.length;
+
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function applyFilter() {
+    let shown = 0;
+    const q = searchQuery.toLowerCase().trim();
+
+    cards.forEach(card => {
+      const category = card.dataset.category || '';
+      const tags = (card.dataset.tags || '').toLowerCase();
+      const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
+      const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
+      const haystack = title + ' ' + desc + ' ' + tags;
+
+      const categoryMatch = activeCategory === 'all' || category === activeCategory;
+      const searchMatch = !q || haystack.includes(q);
+
+      if (categoryMatch && searchMatch) {
+        card.style.display = '';
+        shown++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    emptyState.classList.toggle('visible', shown === 0);
+
+    if (q) {
+      resultsInfo.innerHTML = `Нашлось: <span class="highlight">${shown}</span> из ${cards.length}`;
+    } else if (activeCategory !== 'all') {
+      resultsInfo.innerHTML = `Показано: <span class="highlight">${shown}</span>`;
+    } else {
+      resultsInfo.textContent = '';
+    }
+  }
+
+  searchInput.addEventListener('input', e => {
+    searchQuery = e.target.value;
+    searchClear.classList.toggle('visible', searchQuery.length > 0);
+    applyFilter();
+  });
+
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      searchQuery = '';
+      searchClear.classList.remove('visible');
+      applyFilter();
+    }
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchQuery = '';
+    searchClear.classList.remove('visible');
+    searchInput.focus();
+    applyFilter();
+  });
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.dataset.category;
+      applyFilter();
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+</script>
+
+</body>
+</html>

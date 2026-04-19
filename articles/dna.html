@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ДНК и гены</title>
+<meta name="description" content="Что такое ДНК, почему ты похож на родителей, и почему у тебя с бананом 50% общего кода.">
+<meta name="emoji" content="🧬">
+<meta name="date" content="2026-04-18">
+<meta name="reading-time" content="25 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(78, 205, 196, 0.15);
+    border: 2px solid var(--cyan);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--cyan), var(--green), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(78, 205, 196, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* HERO DNA SPIRAL */
+  .hero-dna {
+    width: 180px;
+    height: 260px;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .hero-dna .rung {
+    position: absolute;
+    left: 50%;
+    width: 120px;
+    height: 8px;
+    border-radius: 4px;
+    transform-origin: center;
+    transform: translateX(-50%) rotate(0deg);
+    box-shadow: 0 0 18px currentColor;
+    animation: dna-spin 4s linear infinite;
+  }
+
+  @keyframes dna-spin {
+    0% { transform: translateX(-50%) rotateY(0deg); }
+    100% { transform: translateX(-50%) rotateY(360deg); }
+  }
+
+  .scroll-hint {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block {
+    padding: 60px 20px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-2 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-3 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-4 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-5 { background: rgba(255, 140, 66, 0.15); color: var(--orange); }
+  .label-6 { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .label-7 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCKS */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--yellow); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.pink-block { border-color: var(--pink); }
+  .text-block.pink-block b { color: var(--pink); }
+
+  .text-block.orange-block { border-color: var(--orange); }
+  .text-block.orange-block b { color: var(--orange); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* DETAILS */
+  details {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(107, 207, 127, 0.04));
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    padding: 4px 24px;
+    margin: 18px 0;
+    transition: all 0.25s ease;
+  }
+
+  details[open] {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(107, 207, 127, 0.06));
+    border-color: rgba(78, 205, 196, 0.4);
+  }
+
+  details summary {
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  details summary .tag-more {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  details .details-body {
+    padding: 4px 0 18px 24px;
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  details .details-body p {
+    margin-bottom: 12px;
+  }
+
+  details .details-body p:last-child { margin-bottom: 0; }
+
+  details .details-body b { color: var(--yellow); }
+
+  /* CELL ZOOM */
+  .cell-zoom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 24px 0;
+    align-items: center;
+  }
+
+  .cell-step {
+    text-align: center;
+    padding: 18px 10px;
+    background: rgba(78, 205, 196, 0.06);
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    position: relative;
+  }
+
+  .cell-step .emoji {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .cell-step h5 {
+    color: var(--cyan);
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .cell-step p {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .cell-arrow {
+    font-size: 1.4rem;
+    color: var(--yellow);
+    text-align: center;
+    font-weight: 900;
+    margin: 0 auto;
+  }
+
+  /* DNA SPIRAL — главная визуализация */
+  .dna-visual {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(167, 139, 250, 0.08));
+    border-radius: 20px;
+    padding: 40px 20px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dna-ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+
+  .dna-rung {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    animation: dna-wobble 4s ease-in-out infinite;
+  }
+
+  @keyframes dna-wobble {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+  }
+
+  .dna-rung:nth-child(even) { animation-delay: -0.2s; }
+  .dna-rung:nth-child(3n) { animation-delay: -0.5s; }
+  .dna-rung:nth-child(4n) { animation-delay: -0.8s; }
+
+  .dna-strand {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 10px;
+    color: white;
+  }
+
+  .dna-a { background: radial-gradient(circle at 30% 30%, #ffd93d, #ff8c42); box-shadow: 0 0 10px rgba(255, 140, 66, 0.6); }
+  .dna-t { background: radial-gradient(circle at 30% 30%, #ff6b9d, #ff4757); box-shadow: 0 0 10px rgba(255, 107, 157, 0.6); }
+  .dna-g { background: radial-gradient(circle at 30% 30%, #6bcf7f, #14b8a6); box-shadow: 0 0 10px rgba(107, 207, 127, 0.6); }
+  .dna-c { background: radial-gradient(circle at 30% 30%, #4a9eff, #7c3aed); box-shadow: 0 0 10px rgba(74, 158, 255, 0.6); }
+
+  .dna-bond {
+    flex-grow: 0;
+    width: 30px;
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+  }
+
+  .dna-legend {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .dna-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .dna-legend-item .dna-strand {
+    width: 22px; height: 22px;
+    font-size: 11px;
+  }
+
+  /* LETTER PAIRS */
+  .pair-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+
+  .pair-box {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .pair-box .dna-strand { width: 32px; height: 32px; font-size: 14px; }
+  .pair-box .pair-plus { color: var(--muted); font-size: 1.1rem; }
+
+  /* GENE -> TRAIT */
+  .gene-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .gene-card {
+    background: rgba(107, 207, 127, 0.06);
+    border: 1px solid rgba(107, 207, 127, 0.2);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .gene-card:hover { transform: translateY(-3px); }
+
+  .gene-card .emoji {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .gene-card h5 {
+    color: var(--green);
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .gene-card p {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  /* INHERITANCE */
+  .inherit-box {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.08), rgba(74, 158, 255, 0.08));
+    border-radius: 20px;
+    padding: 32px 24px;
+    margin: 24px 0;
+  }
+
+  .inherit-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .parent-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px 14px;
+    text-align: center;
+    border-top: 3px solid;
+  }
+
+  .parent-card.mom { border-color: var(--pink); }
+  .parent-card.dad { border-color: var(--blue); }
+  .parent-card.kid { border-color: var(--yellow); }
+
+  .parent-card .emoji {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .parent-card h5 { font-size: 0.95rem; margin-bottom: 6px; }
+  .parent-card.mom h5 { color: var(--pink); }
+  .parent-card.dad h5 { color: var(--blue); }
+  .parent-card.kid h5 { color: var(--yellow); }
+
+  .parent-card .percent {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 4px 0;
+  }
+
+  .parent-card .dna-mini {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 8px;
+  }
+
+  .parent-card .dna-mini .dna-strand {
+    width: 14px; height: 14px;
+    font-size: 8px;
+  }
+
+  .inherit-arrow {
+    font-size: 1.6rem;
+    color: var(--yellow);
+    font-weight: 900;
+    text-align: center;
+  }
+
+  /* MUTATION */
+  .mutation-visual {
+    background: rgba(255, 140, 66, 0.06);
+    border: 1px solid rgba(255, 140, 66, 0.2);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin: 20px 0;
+  }
+
+  .mutation-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  .mut-letter {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .mut-letter.error {
+    background: radial-gradient(circle at 30% 30%, #ff8c42, #ff4757);
+    box-shadow: 0 0 16px rgba(255, 140, 66, 0.8);
+    transform: scale(1.1);
+    animation: wiggle 1s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: scale(1.1) rotate(-3deg); }
+    50% { transform: scale(1.2) rotate(3deg); }
+  }
+
+  /* WOW — % similarity */
+  .wow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    margin: 28px 0;
+  }
+
+  .wow-card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 24px 18px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wow-card:hover { transform: translateY(-4px); }
+
+  .wow-card .wow-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .wow-card h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .wow-percent {
+    font-family: 'Russo One', sans-serif;
+    font-size: 2.4rem;
+    background: linear-gradient(135deg, var(--yellow), var(--orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 4px 0;
+    letter-spacing: 1px;
+  }
+
+  .wow-card p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-top: 6px;
+  }
+
+  .wow-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0 6px;
+  }
+
+  .wow-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan), var(--green), var(--yellow));
+    border-radius: 4px;
+  }
+
+  /* WHERE GRID */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .where-card .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 10px;
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+  }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .fun-fact p + p { margin-top: 14px; }
+
+  /* CHAIN BOX */
+  .chain-box {
+    background: rgba(167, 139, 250, 0.08);
+    border: 2px dashed rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+  }
+
+  .chain-box h4 {
+    font-size: 1.2rem;
+    color: var(--purple);
+    margin-bottom: 8px;
+  }
+
+  .chain-box p {
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* BACK HOME */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 26px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  .back-home:hover {
+    background: rgba(78, 205, 196, 0.2);
+    transform: translateX(-4px);
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .signature {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* CHROMOSOME */
+  .chromo-visual {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+  }
+
+  .chromo {
+    width: 18px;
+    height: 60px;
+    background: linear-gradient(180deg, var(--pink), var(--purple));
+    border-radius: 50% / 20%;
+    position: relative;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  }
+
+  .chromo::after {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 6px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 3px;
+  }
+
+  .chromo.xy { background: linear-gradient(180deg, var(--cyan), var(--blue)); }
+
+  @media (max-width: 700px) {
+    .cell-zoom { grid-template-columns: 1fr 1fr; }
+    .inherit-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .inherit-arrow { transform: rotate(90deg); }
+    .pair-grid { grid-template-columns: 1fr; }
+    details { padding: 2px 18px; }
+    details .details-body { padding-left: 12px; }
+    .dna-ladder { max-width: 280px; }
+    .dna-bond { width: 20px; }
+    .wow-percent { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🧬 Наука для любопытных</span>
+  <h1>ДНК<br>и гены</h1>
+  <p>Почему ты похож на папу, как в одной клетке помещается «инструкция по сборке человека», и почему у тебя с бананом 50% общего кода</p>
+
+  <div class="dna-visual" style="background:transparent;margin:20px 0;padding:20px 0;">
+    <div class="dna-ladder" style="max-width:260px;">
+      <div class="dna-rung"><span class="dna-strand dna-a">A</span><span class="dna-bond"></span><span class="dna-strand dna-t">T</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-g">G</span><span class="dna-bond"></span><span class="dna-strand dna-c">C</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-t">T</span><span class="dna-bond"></span><span class="dna-strand dna-a">A</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-c">C</span><span class="dna-bond"></span><span class="dna-strand dna-g">G</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-a">A</span><span class="dna-bond"></span><span class="dna-strand dna-t">T</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-g">G</span><span class="dna-bond"></span><span class="dna-strand dna-c">C</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ВОПРОС -->
+<section class="block container">
+  <span class="section-label label-1">Вопрос, с которого всё начинается</span>
+  <h2>Почему ты похож на папу?</h2>
+  <p class="lead">И почему у собак рождаются щенки, а не котята? Почему у берёзы вырастает берёза, а не дуб? Короче — <b style="color:var(--text)">откуда живое существо «знает», каким ему быть</b>?</p>
+
+  <div class="text-block purple-block">
+    <p>Посмотри на себя в зеркало. Нос — папин. Глаза — мамины. Ты высокий или невысокий, кудрявый или с прямыми волосами, у тебя карие или зелёные глаза — всё это <b>не случайность</b>.</p>
+    <p>Внутри каждой твоей клетки сидит крошечный <b>чертёж</b>, на котором записано: «этот человек — мальчик, у него карие глаза, тёмные волосы, он будет примерно такого-то роста, у него такая-то группа крови…». Этот чертёж называется <b>ДНК</b>.</p>
+    <p>И самое удивительное — половину этого чертежа ты получил от мамы, а половину от папы. Ты — это буквально их смешанная копия. А они — смешанная копия своих родителей. И так — миллионы лет назад, до самых первых живых существ на Земле.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🧱</div>
+    <div class="content">
+      <h5>Главная аналогия всей этой статьи</h5>
+      <p>ДНК — это как <b style="color:var(--purple)">инструкция к LEGO</b>. Только в этой инструкции написано не «как собрать пиратский корабль», а «как собрать одного человека целиком»: от цвета глаз до формы ушей. И эта инструкция лежит <b style="color:var(--purple)">внутри каждой клетки</b> твоего тела — а клеток у тебя около 37 триллионов. В каждой из них — одна и та же полная копия.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 1: КЛЕТКА -->
+<section class="block container">
+  <span class="section-label label-2">Часть 1 · Где живёт ДНК</span>
+  <h2>Сначала — что такое клетка?</h2>
+  <p class="lead">Прежде чем добраться до ДНК, надо понять, что твоё тело состоит не из «мяса и костей» как кусок пластилина. Оно собрано из крошечных живых кирпичиков — <b style="color:var(--text)">клеток</b>.</p>
+
+  <div class="text-block cyan-block">
+    <p>Представь дом из кирпичей. Издалека он выглядит как одна сплошная стена. А подойди ближе — и увидишь, что стена сложена из отдельных кирпичиков. Точно так же и ты: снаружи ты сплошной, а под микроскопом видно, что ты собран из миллиардов крошечных <b>клеток</b>.</p>
+    <p>В тебе около <b>37 триллионов клеток</b>. Это 37 с двенадцатью нулями — больше, чем звёзд в нашей Галактике. Клетки кожи, клетки мышц, клетки крови, клетки мозга — все они разной формы и делают разную работу.</p>
+    <p>Но в каждой из этих триллионов клеток есть один и тот же секрет: маленькое «хранилище» посередине, которое называется <b>ядро клетки</b>. И вот там-то, свёрнутая в тугой клубок, и лежит <b>ДНК</b> — полная инструкция по сборке тебя.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">📚</div>
+    <div class="content">
+      <h5>Аналогия — библиотека в каждом кабинете</h5>
+      <p>Представь себе огромную фирму, где работают 37 триллионов сотрудников. Каждый делает свою задачу: кто-то обеспечивает движение, кто-то переваривает пищу, кто-то передаёт сигналы. И у каждого в кабинете лежит <b style="color:var(--purple)">полная копия одной и той же толстой книги</b> с инструкциями на все случаи жизни. Сотрудник читает только свою главу — остальные страницы просто игнорирует.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cell-zoom">
+      <div class="cell-step">
+        <span class="emoji">🧍</span>
+        <h5>Ты</h5>
+        <p>Целый человек</p>
+      </div>
+      <div class="cell-step">
+        <span class="emoji">🧱</span>
+        <h5>Орган</h5>
+        <p>Сердце, мозг, кожа...</p>
+      </div>
+      <div class="cell-step">
+        <span class="emoji">🔵</span>
+        <h5>Клетка</h5>
+        <p>Крошечный кирпичик</p>
+      </div>
+      <div class="cell-step">
+        <span class="emoji">🧬</span>
+        <h5>ДНК</h5>
+        <p>Спираль внутри ядра клетки</p>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:0.95rem;margin-top:10px">Уменьшаем масштаб в 100 000 раз — и находим ДНК</p>
+  </div>
+
+  <details>
+    <summary>А что ещё есть внутри клетки? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Клетка — это как маленький завод. В ней работает много разных «цехов» (учёные называют их <b>органеллами</b>). У каждого — своя работа.</p>
+      <p><b>Ядро</b> — это «сейф», где хранится ДНК. Из него ничего не выносят — только делают копии нужных инструкций. <b>Митохондрии</b> — это «электростанции» клетки: они сжигают сахар, который ты съел, и превращают его в энергию. У одной клетки может быть до тысячи митохондрий! <b>Рибосомы</b> — маленькие заводики, которые собирают белки по чертежам. Белки — это главные «рабочие» твоего тела: они строят кожу, кровь, волосы, заставляют мышцы сокращаться.</p>
+      <p>А вокруг всего этого — <b>мембрана</b>, тонкая оболочка клетки. Она как пропускная будка: решает, что пускать внутрь (кислород, еду) и что выпускать наружу (отходы). Получается — настоящий мини-город внутри одной крошечной точки.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 2: ДНК — двойная спираль -->
+<section class="block container">
+  <span class="section-label label-3">Часть 2 · Сама ДНК</span>
+  <h2>Что такое ДНК: четыре буквы и лестница</h2>
+  <p class="lead">Ты добрался до главного. Сейчас увидишь, как устроена самая главная молекула в живой природе. Спойлер: она похожа на <b style="color:var(--text)">скрученную лестницу</b> — и в этом весь фокус.</p>
+
+  <div class="text-block green-block">
+    <p>Представь верёвочную лестницу. Две длинные верёвки по бокам, между ними — перекладины, по которым можно наступать. А теперь мысленно <b>закрути</b> эту лестницу винтом, как ты крутишь мокрое полотенце. Получилась <b>двойная спираль</b>. Именно так выглядит ДНК.</p>
+    <p>Каждая перекладина этой лестницы — это <b>пара букв</b>. Всего в ДНК используется только 4 буквы, и обозначаются они латинскими: <b>A, T, G, C</b> (по-русски их называют аденин, тимин, гуанин, цитозин — но запоминать эти слова не обязательно).</p>
+    <p>Вот и весь алфавит жизни — четыре буквы. Всего четыре! А комбинаций из них можно составить бесконечно много. Это как азбука Морзе: там только «точка» и «тире», но этим можно передать любой текст.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🔤</div>
+    <div class="content">
+      <h5>Представь азбуку из 4 букв</h5>
+      <p>В русском алфавите 33 буквы, и ими ты можешь написать «Война и мир». А в ДНК всего 4 буквы — и ими природа пишет инструкции к человеку, собаке, ромашке и бактерии. Дело не в количестве букв, а в их <b style="color:var(--purple)">длине последовательности</b>. Твоя ДНК — это строка из <b style="color:var(--purple)">3 миллиардов букв</b>. Если напечатать это как книгу обычного шрифта — получится библиотека из тысячи толстых томов.</p>
+    </div>
+  </div>
+
+  <div class="dna-visual">
+    <p style="text-align:center;color:var(--muted);margin-bottom:16px;font-size:0.95rem">Вот как выглядит маленький кусочек ДНК:</p>
+    <div class="dna-ladder">
+      <div class="dna-rung"><span class="dna-strand dna-a">A</span><span class="dna-bond"></span><span class="dna-strand dna-t">T</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-g">G</span><span class="dna-bond"></span><span class="dna-strand dna-c">C</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-c">C</span><span class="dna-bond"></span><span class="dna-strand dna-g">G</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-t">T</span><span class="dna-bond"></span><span class="dna-strand dna-a">A</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-a">A</span><span class="dna-bond"></span><span class="dna-strand dna-t">T</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-g">G</span><span class="dna-bond"></span><span class="dna-strand dna-c">C</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-t">T</span><span class="dna-bond"></span><span class="dna-strand dna-a">A</span></div>
+      <div class="dna-rung"><span class="dna-strand dna-c">C</span><span class="dna-bond"></span><span class="dna-strand dna-g">G</span></div>
+    </div>
+    <div class="dna-legend">
+      <div class="dna-legend-item"><span class="dna-strand dna-a">A</span> аденин</div>
+      <div class="dna-legend-item"><span class="dna-strand dna-t">T</span> тимин</div>
+      <div class="dna-legend-item"><span class="dna-strand dna-g">G</span> гуанин</div>
+      <div class="dna-legend-item"><span class="dna-strand dna-c">C</span> цитозин</div>
+    </div>
+  </div>
+
+  <div class="text-block green-block">
+    <p>Заметил важное правило? <b>A всегда дружит с T</b>, а <b>G всегда дружит с C</b>. Они как пара магнитов — липнут только друг к другу. Другие пары просто не подходят по форме.</p>
+    <p>Это значит: если ты знаешь одну сторону лестницы, ты <b>автоматически знаешь вторую</b>. Прочитал на одной стороне «AGCT» — значит, на другой точно «TCGA». Это гениальная инженерная штука: именно благодаря ей ДНК умеет <b>копировать сама себя</b>, когда клетка делится.</p>
+  </div>
+
+  <div class="pair-grid">
+    <div class="pair-box">
+      <span class="dna-strand dna-a">A</span>
+      <span class="pair-plus">+</span>
+      <span class="dna-strand dna-t">T</span>
+    </div>
+    <div class="pair-box">
+      <span class="dna-strand dna-g">G</span>
+      <span class="pair-plus">+</span>
+      <span class="dna-strand dna-c">C</span>
+    </div>
+  </div>
+
+  <details>
+    <summary>Как клетка «читает» ДНК и делает из неё белки? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>ДНК сама по себе ничего не делает — она просто лежит в ядре, как книга на полке. Реально в теле работают <b>белки</b>: они и есть твои мышцы, ферменты пищеварения, гормоны, антитела. А ДНК — это инструкция, по которой клетка собирает нужные белки.</p>
+      <p>Делается это так. Когда клетке нужен какой-то белок, она идёт к «книге» ДНК, находит нужную главу (ген) и делает с неё <b>рабочую копию</b> — это молекула по имени <b>РНК</b>. РНК — это как ксерокопия одной страницы. Её можно вынести из ядра наружу, а оригинал ДНК остаётся в сохранности.</p>
+      <p>Потом эту РНК-копию перехватывает маленький «заводик» — <b>рибосома</b>. Она читает буквы по три за раз (каждая тройка — это код одной аминокислоты) и <b>нанизывает</b> аминокислоты в длинную цепочку, как бусины на нитку. Готовая цепочка сворачивается в белок. Всё — у клетки появилась новая рабочая деталь. Этот процесс называется <b>синтез белка</b>, и он идёт в тебе прямо сейчас, миллиарды раз в секунду.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 3: ген -->
+<section class="block container">
+  <span class="section-label label-4">Часть 3 · Ген</span>
+  <h2>А что такое ген?</h2>
+  <p class="lead">Если ДНК — это вся инструкция целиком, то <b style="color:var(--text)">ген</b> — это одна конкретная страница этой инструкции. Страница про что-то одно.</p>
+
+  <div class="text-block pink-block">
+    <p>Представь, что у тебя есть толстая-толстая книга «Как собрать Зубайла». Там 3 миллиарда букв. Открываешь случайную страницу — а там написано: «Цвет глаз: карий». На следующей: «Форма мочки уха: свободная». Ещё дальше: «Рецепт гемоглобина, который переносит кислород в крови».</p>
+    <p>Каждая такая «страница» — это <b>ген</b>. Ген — это кусочек ДНК, в котором записана инструкция по одной конкретной вещи. Обычно — как сделать один конкретный белок.</p>
+    <p>Всего у человека около <b>20 000 генов</b>. Именно они определяют, какие у тебя глаза, волосы, рост, есть ли у тебя ямочки на щеках и даже может ли ты сворачивать язык трубочкой. Всё это записано на конкретных страницах.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">📖</div>
+    <div class="content">
+      <h5>Кулинарная книга</h5>
+      <p>ДНК — это огромная кулинарная книга. Гены — отдельные рецепты в ней. Один рецепт — как сварить суп, другой — как испечь хлеб, третий — как сделать блины. Но <b style="color:var(--purple)">не все рецепты используются одновременно</b>: сегодня готовишь блины — читаешь только страницу с блинами, остальные страницы просто лежат. Так же и в клетке: она читает только те гены, которые нужны ей для её работы.</p>
+    </div>
+  </div>
+
+  <div class="gene-grid">
+    <div class="gene-card">
+      <span class="emoji">👁</span>
+      <h5>Ген OCA2</h5>
+      <p>Отвечает за цвет твоих глаз</p>
+    </div>
+    <div class="gene-card">
+      <span class="emoji">💇</span>
+      <h5>Ген TCHH</h5>
+      <p>Делает волосы кудрявыми или прямыми</p>
+    </div>
+    <div class="gene-card">
+      <span class="emoji">👅</span>
+      <h5>Ген языка</h5>
+      <p>Можешь свернуть язык трубочкой? Значит, он у тебя есть</p>
+    </div>
+    <div class="gene-card">
+      <span class="emoji">🩸</span>
+      <h5>Ген ABO</h5>
+      <p>Определяет твою группу крови</p>
+    </div>
+  </div>
+
+  <div class="text-block pink-block">
+    <p>Важно: <b>один признак</b> часто определяется не одним геном, а <b>сразу несколькими</b>. Например, на рост влияет около 700 разных генов! Поэтому угадать точный рост ребёнка по родителям — невозможно. Можно только прикинуть «примерно».</p>
+    <p>И наоборот — <b>один ген</b> может отвечать за <b>много разных вещей</b>. Поменял одну «страницу» — и изменилось несколько признаков сразу. Вот почему гены — штука сложная, и учёные до сих пор открывают новые связи.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 4: НАСЛЕДСТВЕННОСТЬ -->
+<section class="block container">
+  <span class="section-label label-5">Часть 4 · Наследственность</span>
+  <h2>Почему ты похож и на маму, и на папу?</h2>
+  <p class="lead">А вот теперь — ответ на главный вопрос. Потому что у тебя <b style="color:var(--text)">половина ДНК от мамы и половина от папы</b>. И это буквально половина — 50 на 50.</p>
+
+  <div class="text-block orange-block">
+    <p>Когда ты появился, мама дала половину своего чертежа, а папа — половину своего. Эти две половины соединились в одну полную новую инструкцию — в тебя. Вот почему у тебя мамины глаза, а папины брови: это буквально её страницы и его страницы в одной книге.</p>
+    <p>Но есть хитрость. Мама дала не ту половину, которую ты бы получил «автоматически». Перед тем как передать, её организм <b>перемешал</b> её ДНК от её мамы (твоей бабушки) и от её папы (твоего дедушки). Папа сделал то же самое. Поэтому ты — уникальный: такая комбинация генов в истории Вселенной была у тебя впервые.</p>
+    <p>Именно поэтому твой брат или сестра (если они будут) получат <b>другую половину</b> от тех же родителей — и будут похожи на вас, но не станут копией тебя. Исключение — только однояйцевые близнецы: у них ДНК действительно одинаковая.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🃏</div>
+    <div class="content">
+      <h5>Две колоды карт</h5>
+      <p>Представь: у мамы есть колода карт, у папы — своя. Каждый берёт <b style="color:var(--purple)">свою колоду, перемешивает её</b>, и сдаёт половину карт. Эти две половины соединяются — получается твоя колода. В ней будут карты и от мамы, и от папы. Но <b style="color:var(--purple)">никогда не повторится тот же самый расклад</b>. Ни у кого в мире. Даже у твоих братьев и сестёр.</p>
+    </div>
+  </div>
+
+  <div class="inherit-box">
+    <div class="inherit-row">
+      <div class="parent-card mom">
+        <span class="emoji">👩</span>
+        <h5>Мама</h5>
+        <div class="percent">50%</div>
+        <div class="dna-mini">
+          <span class="dna-strand dna-a">A</span>
+          <span class="dna-strand dna-t">T</span>
+          <span class="dna-strand dna-g">G</span>
+          <span class="dna-strand dna-c">C</span>
+        </div>
+      </div>
+      <div class="inherit-arrow">+</div>
+      <div class="parent-card dad">
+        <span class="emoji">👨</span>
+        <h5>Папа</h5>
+        <div class="percent">50%</div>
+        <div class="dna-mini">
+          <span class="dna-strand dna-g">G</span>
+          <span class="dna-strand dna-c">C</span>
+          <span class="dna-strand dna-t">T</span>
+          <span class="dna-strand dna-a">A</span>
+        </div>
+      </div>
+      <div class="inherit-arrow">=</div>
+      <div class="parent-card kid">
+        <span class="emoji">🧒</span>
+        <h5>Ты</h5>
+        <div class="percent">100%</div>
+        <div class="dna-mini">
+          <span class="dna-strand dna-a">A</span>
+          <span class="dna-strand dna-c">C</span>
+          <span class="dna-strand dna-g">G</span>
+          <span class="dna-strand dna-t">T</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-block orange-block">
+    <p>Кстати, вот почему собаки рождают только собак. У собаки в ДНК записано «я — собака», и эту инструкцию она передаёт детям. Кошка передаёт «я — кошка». Берёза передаёт «я — берёза». Инструкция от родителей всегда одного вида — поэтому и ребёнок получается тоже этого вида. Никаких сюрпризов быть не может.</p>
+  </div>
+
+  <details>
+    <summary>Что такое хромосомы и почему их именно 23 пары? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Если размотать всю ДНК из одной клетки — получится нить длиной около <b>2 метров</b>. Как она помещается в клетку, которую даже в микроскоп едва видно? Природа решила эту проблему хитро: ДНК очень плотно <b>свёрнута</b> и разбита на <b>46 отдельных кусков</b>. Каждый кусок называется <b>хромосомой</b>.</p>
+      <p>46 хромосом — это 23 пары. В каждой паре одна хромосома от мамы, другая от папы — точно такие же по «теме» (например, обе рассказывают про волосы), но немного разные по деталям. То есть на каждый ген у тебя есть <b>две версии</b>: мамина и папина. Иногда побеждает мамина («доминирует»), иногда папина.</p>
+      <p>23-я пара — особенная. Она определяет пол. У девочек там две одинаковых хромосомы XX, у мальчиков — XY. Y-хромосома передаётся только от папы. Значит, у тебя она от папы, а у папы — от его папы, и так далее. Можно по Y-хромосоме проследить всю мужскую линию своего рода на сотни поколений назад.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 5: МУТАЦИИ И ЭВОЛЮЦИЯ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 5 · Мутации</span>
+  <h2>Ошибки копирования — это и есть эволюция</h2>
+  <p class="lead">Когда клетка делится, она должна <b style="color:var(--text)">скопировать</b> всю свою ДНК — все 3 миллиарда букв. Иногда случаются опечатки. И именно эти опечатки меняют жизнь на Земле.</p>
+
+  <div class="text-block purple-block">
+    <p>Представь, что тебе надо от руки переписать книгу в тысячу страниц. Будь ты хоть семи пядей во лбу — пару букв где-нибудь перепутаешь. То же самое происходит, когда клетка копирует ДНК. На 3 миллиарда букв обязательно будет несколько <b>опечаток</b>. Эти опечатки и называются <b>мутациями</b>.</p>
+    <p>Большинство мутаций ничего не меняют — опечатка попала в неважное место. Некоторые мутации <b>вредные</b>: они ломают какой-то важный ген, и у организма появляются болезни. А некоторые — внезапно <b>полезные</b>.</p>
+    <p>Вот пример. Миллионы лет назад у одного далёкого предка млекопитающих случайно мутировал ген, отвечающий за шерсть. У этого зверька получилась чуть более тёплая шубка. Зимой он выжил, когда другие замерзли. Он передал свою мутацию детям — у них тоже шерсть тёплая. Прошли миллионы лет — и у нас теперь есть медведи, волки, собаки, кошки. А всё началось с одной опечатки!</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">📠</div>
+    <div class="content">
+      <h5>Ксерокс с ксерокса с ксерокса</h5>
+      <p>Возьми оригинал рисунка. Сделай ксерокопию. С неё ещё ксерокопию. И так 100 раз. Последняя копия будет <b style="color:var(--purple)">немного отличаться</b> от оригинала — где-то пятно, где-то чуть смазано. Так же и с ДНК. От поколения к поколению накапливаются крошечные изменения. За миллиарды лет из одной первой живой клетки получилось всё разнообразие жизни на Земле: рыбы, птицы, слоны, муравьи, грибы, деревья. Все они — далёкие родственники.</p>
+    </div>
+  </div>
+
+  <div class="mutation-visual">
+    <p style="text-align:center;color:var(--muted);margin-bottom:12px;font-size:0.9rem">ДНК мамы:</p>
+    <div class="mutation-row">
+      <span class="mut-letter">A</span>
+      <span class="mut-letter">T</span>
+      <span class="mut-letter">G</span>
+      <span class="mut-letter">C</span>
+      <span class="mut-letter">A</span>
+      <span class="mut-letter">A</span>
+      <span class="mut-letter">T</span>
+      <span class="mut-letter">G</span>
+    </div>
+    <p style="text-align:center;color:var(--orange);margin:16px 0 12px;font-size:1rem;font-weight:700">⚡ случайная опечатка при копировании ⚡</p>
+    <p style="text-align:center;color:var(--muted);margin-bottom:12px;font-size:0.9rem">ДНК ребёнка:</p>
+    <div class="mutation-row">
+      <span class="mut-letter">A</span>
+      <span class="mut-letter">T</span>
+      <span class="mut-letter">G</span>
+      <span class="mut-letter error">T</span>
+      <span class="mut-letter">A</span>
+      <span class="mut-letter">A</span>
+      <span class="mut-letter">T</span>
+      <span class="mut-letter">G</span>
+    </div>
+  </div>
+
+  <div class="chain-box">
+    <h4>🌱 Так появилась эволюция</h4>
+    <p><b style="color:var(--yellow)">Эволюция</b> — это не «кто сильнее, тот и выжил». Это простой механизм: случайные мутации + время + выживают те, у кого мутации оказались полезными в их условиях. 3,5 миллиарда лет такой отбор — и вот из бактерий получились медузы, из медуз рыбы, из рыб земноводные, потом рептилии, потом млекопитающие, потом обезьяны, потом люди. Не по прямой, а через тысячи развилок и тупиков. И этот процесс <b style="color:var(--yellow)">идёт прямо сейчас</b> — ты одно из его звеньев.</p>
+  </div>
+
+  <details>
+    <summary>А как учёные «читают» чужую ДНК? И могут ли её редактировать? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Читать ДНК учёные научились в конце XX века. Сначала это было мучительно долго — чтобы прочитать ДНК одного человека, международной команде потребовалось 13 лет и 3 миллиарда долларов. Это называется <b>Проект «Геном человека»</b>, он закончился в 2003 году. Сегодня тебе могут прочитать ДНК за один день и за 200 долларов. Прогресс — бешеный.</p>
+      <p>А с 2012 года учёные научились <b>редактировать</b> ДНК живых существ. Эта технология называется <b>CRISPR</b> (читается «криспер»). Если кратко — это молекулярные «ножницы», которые можно настроить на конкретное место в ДНК, вырезать там букву и вставить другую. Звучит как фантастика, но уже работает.</p>
+      <p>С помощью CRISPR уже вылечили нескольких людей от наследственных болезней: у них были «сломанные» гены, и учёные их починили. Можно представить, что через 30–50 лет мы научимся лечить рак, диабет и другие тяжёлые болезни именно так — подправляя ошибки в ДНК. Но есть и сложные этические вопросы: можно ли «улучшать» детей ещё до рождения? На это учёные пока отвечают твёрдое «нет» — слишком опасно и несправедливо.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 6: РОДСТВЕННИКИ И БАНАН -->
+<section class="block container">
+  <span class="section-label label-7">Часть 6 · Родственники по ДНК</span>
+  <h2>У тебя с бананом 50% общего кода</h2>
+  <p class="lead">Да-да, ты не ослышался. Ты и <b style="color:var(--text)">банан</b> — дальние родственники. А с шимпанзе у вас совпадает <b style="color:var(--text)">98,7%</b> ДНК. Всё потому, что у всей жизни на Земле — один общий предок.</p>
+
+  <div class="text-block cyan-block">
+    <p>Если у двух существ есть общий предок, часть их ДНК будет совпадать — это те страницы инструкции, которые они унаследовали от этого предка. Чем ближе родственники — тем больше общих страниц.</p>
+    <p>Твой брат или сестра — <b>50%</b> общей ДНК (половина — от общих родителей). Двоюродный брат — <b>12,5%</b>. Пятиюродный — уже совсем немного. Но если копать глубже, в прошлое — общие предки есть у тебя <b>вообще со всеми живыми существами на Земле</b>.</p>
+    <p>Все мы — произошли от одной первой живой клетки, которая плавала в океане <b>3,5 миллиарда лет назад</b>. У неё уже была ДНК. И её потомки разделились на тысячи веточек эволюции: одни стали растениями, другие животными, третьи грибами. Но базовые инструкции — как делить клетку, как переваривать сахар, как копировать ДНК — остались одинаковые у всех. Поэтому с бананом у тебя так много общего.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🌳</div>
+    <div class="content">
+      <h5>Огромное семейное дерево</h5>
+      <p>Представь дерево. У самого основания ствола — первая клетка. Она делится, появляются две ветки. Эти ветки делятся на новые. Через миллиарды делений получаются листики: ты, банан, шимпанзе, пингвин, кувшинка, гриб. Чем <b style="color:var(--purple)">ближе листики</b> на дереве — тем больше у них общего в ДНК. Ты и шимпанзе — соседние листики. Ты и банан — с разных веток, но с одного дерева.</p>
+    </div>
+  </div>
+
+  <div class="wow-grid">
+    <div class="wow-card">
+      <span class="wow-emoji">👤</span>
+      <h4>Другой человек</h4>
+      <div class="wow-percent">99,9%</div>
+      <div class="wow-bar"><div class="wow-bar-fill" style="width:99.9%"></div></div>
+      <p>Все люди на планете отличаются друг от друга всего на 0,1%</p>
+    </div>
+    <div class="wow-card">
+      <span class="wow-emoji">🐒</span>
+      <h4>Шимпанзе</h4>
+      <div class="wow-percent">98,7%</div>
+      <div class="wow-bar"><div class="wow-bar-fill" style="width:98.7%"></div></div>
+      <p>Наш самый близкий живой родственник на Земле</p>
+    </div>
+    <div class="wow-card">
+      <span class="wow-emoji">🐭</span>
+      <h4>Мышь</h4>
+      <div class="wow-percent">85%</div>
+      <div class="wow-bar"><div class="wow-bar-fill" style="width:85%"></div></div>
+      <p>Вот почему на мышах тестируют новые лекарства</p>
+    </div>
+    <div class="wow-card">
+      <span class="wow-emoji">🐔</span>
+      <h4>Курица</h4>
+      <div class="wow-percent">65%</div>
+      <div class="wow-bar"><div class="wow-bar-fill" style="width:65%"></div></div>
+      <p>Общий предок с птицами жил 300 миллионов лет назад</p>
+    </div>
+    <div class="wow-card">
+      <span class="wow-emoji">🍌</span>
+      <h4>Банан</h4>
+      <div class="wow-percent">~50%</div>
+      <div class="wow-bar"><div class="wow-bar-fill" style="width:50%"></div></div>
+      <p>Да, правда. Базовые инструкции клетки у всех одинаковые</p>
+    </div>
+    <div class="wow-card">
+      <span class="wow-emoji">🪳</span>
+      <h4>Плодовая мушка</h4>
+      <div class="wow-percent">60%</div>
+      <div class="wow-bar"><div class="wow-bar-fill" style="width:60%"></div></div>
+      <p>Половина генов у мушки совпадает с нашими</p>
+    </div>
+  </div>
+
+  <div class="text-block cyan-block">
+    <p>Особенно удивительно с бананом. Казалось бы — ты бегаешь, думаешь, шутишь, а банан просто висит на ветке. Как это вообще может быть «50% общего»?</p>
+    <p>Ответ простой: <b>базовые штуки</b> у всех живых клеток одинаковые. Как делиться, как выращивать мембрану, как производить энергию из сахара, как копировать свою ДНК — всё это банан и ты делаете <b>одинаково</b>. Потому что это было изобретено один раз — той самой первой клеткой-предком — и с тех пор работает у всех её потомков. Природа не изобретает велосипед заново.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 7: ГДЕ ВСТРЕЧАЕТСЯ -->
+<section class="block container">
+  <span class="section-label label-3">Часть 7 · В реальной жизни</span>
+  <h2>Где это используют прямо сейчас?</h2>
+  <p class="lead">ДНК — это не только теория из учебника. Каждый день в мире происходят вещи, которые без понимания ДНК были бы невозможны.</p>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">👨‍👦</span>
+      <h4>Тест на отцовство</h4>
+      <p>Взяли ДНК ребёнка и предполагаемого отца — сравнили. Если совпадает достаточно много, родственник подтверждён.</p>
+      <span class="tag">Генетика</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🔍</span>
+      <h4>Криминалистика</h4>
+      <p>Преступник оставил на месте преступления волос или каплю крови? В них — его ДНК. Сравнили с базой — и нашли.</p>
+      <span class="tag">Генетика</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">💊</span>
+      <h4>Генная терапия</h4>
+      <p>Некоторые болезни — это сломанный ген. Учёные учатся «чинить» его прямо в клетках человека. Уже помогло детям с тяжёлыми болезнями.</p>
+      <span class="tag">Медицина</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌍</span>
+      <h4>Поиск предков</h4>
+      <p>По твоей ДНК можно узнать, откуда родом твои прапрадеды: из какого уголка планеты, какие народы были в родословной.</p>
+      <span class="tag">История</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🦠</span>
+      <h4>Прививки и вирусы</h4>
+      <p>Учёные читают ДНК (или РНК) вируса — и по ней делают вакцину. Так быстро сделали прививки от COVID-19.</p>
+      <span class="tag">Медицина</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌾</span>
+      <h4>Новые сорта растений</h4>
+      <p>Помидоры, которые не гниют. Пшеница, которая не боится засухи. Всё это — селекция генов.</p>
+      <span class="tag">Сельское хозяйство</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🦣</span>
+      <h4>Древние животные</h4>
+      <p>По ДНК из замёрзших мамонтов учёные пытаются понять, как они жили. Некоторые даже мечтают «воскресить» мамонта.</p>
+      <span class="tag">Наука</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">👶</span>
+      <h4>Ранняя диагностика</h4>
+      <p>Ещё до рождения ребёнка можно прочитать его ДНК и узнать, нет ли у него тяжёлых наследственных болезней.</p>
+      <span class="tag">Медицина</span>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACT -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт напоследок</h3>
+    <p>Если размотать всю ДНК из <b style="color:var(--yellow)">одной</b> твоей клетки — получится ниточка длиной около <b style="color:var(--yellow)">2 метров</b>. А в тебе <b style="color:var(--yellow)">37 триллионов клеток</b>. Если сложить всю ДНК из твоего тела в одну нить — она обернётся вокруг Земли 2,5 миллиона раз.</p>
+    <p>А если растянуть в одну прямую линию — получится расстояние в <b style="color:var(--yellow)">~73 миллиарда километров</b>. Это в 500 раз дальше, чем до Солнца. Представь: вся эта длина — свёрнута внутри тебя прямо сейчас.</p>
+  </div>
+</section>
+
+<!-- FOOTER WITH BACK LINK -->
+<section class="block container" style="text-align:center; padding-top: 20px;">
+  <a href="../index.html" class="back-home">← На главную</a>
+</section>
+
+<footer>
+  Сделано с <span class="heart">❤</span> для любопытных учёных
+  <div class="signature">Kids Wiki · для Зубайла-младшего</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

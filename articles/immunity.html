@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Иммунитет, вирусы и прививки</title>
+<meta name="description" content="Кто сражается внутри тебя, когда ты болеешь, и почему прививка — это фоторобот врага для твоих иммунных клеток.">
+<meta name="emoji" content="🛡">
+<meta name="date" content="2026-04-18">
+<meta name="reading-time" content="25 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(107, 207, 127, 0.15);
+    border: 2px solid var(--green);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--green);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--green), var(--cyan), var(--yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(78, 205, 196, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 660px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* HERO — битва в крови */
+  .hero-battle {
+    width: 280px;
+    height: 220px;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .hero-virus {
+    position: absolute;
+    top: 30px; left: 20px;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ff8c42, #ff4757);
+    box-shadow: 0 0 30px rgba(255, 71, 87, 0.6);
+    animation: virusFloat 3s ease-in-out infinite;
+  }
+
+  .hero-virus::before,
+  .hero-virus::after {
+    content: '';
+    position: absolute;
+    background: var(--red);
+    width: 8px; height: 18px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(255, 71, 87, 0.8);
+  }
+  .hero-virus::before { top: -10px; left: 50%; transform: translateX(-50%); }
+  .hero-virus::after { bottom: -10px; left: 50%; transform: translateX(-50%); }
+
+  /* дополнительные шипы вируса как div'ы */
+  .spike {
+    position: absolute;
+    width: 8px; height: 18px;
+    background: var(--red);
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(255, 71, 87, 0.8);
+  }
+
+  @keyframes virusFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(6px, -6px) rotate(15deg); }
+  }
+
+  .hero-cell {
+    position: absolute;
+    bottom: 20px; right: 20px;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #6bcf7f, #14b8a6);
+    box-shadow: 0 0 40px rgba(107, 207, 127, 0.6);
+    animation: cellPulse 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  @keyframes cellPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .hero-antibody {
+    position: absolute;
+    top: 100px; left: 110px;
+    width: 40px; height: 40px;
+    animation: abFloat 4s ease-in-out infinite;
+  }
+
+  .hero-antibody::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0;
+    width: 100%; height: 4px;
+    background: var(--yellow);
+    border-radius: 2px;
+  }
+  .hero-antibody::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 4px; height: 20px;
+    background: var(--yellow);
+    border-radius: 2px;
+    transform: translateX(-50%);
+  }
+
+  @keyframes abFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10px, 10px); }
+  }
+
+  .scroll-hint {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block {
+    padding: 60px 20px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(255, 71, 87, 0.15); color: var(--red); }
+  .label-2 { background: rgba(255, 140, 66, 0.15); color: var(--orange); }
+  .label-3 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-4 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-5 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+  .label-6 { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .label-7 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-8 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCKS */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--yellow); }
+
+  .text-block.red-block { border-color: var(--red); }
+  .text-block.red-block b { color: var(--orange); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.pink-block { border-color: var(--pink); }
+  .text-block.pink-block b { color: var(--pink); }
+
+  .text-block.yellow-block { border-color: var(--yellow); }
+  .text-block.yellow-block b { color: var(--yellow); }
+
+  .text-block.orange-block { border-color: var(--orange); }
+  .text-block.orange-block b { color: var(--orange); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* DETAILS */
+  details {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(74, 158, 255, 0.04));
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    padding: 4px 24px;
+    margin: 18px 0;
+    transition: all 0.25s ease;
+  }
+
+  details[open] {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.06));
+    border-color: rgba(78, 205, 196, 0.4);
+  }
+
+  details summary {
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  details summary .tag-more {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  details .details-body {
+    padding: 4px 0 18px 24px;
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  details .details-body p {
+    margin-bottom: 12px;
+  }
+
+  details .details-body p:last-child { margin-bottom: 0; }
+
+  details .details-body b { color: var(--yellow); }
+
+  /* VIRUS VS BACTERIA */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 24px 0;
+  }
+
+  .vs-col {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px;
+    border-top: 4px solid;
+    text-align: center;
+  }
+
+  .vs-col.virus-col { border-color: var(--red); }
+  .vs-col.bacteria-col { border-color: var(--orange); }
+
+  .vs-col h3 {
+    font-size: 1.3rem;
+    margin: 14px 0 8px;
+  }
+
+  .vs-col p {
+    color: var(--muted);
+    line-height: 1.55;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+
+  .vs-col .stats {
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 14px;
+  }
+
+  .vs-col .stats div {
+    color: var(--text);
+    font-size: 0.88rem;
+    padding: 4px 0;
+    text-align: left;
+  }
+
+  .vs-col .stats b { color: var(--text); }
+
+  /* VIRUS SHAPE */
+  .virus-shape {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ff8c42, #ff4757);
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 0 30px rgba(255, 71, 87, 0.5);
+    animation: spin-slow 12s linear infinite;
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .virus-shape .s {
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background: linear-gradient(180deg, var(--red), var(--orange));
+    border-radius: 4px;
+    left: 50%;
+    top: -12px;
+    transform-origin: 50% 62px;
+    box-shadow: 0 0 6px rgba(255, 71, 87, 0.8);
+  }
+
+  .virus-shape .s::after {
+    content: '';
+    position: absolute;
+    top: -6px; left: 50%;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--pink);
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(255, 107, 157, 0.7);
+  }
+
+  /* BACTERIA SHAPE */
+  .bacteria-shape {
+    width: 130px;
+    height: 70px;
+    border-radius: 50px;
+    background: radial-gradient(circle at 30% 40%, #ffd93d, #ff8c42);
+    margin: 15px auto 0;
+    position: relative;
+    box-shadow: 0 0 30px rgba(255, 140, 66, 0.5);
+    animation: wiggle 2s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  .bacteria-shape::before {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    top: 18px; left: 25px;
+  }
+  .bacteria-shape::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    top: 30px; right: 30px;
+  }
+
+  .bacteria-tail {
+    position: absolute;
+    top: 50%; right: -30px;
+    width: 40px; height: 3px;
+    background: var(--orange);
+    border-radius: 2px;
+    animation: tailWave 0.4s ease-in-out infinite;
+    transform-origin: left center;
+  }
+
+  @keyframes tailWave {
+    0%, 100% { transform: translateY(-50%) rotate(-15deg); }
+    50% { transform: translateY(-50%) rotate(15deg); }
+  }
+
+  /* КРЕПОСТЬ — слои обороны */
+  .castle {
+    background: linear-gradient(180deg, rgba(78, 205, 196, 0.05), rgba(107, 207, 127, 0.05));
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 24px 0;
+  }
+
+  .castle-layer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    background: var(--card);
+    border-radius: 12px;
+    border-left: 4px solid;
+  }
+
+  .castle-layer.l1 { border-color: var(--cyan); }
+  .castle-layer.l2 { border-color: var(--green); }
+  .castle-layer.l3 { border-color: var(--purple); }
+  .castle-layer.l4 { border-color: var(--pink); }
+
+  .castle-layer .big-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+  }
+
+  .castle-layer h4 {
+    font-size: 1.05rem;
+    margin-bottom: 2px;
+  }
+
+  .castle-layer p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  /* БИТВА В КРОВИ — визуализация клеток */
+  .blood-battle {
+    background: radial-gradient(ellipse at center, rgba(255, 71, 87, 0.08), rgba(10, 14, 39, 0));
+    border-radius: 20px;
+    padding: 40px 20px;
+    margin: 24px 0;
+    position: relative;
+    min-height: 340px;
+    overflow: hidden;
+  }
+
+  .blood-cell {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    box-shadow: 0 0 15px currentColor;
+  }
+
+  .cell-virus {
+    width: 34px; height: 34px;
+    background: radial-gradient(circle at 30% 30%, #ff8c42, #ff4757);
+    color: rgba(255, 71, 87, 0.6);
+    animation: bounce-cell 3s ease-in-out infinite;
+  }
+
+  .cell-bact {
+    width: 44px; height: 24px;
+    border-radius: 30px;
+    background: radial-gradient(circle at 30% 40%, #ffd93d, #ff8c42);
+    color: rgba(255, 140, 66, 0.6);
+    animation: wiggle-cell 2.5s ease-in-out infinite;
+  }
+
+  .cell-phago {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at 30% 30%, #6bcf7f, #14b8a6);
+    color: rgba(107, 207, 127, 0.6);
+    animation: phago-move 4s ease-in-out infinite;
+    font-size: 1.6rem;
+  }
+
+  .cell-b {
+    width: 46px; height: 46px;
+    background: radial-gradient(circle at 30% 30%, #4ecdc4, #0284c7);
+    color: rgba(78, 205, 196, 0.6);
+    animation: bounce-cell 3.5s ease-in-out infinite;
+    font-size: 0.95rem;
+  }
+
+  .cell-t {
+    width: 46px; height: 46px;
+    background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed);
+    color: rgba(167, 139, 250, 0.6);
+    animation: bounce-cell 3s ease-in-out infinite;
+    font-size: 0.95rem;
+  }
+
+  @keyframes bounce-cell {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(8px, -6px); }
+  }
+
+  @keyframes wiggle-cell {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(8deg); }
+  }
+
+  @keyframes phago-move {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-10px, 8px) scale(1.08); }
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50px;
+    font-size: 0.85rem;
+  }
+
+  .legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+  }
+
+  .legend-dot.dv { background: var(--red); }
+  .legend-dot.dp { background: var(--green); }
+  .legend-dot.db { background: var(--cyan); }
+  .legend-dot.dt { background: var(--purple); }
+
+  /* KEY-LOCK (антитело + антиген) */
+  .key-lock {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.08));
+    border-radius: 20px;
+    padding: 40px 20px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .kl-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .antibody-shape {
+    width: 100px; height: 100px;
+    position: relative;
+  }
+
+  .antibody-shape::before,
+  .antibody-shape::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(180deg, var(--yellow), var(--orange));
+    border-radius: 6px;
+    box-shadow: 0 0 12px rgba(255, 217, 61, 0.7);
+  }
+
+  .antibody-shape::before {
+    width: 14px; height: 60px;
+    left: 50%; top: 40%;
+    transform: translateX(-50%);
+  }
+
+  .antibody-shape::after {
+    width: 80px; height: 14px;
+    left: 10px; top: 30px;
+    transform: rotate(-30deg);
+    transform-origin: center;
+  }
+
+  .antibody-shape .a-right {
+    position: absolute;
+    width: 80px; height: 14px;
+    background: linear-gradient(180deg, var(--yellow), var(--orange));
+    border-radius: 6px;
+    box-shadow: 0 0 12px rgba(255, 217, 61, 0.7);
+    right: 10px; top: 30px;
+    transform: rotate(30deg);
+  }
+
+  .virus-target {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ff8c42, #ff4757);
+    position: relative;
+    box-shadow: 0 0 25px rgba(255, 71, 87, 0.5);
+  }
+
+  .virus-target::before,
+  .virus-target::after {
+    content: '';
+    position: absolute;
+    width: 6px; height: 16px;
+    background: var(--red);
+    border-radius: 3px;
+  }
+  .virus-target::before { top: -10px; left: 20%; }
+  .virus-target::after { top: -10px; right: 20%; }
+
+  .virus-target .spk {
+    position: absolute;
+    width: 6px; height: 16px;
+    background: var(--red);
+    border-radius: 3px;
+  }
+
+  .kl-arrow {
+    font-size: 2rem;
+    color: var(--yellow);
+    font-weight: 900;
+  }
+
+  /* ПАМЯТЬ */
+  .memory-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 20px 0;
+  }
+
+  .memory-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    border: 2px solid;
+  }
+
+  .memory-card.first { border-color: var(--red); }
+  .memory-card.second { border-color: var(--green); }
+
+  .memory-card .big-num {
+    font-family: 'Russo One', sans-serif;
+    font-size: 2.8rem;
+    line-height: 1;
+    margin: 8px 0;
+  }
+
+  .memory-card.first .big-num { color: var(--red); }
+  .memory-card.second .big-num { color: var(--green); }
+
+  .memory-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .memory-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  /* VACCINE BOX */
+  .vaccine-box {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(107, 207, 127, 0.1));
+    border: 2px solid rgba(255, 217, 61, 0.3);
+    border-radius: 20px;
+    padding: 30px 25px;
+    margin: 20px 0;
+  }
+
+  .vaccine-box h4 {
+    color: var(--yellow);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .vaccine-box p {
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .vaccine-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .v-type {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 18px 20px;
+    border-top: 3px solid;
+  }
+
+  .v-type.classic { border-color: var(--blue); }
+  .v-type.rna { border-color: var(--green); }
+  .v-type.vector { border-color: var(--purple); }
+
+  .v-type h5 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .v-type p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* HISTORY */
+  .history-card {
+    background: linear-gradient(135deg, rgba(26,33,80,0.9), rgba(20, 26, 60, 0.9));
+    border: 1px solid rgba(255, 107, 157, 0.15);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .history-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--pink), var(--yellow));
+  }
+
+  .history-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .history-emoji {
+    font-size: 2.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .history-title h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .history-date {
+    color: var(--pink);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .history-card p {
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1.02rem;
+    margin-bottom: 14px;
+  }
+
+  .history-card p:last-child { margin-bottom: 0; }
+
+  .history-card b { color: var(--yellow); }
+
+  .stat-big {
+    display: inline-block;
+    background: rgba(107, 207, 127, 0.12);
+    color: var(--green);
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin: 6px 6px 0 0;
+  }
+
+  /* WHERE */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  /* CHAIN BOX */
+  .chain-box {
+    background: rgba(107, 207, 127, 0.08);
+    border: 2px dashed rgba(107, 207, 127, 0.35);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+  }
+
+  .chain-box h4 {
+    font-size: 1.2rem;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .chain-box p {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* BACK HOME */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 26px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  .back-home:hover {
+    background: rgba(78, 205, 196, 0.2);
+    transform: translateX(-4px);
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .signature {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 700px) {
+    .vs-grid { grid-template-columns: 1fr; }
+    .memory-grid { grid-template-columns: 1fr; }
+    .hero-battle { width: 240px; height: 200px; }
+    .hero-virus { width: 60px; height: 60px; }
+    .hero-cell { width: 75px; height: 75px; font-size: 2rem; }
+    .history-card { padding: 24px 20px; }
+    .history-head { gap: 12px; }
+    .history-emoji { font-size: 2.2rem; }
+    details { padding: 2px 18px; }
+    details .details-body { padding-left: 12px; }
+    .castle-layer { flex-direction: column; text-align: center; gap: 8px; }
+    .castle-layer .big-icon { width: auto; }
+    .antibody-shape { width: 80px; height: 80px; }
+    .virus-target { width: 75px; height: 75px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🛡 Биология для любопытных</span>
+  <h1>Иммунитет,<br>вирусы<br>и прививки</h1>
+  <p>Кто сражается внутри тебя, когда ты болеешь, и почему прививка — это фоторобот врага для твоих иммунных клеток</p>
+
+  <div class="hero-battle">
+    <div class="hero-virus">
+      <div class="spike" style="top:50%;left:-10px;transform:translateY(-50%) rotate(90deg);"></div>
+      <div class="spike" style="top:50%;right:-10px;transform:translateY(-50%) rotate(90deg);"></div>
+    </div>
+    <div class="hero-antibody"></div>
+    <div class="hero-cell">🦠</div>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ЧАСТЬ 1: ВИРУС И БАКТЕРИЯ -->
+<section class="block container">
+  <span class="section-label label-1">Часть 1 · Кто нападает</span>
+  <h2>Что вообще хочет от тебя вирус или бактерия?</h2>
+  <p class="lead">Прямо сейчас, пока ты читаешь это, внутри тебя идёт настоящая война. Тысячи крошечных чужаков пытаются пробраться в твоё тело, а твои иммунные клетки их уничтожают. Каждую секунду. И ты даже не замечаешь.</p>
+
+  <div class="text-block red-block">
+    <p>Твоё тело для крошечных существ — это как огромный тёплый город, в котором есть еда, вода и миллиарды уютных домиков. Этими домиками служат твои <b>клетки</b> — из них построено всё тело, от волос до желудка. И некоторые незваные гости очень хотят туда попасть.</p>
+    <p>Главных типов захватчиков два: <b>вирусы</b> и <b>бактерии</b>. Их часто путают, но это <b>совершенно разные существа</b>. Настолько разные, что лекарства от них нужны тоже разные.</p>
+    <p>Разобраться в этом важно: это не просто биология. Когда мама говорит «при вирусе антибиотики не помогают» — она имеет в виду именно это.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🏭</div>
+    <div class="content">
+      <h5>Главная цель врага</h5>
+      <p>И вирусу, и бактерии нужно одно — <b>размножиться</b>. Сделать побольше копий себя. Разница только в том, <i>как</i> они это делают. Бактерия умеет размножаться сама (делится пополам). А вирус <b>сам не умеет вообще ничего</b> — ему нужен твой ксерокс.</p>
+    </div>
+  </div>
+
+  <div class="vs-grid">
+    <div class="vs-col virus-col">
+      <div class="virus-shape">
+        <div class="s" style="transform:rotate(0deg)"></div>
+        <div class="s" style="transform:rotate(45deg)"></div>
+        <div class="s" style="transform:rotate(90deg)"></div>
+        <div class="s" style="transform:rotate(135deg)"></div>
+        <div class="s" style="transform:rotate(180deg)"></div>
+        <div class="s" style="transform:rotate(225deg)"></div>
+        <div class="s" style="transform:rotate(270deg)"></div>
+        <div class="s" style="transform:rotate(315deg)"></div>
+      </div>
+      <h3>🦠 Вирус</h3>
+      <p>Это даже не совсем живое существо. Просто крошечная <b>капсула с инструкцией внутри</b> — как флешка с программой.</p>
+      <div class="stats">
+        <div>🔬 <b>Размер:</b> очень мал — 20–300 нанометров</div>
+        <div>🧬 <b>Что внутри:</b> только ДНК или РНК</div>
+        <div>🚪 <b>Как работает:</b> проникает в клетку и заставляет её делать копии себя</div>
+        <div>💊 <b>Чем лечим:</b> в основном — только сам иммунитет, иногда особые противовирусные препараты</div>
+      </div>
+    </div>
+
+    <div class="vs-col bacteria-col">
+      <div class="bacteria-shape">
+        <div class="bacteria-tail"></div>
+      </div>
+      <h3>🔬 Бактерия</h3>
+      <p>Это самостоятельное одноклеточное существо. Маленькое, но <b>живое</b> — ест, растёт, делится пополам.</p>
+      <div class="stats">
+        <div>🔬 <b>Размер:</b> в 100 раз больше вируса — 1–10 микрометров</div>
+        <div>🧬 <b>Что внутри:</b> полноценная клетка со всеми органами</div>
+        <div>🚪 <b>Как работает:</b> живёт в теле, размножается, выделяет вредные вещества</div>
+        <div>💊 <b>Чем лечим:</b> <b>антибиотики</b> — они убивают бактерии, но против вирусов бесполезны</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-block orange-block">
+    <p>Смотри, в чём главный фокус вируса. Представь, что это <b>флешка</b>. На ней записана программа: «сделай миллион моих копий». Но флешка сама по себе ничего не делает — её нужно вставить в компьютер. Вот твоя клетка — это компьютер. Вирус садится снаружи, впрыскивает свою программу внутрь, и клетка <b>перестаёт заниматься своими делами</b> — вместо этого она штампует вирусы.</p>
+    <p>Когда клетка набита копиями вируса до отказа — она <b>лопается</b>. Из неё вылетают сотни новых вирусов, и каждый ищет следующую клетку. Вот почему вирусная инфекция так быстро разрастается: один вирус превращается в миллионы за пару дней.</p>
+    <p>Бактерия ведёт себя по-другому: она просто <b>поселяется у тебя в горле или в лёгких</b>, плодится и выделяет токсины (вредные вещества). От них тебе плохо, поднимается температура. Но бактерия не ломает твои клетки изнутри — она делает своё дело снаружи.</p>
+  </div>
+
+  <details>
+    <summary>Почему антибиотики не действуют на вирусы? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Антибиотики — это лекарства, которые придумали, чтобы <b>мешать бактериям жить</b>. Одни антибиотики ломают стенку бактериальной клетки (и она «лопается»), другие портят им обмен веществ, третьи не дают бактерии размножаться. Звучит как очень разнообразные яды, но все они бьют по конкретным штукам, которые есть только у бактерий.</p>
+      <p>А у вирусов <b>этого ничего нет</b>. У вируса вообще нет клетки, нет обмена веществ, нет собственного размножения. Он всё делает чужими руками — руками твоей клетки. Антибиотик на него действует как лом на облако: ломать нечего.</p>
+      <p>Поэтому при обычной простуде (а это почти всегда вирус) антибиотики не помогают. Их назначают, только если <b>поверх</b> вируса напала ещё и бактерия — это называется «бактериальное осложнение». А пить антибиотики «на всякий случай» плохо: полезные бактерии кишечника тоже гибнут, а вредные учатся с антибиотиками справляться.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 2: ПЕРВАЯ ЛИНИЯ ОБОРОНЫ -->
+<section class="block container">
+  <span class="section-label label-2">Часть 2 · Первая стена</span>
+  <h2>Твоё тело — это крепость</h2>
+  <p class="lead">Прежде чем вообще встретиться с иммунными клетками, враг должен ещё пробраться внутрь. А это совсем не просто: вокруг тебя несколько слоёв защиты, и каждый по-своему опасен для чужаков.</p>
+
+  <div class="text-block green-block">
+    <p>Главная аналогия, которую запомни на всю статью: <b>твоё тело — это крепость</b>. У крепости есть стены, ров с водой, внутренняя стража и элитные войска. Именно так устроен иммунитет — слоями.</p>
+    <p>Смотри, что атакующему вирусу или бактерии нужно преодолеть, чтобы вообще добраться до твоих живых клеток и начать безобразничать.</p>
+  </div>
+
+  <div class="castle">
+    <div class="castle-layer l1">
+      <div class="big-icon">🛡</div>
+      <div>
+        <h4>Стена 1 · Кожа</h4>
+        <p>Самая внешняя стена крепости. Плотные мёртвые клетки, через которые почти никто не может пройти. Пока она цела — враг внутрь не попадёт.</p>
+      </div>
+    </div>
+    <div class="castle-layer l2">
+      <div class="big-icon">💧</div>
+      <div>
+        <h4>Стена 2 · Слизистые</h4>
+        <p>В носу, рту, горле, лёгких — везде, где кожи нет, есть липкая слизь. Она ловит врагов, как клей мух. Потом ты это всё просто высмаркиваешь или глотаешь.</p>
+      </div>
+    </div>
+    <div class="castle-layer l3">
+      <div class="big-icon">🧪</div>
+      <div>
+        <h4>Ров · Желудочный сок</h4>
+        <p>Если враг попал в рот и ты его проглотил — он падает в желудок. А там кислота сильнее, чем в батарейке. 99% бактерий растворяются за минуты.</p>
+      </div>
+    </div>
+    <div class="castle-layer l4">
+      <div class="big-icon">🌊</div>
+      <div>
+        <h4>Жидкости · Слёзы, слюна, пот</h4>
+        <p>В них есть особый фермент — <b>лизоцим</b>. Он буквально дырявит бактерии. Плачешь — моешь глаза не просто водой, а жидкостью-антисептиком.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🏰</div>
+    <div class="content">
+      <h5>Как настоящий замок</h5>
+      <p>Представь средневековый замок. Сначала высокая стена. Если через неё перелез — попадаешь в ров с водой (а там ещё и зубастые рыбы). Перебрался через ров — тебя встречают лучники на стенах. И только потом — рыцари внутри замка. Вот твой иммунитет устроен по тому же принципу. Чем дальше внутрь — тем страшнее защита.</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Знаешь, почему порез всегда нужно промывать? Потому что ты нарушил <b>первую стену крепости</b> — кожу. Теперь у бактерий есть прямой проход внутрь. Поэтому важно помыть ранку, залить чем-то обеззараживающим и заклеить пластырем — восстановить временную стену.</p>
+    <p>И знаешь, почему когда простыл, тебе часто сначала <b>щипет в носу и горле</b>? Потому что именно там произошла первая стычка. Вирусы врезались в слизистую, и организм начал в ней воспаление, чтобы не дать им пройти глубже.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 3: ВРОЖДЁННЫЙ ИММУНИТЕТ -->
+<section class="block container">
+  <span class="section-label label-3">Часть 3 · Если прорвались</span>
+  <h2>Прорвались внутрь — встречают солдаты</h2>
+  <p class="lead">Допустим, вирусу повезло и он пролез через все стены. Теперь он плавает у тебя в крови и ищет клетку, в которую можно внедриться. Но крови его уже ждут. Встречай — <b>врождённый иммунитет</b>.</p>
+
+  <div class="text-block purple-block">
+    <p>Врождённый иммунитет — это твои <b>общие солдаты</b>. Они у тебя есть с самого рождения (отсюда и название). Не очень умные, зато их много и они работают быстро. Их задача простая: <b>увидел что-то подозрительное → съел</b>.</p>
+    <p>Главные бойцы здесь — <b>фагоциты</b>. Это слово переводится как «поедатели клеток». И они этим буквально занимаются: плавают по крови, и как только натыкаются на вируса, бактерию или даже обломок твоей же погибшей клетки — <b>обволакивают его собой и переваривают</b>.</p>
+    <p>Похоже на <b>Pac-Man</b>: круглая клетка ползёт по крови и глотает всё подозрительное, что плохо пахнет. У неё нет заранее заготовленного списка врагов — она просто реагирует на «чужое». Поэтому работает против любого захватчика, но не очень точно.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🛡</div>
+    <div class="content">
+      <h5>Аналогия — охрана в метро</h5>
+      <p>Фагоциты — это как <b>охранник в метро</b>. Он не знает каждого преступника в лицо, но если увидит кого-то с подозрительным свёртком и в маске — сразу остановит. Простое правило: «выглядит не так — хватаю и разбираюсь». Иногда ошибается, но в большинстве случаев работает.</p>
+    </div>
+  </div>
+
+  <div class="blood-battle">
+    <div class="blood-cell cell-virus" style="top:20px;left:15%;">V</div>
+    <div class="blood-cell cell-virus" style="top:60px;right:20%;">V</div>
+    <div class="blood-cell cell-virus" style="top:180px;left:25%;">V</div>
+    <div class="blood-cell cell-bact" style="top:100px;left:55%;">B</div>
+    <div class="blood-cell cell-bact" style="top:220px;right:30%;">B</div>
+    <div class="blood-cell cell-phago" style="top:40px;left:45%;">🛡</div>
+    <div class="blood-cell cell-phago" style="top:140px;right:10%;">🛡</div>
+    <div class="blood-cell cell-phago" style="top:240px;left:10%;">🛡</div>
+    <div class="blood-cell cell-b" style="top:260px;left:50%;">B</div>
+    <div class="blood-cell cell-t" style="top:260px;right:15%;">T</div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot dv"></div>Вирусы-враги</div>
+      <div class="legend-item"><div class="legend-dot dp"></div>Фагоциты (солдаты)</div>
+      <div class="legend-item"><div class="legend-dot db"></div>B-лимфоциты</div>
+      <div class="legend-item"><div class="legend-dot dt"></div>T-лимфоциты</div>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>У фагоцитов есть ещё одна фишка: когда один из них «поест» вируса, он <b>выделяет специальные сигнальные вещества</b>. Это как если бы охранник, поймав преступника, включил сирену и послал гонцов: «Эй, ребят, тут что-то серьёзное!»</p>
+    <p>От этих сигналов происходит то, что называется <b>воспалением</b>. Сосуды расширяются, участок краснеет, становится горячим и болит — чтобы туда быстрее прибежали ещё фагоциты и другие иммунные клетки. Вот почему порез краснеет и болит: это не просто «плохо», это твой иммунитет устроил там боевую зону.</p>
+    <p>А ещё при сильной инфекции в организме поднимается <b>температура</b> — жар. Это не враг тебя греет, это <b>ты сам</b> себя грееш. Зачем? Потому что при температуре 38–39° вирусы и бактерии размножаются намного хуже, а твои иммунные клетки — наоборот, работают быстрее. Жар — это оружие, а не болезнь.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 4: АДАПТИВНЫЙ ИММУНИТЕТ -->
+<section class="block container">
+  <span class="section-label label-4">Часть 4 · Элита</span>
+  <h2>Адаптивный иммунитет — точечные снайперы</h2>
+  <p class="lead">Если общих солдат не хватает, в бой вступает элита — <b>лимфоциты</b>. Это умные клетки. Каждая из них заточена под одного конкретного врага. Промахов почти не бывает.</p>
+
+  <div class="text-block cyan-block">
+    <p>Главных типов лимфоцитов два — <b>B-лимфоциты</b> и <b>T-лимфоциты</b>. Они работают в паре, как Шерлок и Ватсон. Но каждый — со своей суперсилой.</p>
+    <p>Главная идея адаптивного иммунитета: у каждого врага есть свой <b>«фоторобот»</b> — кусочек молекулы на поверхности, по которому его можно узнать (учёные называют это <b>антиген</b>). И иммунные клетки учатся этот фоторобот распознавать.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🔑</div>
+    <div class="content">
+      <h5>Замок и ключ</h5>
+      <p><b>B-лимфоциты</b> делают специальные белки — <b>антитела</b>. Антитело устроено как <b>ключ, подходящий ровно к одному замку</b>. Его форма идеально повторяет выступ на поверхности врага. Один тип антител — один тип вируса. Хочешь бороться с гриппом — нужен один ключ. С корью — другой.</p>
+    </div>
+  </div>
+
+  <div class="key-lock">
+    <p style="color:var(--muted);margin-bottom:10px;font-size:0.95rem">Антитело (ключ) ← идеально подходит → к шипу вируса (замку)</p>
+    <div class="kl-row">
+      <div class="antibody-shape">
+        <div class="a-right"></div>
+      </div>
+      <span class="kl-arrow">🔒</span>
+      <div class="virus-target">
+        <div class="spk" style="top:-10px;left:15%;"></div>
+        <div class="spk" style="top:-10px;left:40%;"></div>
+        <div class="spk" style="top:-10px;right:15%;"></div>
+        <div class="spk" style="top:40%;left:-10px;transform:rotate(90deg);"></div>
+        <div class="spk" style="top:40%;right:-10px;transform:rotate(90deg);"></div>
+        <div class="spk" style="bottom:-10px;left:40%;transform:rotate(180deg);"></div>
+      </div>
+    </div>
+    <p style="color:var(--text);margin-top:14px;font-size:0.95rem">Антитело прилипает к вирусу и <b style="color:var(--yellow)">блокирует его</b> — вирус больше не может проникнуть в клетку.</p>
+  </div>
+
+  <div class="text-block cyan-block">
+    <p>Когда B-лимфоцит находит «свою» бактерию или вирус, он начинает <b>штамповать антитела десятками тысяч в секунду</b>. Они разлетаются по всей крови, приклеиваются к поверхности врага — и либо блокируют его, либо помечают («вот жирный, ешь!»), и фагоциты быстро его сжирают.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🗡</div>
+    <div class="content">
+      <h5>T-лимфоциты — убийцы</h5>
+      <p>A <b>T-лимфоциты</b> работают по-другому. Они находят <b>твои же клетки, заражённые вирусом изнутри</b>, и <b>убивают их вместе с вирусом</b>. Жёстко? Да. Но если клетку не уничтожить, она наштампует ещё тысячу вирусов. Лучше потерять одну, чем проиграть войну.</p>
+    </div>
+  </div>
+
+  <div class="text-block purple-block">
+    <p>Запомни связку:</p>
+    <p>🔵 <b>B-лимфоциты</b> делают <b>антитела</b> — ловят врагов <i>снаружи</i> клеток, в крови и лимфе.</p>
+    <p>🟣 <b>T-лимфоциты</b> убивают <b>заражённые клетки</b> — чистят врагов <i>внутри</i> клеток.</p>
+    <p>Вместе они закрывают оба фронта. Снаружи и изнутри. Без любого из них система ломается: например, при ВИЧ вирус уничтожает как раз T-лимфоциты — и без них даже от лёгкой простуды человек может умереть.</p>
+  </div>
+
+  <details>
+    <summary>Как именно антитело распознаёт врага? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Антитело — это белок в форме буквы <b>Y</b>. Две «ручки» этого Y — это <b>распознающая часть</b>. Они имеют специфическую форму, идеально подходящую к определённой молекуле на поверхности врага. Как две половинки пазла, которые совпадают только с одним другим кусочком.</p>
+      <p>Эта молекула-мишень, за которую цепляется антитело, называется <b>антиген</b>. Например, у вируса гриппа есть характерные шипы (белки H и N) — именно по ним антитела и узнают грипп. У коронавируса тоже есть свой фирменный шип (spike-белок) — по нему распознаётся ковид.</p>
+      <p>Удивительная вещь: твоё тело умеет делать <b>миллиарды разных типов антител</b>. Для каждого возможного врага. Когда ты только-только родился, у тебя уже была «библиотека шаблонов» почти на любую угрозу. B-лимфоциты случайным образом пробуют комбинации — и тот, у которого получилась форма, совпавшая с реальным врагом, начинает размножаться как сумасшедший. Это биологический вариант «подбора пароля».</p>
+      <p>Одно антитело может распознать врага буквально <b>по одной уникальной молекуле</b> на его поверхности. Представь: найти в толпе 100 тысяч человек одного по форме носа. Вот примерно с такой точностью работает твой иммунитет.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 5: ПАМЯТЬ -->
+<section class="block container">
+  <span class="section-label label-5">Часть 5 · Память</span>
+  <h2>Почему ветрянкой болеют один раз?</h2>
+  <p class="lead">Главный супер-трюк адаптивного иммунитета — у него есть <b>память</b>. Переболев один раз, ты часто больше никогда этой болезнью не заболеешь. Или переболеешь легко. Как это работает?</p>
+
+  <div class="text-block green-block">
+    <p>Когда B-лимфоциты победили вируса в первый раз, часть из них <b>не умирает</b>, а превращается в <b>клетки памяти</b>. Они тихо сидят в твоих лимфоузлах годами, даже десятилетиями. Они помнят форму врага.</p>
+    <p>И если этот же вирус вернётся через 10 лет — клетки памяти <b>мгновенно просыпаются</b> и за день штампуют столько антител, что вирус даже не успеет размножиться. Ты не заметишь, что «болел».</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">📸</div>
+    <div class="content">
+      <h5>Картотека полицейского участка</h5>
+      <p>Представь полицейский участок. Поймали грабителя — сняли отпечатки, сфотографировали, завели дело. Если он снова появится в городе — его узнают <b>моментально</b>. Никаких «а кто это и что он делает?». Клетки памяти — это живая картотека твоего иммунитета.</p>
+    </div>
+  </div>
+
+  <div class="memory-grid">
+    <div class="memory-card first">
+      <div style="font-size:2rem">🦠</div>
+      <div class="big-num">7–14</div>
+      <h4>Первая встреча</h4>
+      <p>дней, чтобы разобраться с новым врагом. Всё это время ты болеешь: температура, сопли, кашель.</p>
+    </div>
+    <div class="memory-card second">
+      <div style="font-size:2rem">⚡</div>
+      <div class="big-num">1–2</div>
+      <h4>Повторная встреча</h4>
+      <p>дня, чтобы раздавить знакомого врага. Часто ты даже не замечаешь, что тело что-то отбило.</p>
+    </div>
+  </div>
+
+  <div class="text-block yellow-block">
+    <p>Вот почему <b>ветрянкой</b> большинство людей болеет один раз в жизни — обычно в детстве. После первой встречи иммунитет запоминает этот вирус, и при повторном контакте разбирается с ним мгновенно.</p>
+    <p>Но это не всегда так. Например, с <b>гриппом</b> ситуация сложнее — он каждый год приходит слегка <b>изменившийся</b>, как будто переоделся. И старые клетки памяти его уже не узнают. Поэтому гриппом можно болеть хоть каждый год.</p>
+  </div>
+
+  <details>
+    <summary>Почему грипп приходит каждый год заново? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Вирус гриппа — один из самых хитрых. Каждый раз, когда он копируется в клетках, он <b>немножко мутирует</b> — случайно меняет части своей оболочки. Это как если бы грабитель каждый год менял причёску, бороду и очки.</p>
+      <p>Эти небольшие мутации называются <b>антигенный дрейф</b>. Через год-два шипы вируса так изменяются, что старые антитела их уже плохо узнают. Поэтому сезонный грипп — это обычно «немножко новый» грипп по сравнению с прошлогодним.</p>
+      <p>Иногда вирус гриппа делает <b>огромный скачок</b> — это называется <b>антигенный сдвиг</b>. Обычно это происходит, когда «человеческий» штамм смешивается, например, с «птичьим» или «свиным». Такой супер-новый вирус почти никто не узнаёт, и тогда случается <b>пандемия</b> — как в 2009 году со свиным гриппом или в 2020 году с ковидом.</p>
+      <p>Вот почему прививка от гриппа делается <b>каждый год заново</b>: учёные угадывают, какие штаммы будут в этом сезоне, и в каждую прививку закладывают «свежие фотороботы».</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 6: ПРИВИВКИ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 6 · Прививки</span>
+  <h2>Прививка — это фоторобот врага заранее</h2>
+  <p class="lead">А теперь — самое главное. Зачем нужна прививка, если ты и так здоров? Потому что прививка — это <b>обучение иммунитета без болезни</b>. Вот как именно.</p>
+
+  <div class="text-block yellow-block">
+    <p>Помнишь, что клетки памяти появляются <b>после</b> того, как ты переболел? Так вот, учёные придумали гениальную штуку: а что если показать иммунной системе <b>фоторобот врага</b>, но так, чтобы ты не болел?</p>
+    <p>Именно это и делает прививка. Ты получаешь не настоящего активного врага, а его <b>безопасную копию</b> или даже просто <b>кусочек</b> его внешней оболочки. Организму этого достаточно, чтобы:</p>
+    <p>1️⃣ Разобрать, как враг выглядит<br>2️⃣ Натренировать B-лимфоциты и сделать антитела<br>3️⃣ Оставить <b>клетки памяти</b> на будущее</p>
+    <p>И всё — ты не болел, но твой иммунитет уже умеет этого врага узнавать. Если настоящий вирус попробует напасть — он получит по носу за один день, даже не успев заразить тебя по-настоящему.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🚓</div>
+    <div class="content">
+      <h5>Главная аналогия статьи</h5>
+      <p>Представь стражу твоей крепости. Обычно они учатся узнавать преступника только <b>после</b> того, как он уже напал. А прививка — это когда тебе приносят <b>фоторобот врага заранее</b>. Страже показывают: «Вот этот парень опасен, вот его примерное лицо, вот характерные шрамы». Теперь, если настоящий преступник когда-нибудь появится — стража узнаёт его моментально и скручивает на входе.</p>
+    </div>
+  </div>
+
+  <div class="vaccine-box">
+    <h4>💉 Какие бывают прививки</h4>
+    <p>Способов показать иммунитету «фоторобот» — несколько. Все они разные, но цель у всех одна.</p>
+
+    <div class="vaccine-types">
+      <div class="v-type classic">
+        <h5>🧪 Классические</h5>
+        <p>В прививку кладут <b style="color:var(--blue)">ослабленного или убитого</b> настоящего вируса. Он уже не может размножаться, но выглядит как настоящий. Так сделаны прививки от кори, полиомиелита, гриппа.</p>
+      </div>
+      <div class="v-type rna">
+        <h5>🧬 мРНК (новые)</h5>
+        <p>Самое свежее изобретение. В прививку кладут не вируса, а <b style="color:var(--green)">инструкцию</b> — как сделать один его характерный белок. Твои клетки читают инструкцию, делают этот белок, иммунитет его изучает. Так работают ковидные прививки Pfizer и Moderna.</p>
+      </div>
+      <div class="v-type vector">
+        <h5>🚛 Векторные</h5>
+        <p>Инструкцию о вирусе <b style="color:var(--purple)">доставляют</b> в твои клетки с помощью другого, безопасного вируса-курьера. Так сделан «Спутник V» и некоторые ковидные вакцины в других странах.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Почему после прививки иногда <b>немного плохо</b> — температура, слабость, болит рука? Это <b>не вирус тебя заражает</b>. Это твой собственный иммунитет начал работать: активировались фагоциты, начали переговариваться клетки, пошло воспаление. Организм тренируется. Через день-два проходит.</p>
+    <p>Это даже в каком-то смысле хороший знак — значит, иммунная система работает и учится. У кого-то реакции сильнее, у кого-то слабее, но результат тот же: к настоящему врагу ты теперь готов.</p>
+  </div>
+
+  <details>
+    <summary>Почему мРНК-вакцина НЕ меняет твою ДНК <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Это одно из самых частых заблуждений про ковидные вакцины, и важно разобраться. Нет, мРНК-вакцина <b>не меняет</b> и <b>не может изменить</b> твою ДНК. Вот почему.</p>
+      <p>Твоя <b>ДНК</b> хранится в особом месте клетки — в <b>ядре</b>. Это самый защищённый уголок, вход туда — только по спецпропуску. А <b>мРНК</b> из прививки работает снаружи ядра, в месте, которое называется <b>цитоплазма</b>. Это два разных помещения, между ними плотная стена.</p>
+      <p>Сама мРНК — это как <b>одноразовая записка</b>. Она приходит в клетку, клетка по ней делает один белок (тот самый «фоторобот» вируса), и через несколько часов записка <b>просто разрушается</b>. От неё не остаётся ничего. Белок разбирается иммунитетом, записка уничтожена — и всё, вакцины в теле больше нет.</p>
+      <p>Чтобы записка попала в ядро и поменяла ДНК, ей нужны особые инструменты-ключи, которых у неё <b>физически нет</b>. Это как если бы ты попытался открыть сейф листочком бумаги — инструмент не тот.</p>
+      <p>Кстати, такой же механизм (мРНК → белок → разрушение) происходит в твоих клетках <b>миллионы раз в секунду</b> всю жизнь. Это обычная биология. Вакцина просто использует этот же механизм, чтобы показать иммунитету нужный белок.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Коллективный иммунитет — зачем прививать даже здоровых <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Это важная идея. Некоторые люди не могут получить прививку: например, младенцы (слишком маленькие), люди с тяжёлыми болезнями иммунитета, или те, кому делают химиотерапию от рака. Они полностью беззащитны перед заразой.</p>
+      <p>Но есть трюк: если <b>большая часть окружающих привита</b>, вирусу негде размножаться. Он попадает в очередного человека — а там уже готовый иммунитет, и вирус не даёт потомства. Цепочка заражений рвётся. Это называется <b>коллективный иммунитет</b>.</p>
+      <p>Представь лес. Если деревьев с сухой листвой мало, а вокруг много зелёных — огонь не сможет распространиться. Одиночные сухие деревья останутся в безопасности благодаря зелёным соседям. Вот точно так же здоровые привитые люди защищают вокруг себя тех, кому привиться нельзя.</p>
+      <p>Для разных болезней нужен разный процент привитых, чтобы сработал коллективный иммунитет: для кори — около 95% (очень заразная), для полиомиелита — около 80%. Когда охват падает ниже этой границы, возвращаются болезни, которые уже почти исчезли — так случилось с корью в последние годы в некоторых странах.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Что такое аллергия — иммунитет ошибся <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Иногда иммунная система <b>ошибается</b>. Она принимает за врага то, что никакой опасности не представляет — например, пыльцу одуванчика, кошачью шерсть или арахис. И начинает атаковать — как будто это чума.</p>
+      <p>Что ты чувствуешь при аллергии — это и есть реакция иммунитета: слизистые отекают, из глаз льют «слёзы-антисептики», в носу воспаление, иногда сыпь. Организм пытается смыть и выгнать «врага», которого на самом деле нет.</p>
+      <p>Иногда реакция настолько сильная, что случается <b>анафилактический шок</b> — это опасно для жизни. Но обычная аллергия — просто неприятность: иммунитет устроил войну с пыльцой, а ты расплачиваешься чиханием.</p>
+      <p>Похожая проблема — <b>аутоиммунные болезни</b>. Это когда иммунитет начинает атаковать уже <b>твои собственные клетки</b>, перепутав их с врагом. Например, при диабете 1 типа иммунитет разрушает клетки поджелудочной железы, которые делают инсулин. Настоящие снайперы, но стреляющие не в тех.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 7: ИСТОРИЯ -->
+<section class="block container">
+  <span class="section-label label-7">Часть 7 · Победы, о которых забыли</span>
+  <h2>Болезни, которые мы почти забыли</h2>
+  <p class="lead">Сто лет назад люди массово умирали от болезней, о которых ты сейчас даже не слышал. Не потому, что те болезни исчезли сами — а потому, что человечество их победило прививками. Вот три истории, о которых стоит помнить.</p>
+
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🗿</div>
+      <div class="history-title">
+        <h3>Оспа — единственная полностью истреблённая</h3>
+        <div class="history-date">побеждена в 1980 году</div>
+      </div>
+    </div>
+    <p>Тысячи лет <b>натуральная оспа</b> была одним из главных убийц человечества. В XX веке — только в XX! — от неё умерло около <b>300 миллионов человек</b>. У выживших на всю жизнь оставались страшные шрамы по всему лицу. От оспы умирали фараоны, короли, целые цивилизации индейцев — когда европейцы привезли её в Америку.</p>
+    <p>В 1796 году английский врач Эдвард Дженнер заметил, что доярки коров почему-то не болеют оспой. Оказалось, они заражаются лёгкой <b>коровьей оспой</b>, и это тренирует их иммунитет против настоящей. Дженнер специально заразил этим мальчика, потом ввёл ему настоящую оспу — мальчик не заболел. Так родилась <b>первая в истории прививка</b>. Слово «вакцина» происходит от латинского vacca — «корова».</p>
+    <p>200 лет вакцина распространялась по миру. В 1967 году ВОЗ объявила глобальную кампанию по уничтожению оспы. <b>13 лет</b>, миллионы уколов по всему миру — и в 1980 году ВОЗ официально объявила: <b>оспы больше нет</b>. Вирус остался только в двух лабораториях — в США и России — под строжайшей охраной.</p>
+    <div style="margin-top:10px">
+      <span class="stat-big">🌍 ~300 млн смертей в XX веке</span>
+      <span class="stat-big">✅ 0 случаев с 1980 года</span>
+    </div>
+  </div>
+
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🦵</div>
+      <div class="history-title">
+        <h3>Полиомиелит — почти побеждён</h3>
+        <div class="history-date">1955 — первая вакцина</div>
+      </div>
+    </div>
+    <p>Полиомиелит — это вирус, который поражает нервную систему. Самое страшное — он часто <b>парализовал детей</b>. Ещё в 1950-х в США сотни тысяч детей каждый год оставались инвалидами или умирали. Дети лежали в огромных железных контейнерах — <b>«железных лёгких»</b> — которые дышали за них, потому что парализовало даже дыхательные мышцы.</p>
+    <p>В 1955 году американский врач <b>Джонас Солк</b> создал вакцину. Почти сразу за ним Альберт Сейбин сделал ещё удобнее — каплю в рот. Через несколько лет массовых прививок заболеваемость в США упала в 100 раз.</p>
+    <p>Сегодня полиомиелит почти исчез с планеты. Осталось всего несколько стран, где вирус ещё встречается. Как только охват прививками достигнет нужного уровня везде — будет вторая после оспы полностью уничтоженная болезнь.</p>
+    <div style="margin-top:10px">
+      <span class="stat-big">👶 Миллионы детей спасены от паралича</span>
+      <span class="stat-big">📉 −99% случаев в мире</span>
+    </div>
+  </div>
+
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🌡</div>
+      <div class="history-title">
+        <h3>Корь — не так проста, как кажется</h3>
+        <div class="history-date">вакцина с 1963 года</div>
+      </div>
+    </div>
+    <p>Корь многие считают «детской» болезнью — подумаешь, сыпь и температура. На самом деле корь — это один из <b>самых заразных вирусов в истории</b>: один больной в среднем заражает 12–18 человек. И она может давать страшные осложнения — пневмонию, менингит, слепоту.</p>
+    <p>До вакцины корью переболевало почти каждое поколение детей. Только в начале XX века от неё умирали миллионы — особенно в бедных странах. После введения вакцины в 1963 году смертность от кори упала в сотни раз.</p>
+    <p>Но корь — коварный пример того, почему нельзя расслабляться. Когда в каких-то странах люди стали отказываться от прививок, корь вернулась: в Европе в 2018–2019 годах случились целые вспышки. Оказалось, что коллективный иммунитет работает, только пока его поддерживает большинство.</p>
+    <div style="margin-top:10px">
+      <span class="stat-big">💉 Более 30 млн спасённых жизней с 2000 г.</span>
+    </div>
+  </div>
+
+  <div class="text-block purple-block">
+    <p>Есть грустная особенность вакцинации: когда она работает — болезнь исчезает, и люди <b>забывают, насколько она была страшна</b>. Младшие поколения уже не видят детей с полиомиелитом в инвалидных колясках, не слышат рассказов «у меня в классе семь человек умерло от кори». И тогда возникает иллюзия: «а зачем вообще прививки, всё же нормально?»</p>
+    <p>Это парадокс успеха: то, что прививки работают слишком хорошо, заставляет людей сомневаться, нужны ли они вообще. Но как только охват падает — болезни возвращаются. Корь, коклюш, дифтерия — все они вернулись там, где о них забыли.</p>
+    <p>По оценкам ВОЗ, прививки каждый год спасают <b>2–3 миллиона жизней</b> детей. А за весь XX век — больше <b>миллиарда</b>. Это одно из самых больших изобретений в истории медицины вообще.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 8: ГДЕ ЭТО В ЖИЗНИ -->
+<section class="block container">
+  <span class="section-label label-8">Часть 8 · В жизни</span>
+  <h2>Где иммунитет встречается в жизни</h2>
+  <p class="lead">Иммунитет — это не только когда болеешь. Он работает каждую секунду, везде, по-разному. Вот несколько знакомых ситуаций.</p>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">💉</span>
+      <h4>Детские прививки</h4>
+      <p>Первые годы жизни тебе сделали десяток уколов — это фотороботы самых опасных врагов, которые могут встретиться.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🤧</span>
+      <h4>Аллергия</h4>
+      <p>Чихаешь весной от пыльцы? Твой иммунитет ошибся и решил, что пыльца — это враг. Теперь воюет с одуванчиками.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🩻</span>
+      <h4>Аутоиммунные болезни</h4>
+      <p>Когда иммунитет по ошибке атакует свои же клетки: диабет 1 типа, рассеянный склероз, ревматоидный артрит.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🫀</span>
+      <h4>Пересадка органов</h4>
+      <p>Когда человеку пересаживают чужое сердце или почку, иммунитет хочет это отвергнуть как «чужое». Приходится специально его притормаживать.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🦠</span>
+      <h4>Ковид и ковидные вакцины</h4>
+      <p>В 2020 году весь мир столкнулся с новым вирусом. Учёные за рекордный год создали мРНК-вакцины — первые в истории такого типа.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🩸</span>
+      <h4>Группы крови</h4>
+      <p>Нельзя переливать любую кровь кому попало: у крови есть «фотороботы», и чужой иммунитет может атаковать неподходящую кровь.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🦷</span>
+      <h4>Воспаление во рту</h4>
+      <p>Когда десна покраснела и болит — это твой иммунитет сражается с бактериями зубного налёта. Поэтому чистим зубы.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🎗</span>
+      <h4>Иммунотерапия рака</h4>
+      <p>Современные лекарства учат твой же иммунитет распознавать опухолевые клетки как «врага» и уничтожать их. Большое направление в науке.</p>
+    </div>
+  </div>
+
+  <div class="chain-box">
+    <h4>💡 Главное запомни</h4>
+    <p>Иммунитет — это не орган вроде сердца или лёгких. Это <b style="color:var(--text)">целая армия</b> разных клеток, которые живут у тебя в крови, лимфе, костном мозге, лимфоузлах. Они работают вместе, сигналят друг другу, учатся на ошибках. Без них ты не прожил бы и нескольких дней — на коже и в кишечнике ты носишь триллионы микробов, и только благодаря иммунитету они не съели тебя до сих пор.</p>
+  </div>
+</section>
+
+<!-- FUN FACT -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт</h3>
+    <p>В одной капле твоей крови плавает около <b style="color:var(--yellow)">10 тысяч лейкоцитов</b> — солдат иммунитета. А во всём теле их <b>20–40 миллиардов</b>. И каждое антитело способно узнать врага буквально <b style="color:var(--yellow)">по одной уникальной молекуле</b> на его поверхности — это как в толпе из ста тысяч человек узнать одного по родинке на мизинце. Пока ты читал эту статью, твоя иммунная система уже успела обезвредить тысячи микробов — и ты этого даже не заметил 🛡</p>
+  </div>
+</section>
+
+<!-- НАЗАД НА ГЛАВНУЮ -->
+<section class="block container" style="text-align:center;padding-top:20px">
+  <a href="../index.html" class="back-home">← На главную</a>
+</section>
+
+<footer>
+  Сделано с <span class="heart">❤</span> для любопытных учёных
+  <div class="signature">Kids Wiki · 18 апреля 2026</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

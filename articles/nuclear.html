@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ядерная и термоядерная реакции</title>
+<meta name="description" content="Как устроен атом, что такое деление и синтез ядер, почему светит Солнце, и чему нас научили Хиросима, Чернобыль и Фукусима.">
+<meta name="emoji" content="⚛️">
+<meta name="date" content="2026-04-18">
+<meta name="reading-time" content="25 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&family=Bungee&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 217, 61, 0.15);
+    border: 2px solid var(--yellow);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--yellow);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', 'Bungee', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--red));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(255, 140, 66, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .hero-atom {
+    width: 220px;
+    height: 220px;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .nucleus {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 50px; height: 50px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 30% 30%, var(--yellow), var(--orange), var(--red));
+    border-radius: 50%;
+    box-shadow: 0 0 40px var(--orange), 0 0 80px rgba(255, 140, 66, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.15); }
+  }
+
+  .orbit {
+    position: absolute;
+    top: 50%; left: 50%;
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit-1 { width: 140px; height: 140px; animation: spin 4s linear infinite; }
+  .orbit-2 { width: 180px; height: 100px; animation: spin2 6s linear infinite; }
+  .orbit-3 { width: 220px; height: 220px; animation: spin 8s linear infinite; }
+
+  @keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  @keyframes spin2 {
+    from { transform: translate(-50%, -50%) rotate(60deg); }
+    to { transform: translate(-50%, -50%) rotate(420deg); }
+  }
+
+  .electron {
+    position: absolute;
+    top: -6px; left: 50%;
+    width: 12px; height: 12px;
+    background: var(--cyan);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px var(--cyan);
+  }
+
+  .scroll-hint {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block {
+    padding: 60px 20px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-2 { background: rgba(255, 71, 87, 0.15); color: var(--red); }
+  .label-3 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-4 { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .label-5 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-6 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-7 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCKS */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--yellow); }
+
+  .text-block.red-block { border-color: var(--red); }
+  .text-block.red-block b { color: var(--orange); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.pink-block { border-color: var(--pink); }
+  .text-block.pink-block b { color: var(--pink); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* DETAILS (раскрывающиеся блоки) */
+  details {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(74, 158, 255, 0.04));
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    padding: 4px 24px;
+    margin: 18px 0;
+    transition: all 0.25s ease;
+  }
+
+  details[open] {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.06));
+    border-color: rgba(78, 205, 196, 0.4);
+  }
+
+  details summary {
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  details summary .tag-more {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  details .details-body {
+    padding: 4px 0 18px 24px;
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  details .details-body p {
+    margin-bottom: 12px;
+  }
+
+  details .details-body p:last-child { margin-bottom: 0; }
+
+  details .details-body b { color: var(--yellow); }
+
+  /* ATOM SECTION */
+  .atom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .atom-diagram {
+    background: rgba(167, 139, 250, 0.08);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .big-atom {
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .particle-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+
+  .particle-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 15px currentColor;
+  }
+
+  .p-proton { background: var(--red); color: var(--red); }
+  .p-neutron { background: var(--muted); color: var(--muted); }
+  .p-electron { background: var(--cyan); color: var(--cyan); }
+
+  .particle-label b { color: var(--text); }
+  .particle-label span { color: var(--muted); font-size: 0.95rem; }
+
+  /* FISSION / FUSION VISUAL */
+  .reaction-visual {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.1), rgba(255, 140, 66, 0.1));
+    border-radius: 20px;
+    padding: 40px 20px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reaction-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .big-ball {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    font-family: 'Fredoka', sans-serif;
+    flex-shrink: 0;
+    text-align: center;
+    line-height: 1.1;
+    color: white;
+  }
+
+  .uranium {
+    background: radial-gradient(circle at 30% 30%, #ffd93d, #ff8c42, #ff4757);
+    box-shadow: 0 0 30px rgba(255, 140, 66, 0.6);
+    animation: shake 0.3s infinite;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 1px); }
+    50% { transform: translate(2px, -1px); }
+    75% { transform: translate(-1px, 2px); }
+  }
+
+  .neutron-ball {
+    width: 30px; height: 30px;
+    background: radial-gradient(circle at 30% 30%, #e0e6ff, #a5b0d9);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(165, 176, 217, 0.8);
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .neutron-ball.with-arrow::after {
+    content: '→';
+    position: absolute;
+    right: -24px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--yellow);
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .fragment {
+    width: 55px; height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 13px;
+    font-family: 'Fredoka', sans-serif;
+    flex-shrink: 0;
+  }
+
+  .f-1 { background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed); box-shadow: 0 0 20px rgba(167, 139, 250, 0.5); }
+  .f-2 { background: radial-gradient(circle at 30% 30%, #4ecdc4, #14b8a6); box-shadow: 0 0 20px rgba(78, 205, 196, 0.5); }
+
+  .energy-burst {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange));
+    color: #0a0e27;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 14px;
+    margin: 0 8px;
+    animation: glow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 217, 61, 0.6); }
+    50% { box-shadow: 0 0 40px rgba(255, 217, 61, 0.9); }
+  }
+
+  .fusion-gradient {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(74, 158, 255, 0.1));
+  }
+
+  .hydrogen {
+    width: 55px; height: 55px;
+    background: radial-gradient(circle at 30% 30%, #7dd3fc, #4a9eff);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(74, 158, 255, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    font-family: 'Fredoka', sans-serif;
+    animation: bounce-ball 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes bounce-ball {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .plus {
+    font-size: 28px;
+    color: var(--cyan);
+    font-weight: 900;
+  }
+
+  .helium {
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 30% 30%, #6bcf7f, #14b8a6);
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(107, 207, 127, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    font-family: 'Fredoka', sans-serif;
+    text-align: center;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+
+  /* CHAIN BOX */
+  .chain-box {
+    background: rgba(255, 71, 87, 0.08);
+    border: 2px dashed rgba(255, 71, 87, 0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+  }
+
+  .chain-box h4 {
+    font-size: 1.2rem;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .chain-box p {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CHAIN VISUAL — домино из ядер */
+  .chain-visual {
+    background: rgba(255, 71, 87, 0.06);
+    border-radius: 16px;
+    padding: 30px 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+
+  .chain-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .chain-atom {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffd93d, #ff8c42, #ff4757);
+    box-shadow: 0 0 15px rgba(255, 140, 66, 0.6);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .chain-atom.split {
+    animation: splitAtom 2s infinite;
+  }
+
+  @keyframes splitAtom {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.5; }
+  }
+
+  .chain-arrow {
+    color: var(--yellow);
+    font-size: 22px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  /* COMPARISON */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .compare-col {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px;
+    border-top: 4px solid;
+  }
+
+  .compare-col.fission-col { border-color: var(--red); }
+  .compare-col.fusion-col { border-color: var(--cyan); }
+
+  .compare-col h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .compare-col ul {
+    list-style: none;
+  }
+
+  .compare-col li {
+    padding: 10px 0;
+    padding-left: 28px;
+    position: relative;
+    color: var(--muted);
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .compare-col li:last-child { border-bottom: none; }
+
+  .compare-col li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 16px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+  }
+
+  .fission-col li::before { background: var(--red); box-shadow: 0 0 8px var(--red); }
+  .fusion-col li::before { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+  .compare-col li b { color: var(--text); }
+
+  /* WHERE GRID */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .where-card .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .tag-fission { background: rgba(255, 71, 87, 0.2); color: var(--red); }
+  .tag-fusion { background: rgba(78, 205, 196, 0.2); color: var(--cyan); }
+
+  /* HISTORY */
+  .history-card {
+    background: linear-gradient(135deg, rgba(26,33,80,0.9), rgba(20, 26, 60, 0.9));
+    border: 1px solid rgba(255, 107, 157, 0.15);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .history-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--pink), var(--red));
+  }
+
+  .history-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .history-emoji {
+    font-size: 2.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .history-title h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .history-date {
+    color: var(--pink);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .history-card p {
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1.02rem;
+    margin-bottom: 14px;
+  }
+
+  .history-card p:last-child { margin-bottom: 0; }
+
+  .history-card b { color: var(--yellow); }
+
+  .lesson-box {
+    background: rgba(107, 207, 127, 0.08);
+    border-left: 4px solid var(--green);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-top: 18px;
+  }
+
+  .lesson-box h5 {
+    color: var(--green);
+    font-size: 1rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lesson-box p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  /* EINSTEIN */
+  .einstein {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--card);
+    border-radius: 20px;
+    margin: 30px 0;
+  }
+
+  .formula {
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--red));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 20px 0;
+    letter-spacing: 2px;
+  }
+
+  .formula sup { font-size: 0.6em; vertical-align: super; }
+
+  .einstein p {
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* BACK HOME LINK */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 26px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  .back-home:hover {
+    background: rgba(78, 205, 196, 0.2);
+    transform: translateX(-4px);
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .signature {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 700px) {
+    .atom-grid { grid-template-columns: 1fr; }
+    .compare { grid-template-columns: 1fr; }
+    .big-ball { width: 65px; height: 65px; font-size: 12px; }
+    .helium { width: 65px; height: 65px; font-size: 12px; }
+    .hydrogen { width: 45px; height: 45px; font-size: 11px; }
+    .history-card { padding: 24px 20px; }
+    .history-head { gap: 12px; }
+    .history-emoji { font-size: 2.2rem; }
+    .chain-atom { width: 32px; height: 32px; }
+    details { padding: 2px 18px; }
+    details .details-body { padding-left: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">⚛️ Наука для любопытных</span>
+  <h1>Ядерная<br>и термоядерная<br>реакции</h1>
+  <p>Что происходит внутри крошечных атомов, почему светит Солнце, и чему нас научили страшные страницы истории</p>
+
+  <div class="hero-atom">
+    <div class="orbit orbit-3"><div class="electron"></div></div>
+    <div class="orbit orbit-1"><div class="electron"></div></div>
+    <div class="orbit orbit-2"><div class="electron"></div></div>
+    <div class="nucleus"></div>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ЧАСТЬ 1: АТОМ -->
+<section class="block container">
+  <span class="section-label label-1">Часть 1 · Повторяем основу</span>
+  <h2>Сначала — что такое атом?</h2>
+  <p class="lead">Всё вокруг — стол, вода, воздух, ты сам — состоит из атомов. Атом такой маленький, что его не увидеть даже в обычный микроскоп. Но внутри него есть своя «солнечная система».</p>
+
+  <div class="text-block">
+    <p>Представь себе крошечный-крошечный шарик. Настолько маленький, что если положить в ряд миллион атомов — они всё равно поместятся на кончике иголки. И вот внутри этого шарика — целый мир.</p>
+    <p>В самом центре атома находится <b>ядро</b> — это плотный комочек, где сидят <b>протоны</b> и <b>нейтроны</b>. А вокруг ядра, как планеты вокруг Солнца, летают <b>электроны</b>. Только летают они очень-очень быстро — намного быстрее самолёта.</p>
+    <p>Запомни главное: все интересные вещи — и ядерная, и термоядерная реакции — происходят именно <b>с ядром</b>. Электроны в них почти не участвуют.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🏟</div>
+    <div class="content">
+      <h5>Аналогия</h5>
+      <p>Если бы атом был размером со стадион, то ядро было бы горошиной в центре поля, а электроны — мошками, летающими где-то на трибунах. Всё остальное — пустота! Да-да, ты и я состоим в основном из пустоты 😊</p>
+    </div>
+  </div>
+
+  <div class="card atom-grid">
+    <div class="atom-diagram">
+      <div class="big-atom">
+        <div class="orbit orbit-3" style="width:260px;height:260px"><div class="electron"></div></div>
+        <div class="orbit orbit-1" style="width:170px;height:170px"><div class="electron"></div></div>
+        <div class="nucleus" style="width:60px;height:60px"></div>
+      </div>
+      <p style="margin-top:20px;color:var(--muted);font-size:0.95rem">В центре — <b style="color:var(--orange)">ядро</b>, вокруг летают <b style="color:var(--cyan)">электроны</b></p>
+    </div>
+
+    <div>
+      <div class="particle-label">
+        <div class="particle-dot p-proton"></div>
+        <div><b>Протоны</b> <span>— с плюсиком (+), сидят в ядре</span></div>
+      </div>
+      <div class="particle-label">
+        <div class="particle-dot p-neutron"></div>
+        <div><b>Нейтроны</b> <span>— без заряда, тоже в ядре</span></div>
+      </div>
+      <div class="particle-label">
+        <div class="particle-dot p-electron"></div>
+        <div><b>Электроны</b> <span>— с минусом (−), летают вокруг</span></div>
+      </div>
+      <p style="color:var(--muted);line-height:1.6;margin-top:20px;font-size:0.95rem">💡 <b style="color:var(--text)">Ядро</b> — это самая тяжёлая часть атома. Именно с ним и происходят все ядерные реакции!</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>А из чего состоят сами протоны и нейтроны? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Долгое время учёные думали, что протон и нейтрон — это «последние кирпичики», меньше которых ничего нет. Но в 1960-х выяснилось: и они из чего-то состоят! Внутри каждого протона и нейтрона сидят ещё более мелкие частицы — <b>кварки</b>. Их три внутри каждого.</p>
+      <p>Кварки бывают разных «сортов». Например, в протоне живут два кварка сорта «up» и один «down», а в нейтроне — наоборот. Кварки держатся вместе невидимым «клеем» — это особая сила, которую так и называют: <b>сильное взаимодействие</b>. Она в сто раз сильнее электричества и именно она не даёт ядру развалиться.</p>
+      <p>В свободном виде кварки никто никогда не видел — они настолько крепко связаны, что оторвать их друг от друга практически невозможно. Зато есть огромный ускоритель в Швейцарии — <b>Большой адронный коллайдер</b> — где учёные разгоняют протоны почти до скорости света и сталкивают, чтобы посмотреть, что внутри.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>А почему именно число протонов делает атом тем, чем он есть? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Смотри: <b>водород</b> — это атом, у которого в ядре 1 протон. <b>Гелий</b> — 2 протона. <b>Углерод</b> — 6. <b>Кислород</b> — 8. <b>Уран</b> — 92.</p>
+      <p>Именно количество протонов определяет, какой это элемент. Добавь к водороду один протон — он перестанет быть водородом и станет гелием. Совсем другое вещество! Поэтому в ядерных реакциях, когда меняется число протонов в ядре, <b>один элемент превращается в другой</b>. Древние алхимики мечтали превратить свинец в золото — и, внимание, современная ядерная физика <i>реально умеет</i> это делать. Только стоит это в миллионы раз дороже самого золота 😄</p>
+      <p>Нейтроны тоже важны, но по-другому. Они как «клей» для протонов: протоны плюсиками отталкиваются друг от друга, а нейтроны помогают удерживать их вместе. Если нейтронов слишком мало или слишком много — ядро становится <b>нестабильным</b> и рано или поздно разваливается. Это явление называется радиоактивностью.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 2: ЯДЕРНАЯ -->
+<section class="block container">
+  <span class="section-label label-2">Часть 2 · Деление</span>
+  <h2>Ядерная реакция — это когда ядро <i>разваливается</i></h2>
+  <p class="lead">Представь себе большой тяжёлый шар — это ядро урана. Если в него прилетит крошечная частица (нейтрон) — шар не выдержит и развалится на два кусочка. И при этом вылетит огромная энергия!</p>
+
+  <div class="text-block red-block">
+    <p>Не все атомы одинаковые. Есть очень тяжёлые — например, атом <b>урана</b>. В его ядре сидит 235 частиц (протонов и нейтронов вместе). Это ядро еле-еле держится кучей — как слишком высокая башня из кубиков, которая вот-вот упадёт.</p>
+    <p>И тут в это ядро врезается маленький <b>нейтрон</b> — как камешек, который бросили в башню. Ядро не выдерживает удара и <b>разваливается на две части</b>. Эти части — тоже атомы, только поменьше (например, барий и криптон).</p>
+    <p>Но самое важное — <b>вылетает огромное количество энергии</b>. Почему? Потому что ядро после деления весит чуть-чуть меньше, чем до. Эта «пропавшая» масса превратилась в энергию. Как будто крошечный кусочек вещества превратился в свет и тепло.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🧱</div>
+    <div class="content">
+      <h5>Представь себе так</h5>
+      <p>Это как сбить высокую башню из Jenga одним щелчком. Башня рушится сама — потому что держалась из последних сил. Так же и ядро урана: оно «держалось из последних сил», и нужен был только лёгкий толчок, чтобы всё разлетелось.</p>
+    </div>
+  </div>
+
+  <div class="reaction-visual">
+    <p style="text-align:center;color:var(--muted);margin-bottom:10px;font-size:0.9rem">ДО РЕАКЦИИ</p>
+    <div class="reaction-row">
+      <div class="neutron-ball with-arrow"></div>
+      <div class="big-ball uranium">УРАН<br>235</div>
+    </div>
+
+    <p style="text-align:center;color:var(--yellow);margin:20px 0 10px;font-size:1.5rem">⚡</p>
+
+    <p style="text-align:center;color:var(--muted);margin-bottom:10px;font-size:0.9rem">ПОСЛЕ РЕАКЦИИ</p>
+    <div class="reaction-row">
+      <div class="fragment f-1">Ba</div>
+      <div class="fragment f-2">Kr</div>
+      <div class="neutron-ball"></div>
+      <div class="neutron-ball"></div>
+      <div class="neutron-ball"></div>
+      <span class="energy-burst">+ 💥 ЭНЕРГИЯ</span>
+    </div>
+  </div>
+
+  <div class="chain-box">
+    <h4>🔗 Цепная реакция</h4>
+    <p>Смотри, что интересно: когда ядро урана разваливается, из него вылетают <b style="color:var(--text)">ещё 2–3 нейтрона</b>. Они летят дальше и врезаются в соседние ядра урана. Те тоже разваливаются и выпускают новые нейтроны. И так всё нарастает — как домино! Это называется <b style="color:var(--red)">цепная реакция</b>. Так работают атомные электростанции и, к сожалению, атомная бомба.</p>
+  </div>
+
+  <div class="chain-visual">
+    <p style="text-align:center;color:var(--muted);margin-bottom:16px;font-size:0.9rem">Один нейтрон запускает лавину:</p>
+    <div class="chain-row">
+      <div class="neutron-ball"></div>
+      <span class="chain-arrow">→</span>
+      <div class="chain-atom split"></div>
+      <span class="chain-arrow">→</span>
+      <div class="chain-atom split" style="animation-delay:0.3s"></div>
+      <div class="chain-atom split" style="animation-delay:0.3s"></div>
+      <span class="chain-arrow">→</span>
+      <div class="chain-atom split" style="animation-delay:0.6s"></div>
+      <div class="chain-atom split" style="animation-delay:0.6s"></div>
+      <div class="chain-atom split" style="animation-delay:0.6s"></div>
+      <div class="chain-atom split" style="animation-delay:0.6s"></div>
+    </div>
+    <p style="text-align:center;color:var(--muted);margin-top:16px;font-size:0.9rem">1 → 2 → 4 → 8 → 16 → 32... за миллионные доли секунды развалятся миллиарды ядер</p>
+  </div>
+
+  <div class="text-block red-block">
+    <p>Разница между <b>атомной станцией</b> и <b>атомной бомбой</b> — в том, насколько быстро идёт цепная реакция.</p>
+    <p>На атомной станции учёные делают так, чтобы реакция шла <b>медленно и спокойно</b>: лишние нейтроны специально «ловят» особыми стержнями, и только нужное количество продолжает цепочку. Получается много тепла, которым нагревают воду, пар крутит турбину — и в домах есть электричество.</p>
+    <p>А в атомной бомбе реакция идёт <b>мгновенно</b> — за миллионные доли секунды все ядра разваливаются одновременно. Отсюда и страшный взрыв. Поэтому с ядерными реакциями надо обращаться очень-очень осторожно.</p>
+  </div>
+
+  <details>
+    <summary>Как именно стержни на АЭС контролируют реакцию? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>В активной зоне реактора стоят длинные стержни из особых материалов — <b>бора</b> или <b>кадмия</b>. У этих веществ есть суперспособность: их атомы <b>жадно глотают нейтроны</b>, как пылесос. И после этого уже ничего не делают — просто захватывают нейтрон и держат.</p>
+      <p>Когда стержни <b>опущены глубоко</b> в реактор — они съедают почти все нейтроны, и реакции негде идти. Реактор заглушен. Когда стержни <b>вынимают</b> — нейтронов остаётся больше, цепная реакция разгорается, вырабатывается больше тепла.</p>
+      <p>Оператор АЭС с помощью стержней держит реакцию в точке <b>«ровно один нейтрон на одно новое деление»</b>. Если чуть больше — реактор начнёт разгоняться. Если чуть меньше — затухнет. Это тонкая настройка каждую секунду, но в современных реакторах это делает автоматика.</p>
+      <p>В воду реактора ещё добавляют <b>замедлитель</b> (чаще всего — обычная или «тяжёлая» вода). Он замедляет нейтроны до такой скорости, при которой они лучше всего сталкиваются с ядрами урана. Медленный нейтрон — полезный, а слишком быстрый часто пролетает мимо.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>А почему именно уран-235, а не какой-нибудь другой? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Хороший вопрос! В природе урана существует два главных «сорта»: <b>уран-238</b> и <b>уран-235</b>. В ядре у них одинаковое число протонов (92), но разное число нейтронов. Это называется <b>изотопы</b>.</p>
+      <p>Вот только уран-238 нейтронами не делится — он их просто «глотает». А уран-235 — делится, да ещё и выпускает новые нейтроны. Именно поэтому он и нужен.</p>
+      <p>Проблема в том, что в природе урана-235 <b>всего 0.7%</b>. Остальные 99.3% — бесполезный для бомбы уран-238. Чтобы реактор или бомба работали, уран надо <b>обогащать</b> — то есть извлекать и концентрировать именно 235-й изотоп. Это сложнейший процесс, для которого строят огромные заводы с тысячами центрифуг. Именно поэтому не все страны могут сами делать ядерное топливо — нужна очень продвинутая промышленность.</p>
+      <p>Кроме урана-235, для реакций подходит ещё <b>плутоний-239</b>. В природе его почти нет — его получают искусственно в реакторах из того самого «бесполезного» урана-238.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 3: ТЕРМОЯДЕРНАЯ -->
+<section class="block container">
+  <span class="section-label label-3">Часть 3 · Синтез</span>
+  <h2>Термоядерная реакция — это наоборот, <i>слипание</i></h2>
+  <p class="lead">Здесь всё <b style="color:var(--cyan)">наоборот</b>: два маленьких лёгких ядра (водорода) соединяются в одно большое (гелий). И энергии при этом получается ещё больше, чем при делении! Именно так работает наше Солнце.</p>
+
+  <div class="text-block cyan-block">
+    <p>Помнишь уран? Он тяжёлый, его ядро большое. А теперь возьмём самый <b>лёгкий</b> атом — <b>водород</b>. В его ядре всего 1 протон. Это как маленький шарик.</p>
+    <p>Что будет, если столкнуть два таких шарика очень-очень сильно? Они <b>слипнутся</b> и станут одним новым ядром — ядром <b>гелия</b> (это тот газ, которым надувают воздушные шарики на праздник).</p>
+    <p>И снова — часть массы «исчезает» и превращается в <b>энергию</b>. Причём её получается ещё больше, чем при делении урана! Вот почему Солнце такое яркое и горячее — в нём каждую секунду миллиарды таких слияний.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🧲</div>
+    <div class="content">
+      <h5>Но есть проблема</h5>
+      <p>Попробуй соединить два магнита одинаковыми полюсами — они будут отталкиваться. С ядрами то же самое: у них у всех плюсики (+), и они <b style="color:var(--purple)">не хотят сближаться</b>. Заставить их слипнуться можно только одним способом — разогнать так сильно, чтобы они «проломили» это отталкивание. А разогнать = сильно нагреть.</p>
+    </div>
+  </div>
+
+  <div class="reaction-visual fusion-gradient">
+    <p style="text-align:center;color:var(--muted);margin-bottom:10px;font-size:0.9rem">ДО РЕАКЦИИ</p>
+    <div class="reaction-row">
+      <div class="hydrogen">H</div>
+      <span class="plus">+</span>
+      <div class="hydrogen">H</div>
+    </div>
+
+    <p style="text-align:center;color:var(--cyan);margin:20px 0 10px;font-size:1.5rem">🔥 очень-очень горячо!</p>
+
+    <p style="text-align:center;color:var(--muted);margin-bottom:10px;font-size:0.9rem">ПОСЛЕ РЕАКЦИИ</p>
+    <div class="reaction-row">
+      <div class="helium">ГЕЛИЙ<br>He</div>
+      <span class="energy-burst">+ ☀️ ЭНЕРГИЯ</span>
+    </div>
+  </div>
+
+  <div class="chain-box" style="background:rgba(78,205,196,0.08);border-color:rgba(78,205,196,0.3)">
+    <h4 style="color:var(--cyan)">🌡 Почему «ТЕРМО»-ядерная?</h4>
+    <p>Чтобы два ядра слиплись, их надо очень сильно разогнать и столкнуть. Это происходит только при <b style="color:var(--text)">огромной температуре</b> — миллионы градусов! Слово «термо» как раз и означает «тепло». В центре Солнца температура около <b style="color:var(--yellow)">15 миллионов °C</b> — поэтому там термоядерные реакции идут сами собой уже 4,5 миллиарда лет.</p>
+  </div>
+
+  <div class="text-block cyan-block">
+    <p>Почему же на Солнце это работает само, а на Земле мы пока не можем сделать термоядерную электростанцию? Потому что на Солнце есть ещё одна важная вещь — <b>огромная сила притяжения</b>. Солнце такое большое и тяжёлое, что своим притяжением сжимает водород в центре, как будто давит огромным прессом. Вот почему там хватает «всего лишь» 15 миллионов градусов.</p>
+    <p>А на Земле такого пресса нет. Поэтому учёным приходится нагревать водород до <b>100 миллионов градусов</b> — это в 6 раз горячее, чем на Солнце! И удерживать такой горячий газ ни в каком сосуде нельзя — он расплавит любой металл. Поэтому его удерживают <b>магнитными полями</b> в специальном реакторе — <b>токамаке</b>.</p>
+    <p>Если у учёных получится — человечество получит почти бесконечный источник чистой энергии. Топливо (водород) можно брать прямо из обычной воды. И никаких вредных отходов!</p>
+  </div>
+
+  <details>
+    <summary>Что такое токамак и как он удерживает плазму? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>При температуре в миллионы градусов газ перестаёт быть обычным газом. Электроны отрываются от ядер и летают отдельно. Получается «суп» из отдельных ядер и электронов — это <b>плазма</b>. Именно плазма и горит внутри Солнца, звёзд и термоядерного реактора.</p>
+      <p>Плазма состоит из заряженных частиц, а значит — <b>её можно ловить магнитами!</b> Это главный трюк токамака. Представь себе огромный бублик (как большой спасательный круг), обмотанный сильнейшими магнитами. Внутри бублика летает плазма, и магниты держат её так, чтобы она <b>не касалась стенок</b>. Стенки бы расплавились за долю секунды, а в магнитной «клетке» плазма висит в пустоте.</p>
+      <p>Сейчас во Франции строят самый большой в истории токамак — <b>ИТЭР</b>. В нём участвуют 35 стран, включая Россию, США, Китай, Японию и Евросоюз. Первый запуск запланирован на конец 2020-х. Цель — доказать, что термоядерный реактор может давать <b>больше энергии, чем тратит сам</b>.</p>
+      <p>Есть и другой подход — <b>лазерный</b>. В США в установке NIF (National Ignition Facility) 192 мощнейших лазера одновременно бьют в крошечный шарик с топливом. В декабре 2022 года там впервые в истории получили больше энергии, чем вложили! Пока — всего на доли секунды, но начало положено.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Какой именно водород используют? Он же просто в воде! <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Хорошая догадка! Но есть нюанс. У водорода, как и у урана, бывают разные «сорта» (изотопы). Обычный водород — это 1 протон. А есть <b>дейтерий</b> — 1 протон + 1 нейтрон. И <b>тритий</b> — 1 протон + 2 нейтрона.</p>
+      <p>В термоядерном реакторе используют смесь дейтерия и трития. Почему? Потому что они слипаются легче всего — при «всего» 100 миллионов градусов. Обычный водород-водород — это только на Солнце, там условия очень специфические.</p>
+      <p><b>Дейтерий</b> действительно есть в обычной воде — примерно 1 атом на 6000 обычных. Если выделить весь дейтерий из стакана воды — энергии получится столько же, сколько от сжигания бочки бензина. Представляешь? Океаны по сути полны топлива.</p>
+      <p>А вот с <b>тритием</b> сложнее. В природе его почти нет (он сам распадается за 12 лет). Его делают искусственно прямо в реакторе — из металла <b>лития</b>, который превращается в тритий, когда в него попадают нейтроны. Лития на Земле много, хватит на тысячи лет.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 4: СРАВНЕНИЕ -->
+<section class="block container">
+  <span class="section-label label-4">Часть 4 · Сравним</span>
+  <h2>В чём разница?</h2>
+  <p class="lead">Две реакции — две противоположности. Одна ломает, другая строит. А энергия получается в обоих случаях.</p>
+
+  <div class="text-block">
+    <p>Представь две ситуации. В первой — ты ломаешь большую шоколадку на кусочки. Во второй — лепишь из двух маленьких пластилиновых шариков один большой. И то, и другое — изменение. Но это <b>противоположные</b> действия.</p>
+    <p>Вот так же и с ядрами атомов: ядерная реакция — это <b>деление</b> (ломаем большое), термоядерная — это <b>синтез</b> (соединяем маленькие). И в обоих случаях выделяется энергия. Странно, правда? Казалось бы, как это — и делить, и соединять, и оба раза получать энергию?</p>
+    <p>А всё потому, что в природе есть «идеальный размер» ядра — это размер где-то посередине (например, железо). Если ядро <b>больше</b> идеального — выгодно его разделить. Если <b>меньше</b> — выгодно соединить с другим. И в обоих случаях получается энергия. Как будто природа сама хочет прийти к этому идеальному размеру.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col fission-col">
+      <h3>💥 Ядерная (деление)</h3>
+      <ul>
+        <li><b>Большое ядро</b> разваливается на два поменьше</li>
+        <li>Нужен <b>уран</b> или <b>плутоний</b> — тяжёлые элементы</li>
+        <li>Происходит даже при <b>комнатной температуре</b></li>
+        <li>Работает на <b>атомных станциях</b> уже 70 лет</li>
+        <li>Оставляет <b>опасные отходы</b> (радиация)</li>
+      </ul>
+    </div>
+
+    <div class="compare-col fusion-col">
+      <h3>☀️ Термоядерная (синтез)</h3>
+      <ul>
+        <li><b>Два маленьких ядра</b> слипаются в одно побольше</li>
+        <li>Нужен <b>водород</b> — самый лёгкий элемент</li>
+        <li>Нужна температура <b>в миллионы градусов</b></li>
+        <li>Работает <b>на Солнце</b> и других звёздах</li>
+        <li>Почти <b>нет вредных отходов</b> — чистая энергия</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 5: ФОРМУЛА -->
+<section class="block container">
+  <span class="section-label label-5">Часть 5 · Формула</span>
+  <h2>Откуда вообще берётся вся эта энергия?</h2>
+  <p class="lead">Один человек — Альберт Эйнштейн — больше ста лет назад написал самую знаменитую формулу в мире. Короткую, как заклинание. И она объясняет ВСЁ.</p>
+
+  <div class="einstein">
+    <span style="font-size:3rem">👨‍🔬</span>
+    <p style="color:var(--muted);margin-top:10px">Эйнштейн придумал формулу, которая объясняет, откуда берётся вся эта энергия:</p>
+    <div class="formula">E = mc<sup>2</sup></div>
+    <p>Это значит, что даже крошечный кусочек массы (<b style="color:var(--yellow)">m</b>) можно превратить в огромное количество энергии (<b style="color:var(--yellow)">E</b>). В обеих реакциях часть массы «исчезает» и превращается в свет, тепло и движение. Магия? Нет — физика!</p>
+  </div>
+
+  <div class="text-block green-block">
+    <p>Давай разберём формулу по буквам. <b>E</b> — это энергия. <b>m</b> — масса (сколько весит вещество). А <b>c</b> — это скорость света, и это <b>очень большое число</b>: около 300 000 километров в секунду. А в формуле эта скорость ещё и возводится в квадрат (умножается сама на себя) — получается совсем огромное число.</p>
+    <p>Что это значит на практике? Если бы ты мог целиком превратить в энергию <b>всего 1 грамм</b> вещества (это меньше, чем одна скрепка!) — этой энергии хватило бы, чтобы целый город освещать несколько месяцев. Вот насколько много энергии «спрятано» в самых обычных вещах вокруг нас.</p>
+    <p>В ядерных и термоядерных реакциях превращается в энергию только <b>крошечная часть</b> массы — меньше 1%. Но даже этого хватает, чтобы светило Солнце и работали атомные станции.</p>
+  </div>
+
+  <details>
+    <summary>Давай посчитаем вместе сколько это — 1 грамм в энергии? <span class="tag-more">считаем</span></summary>
+    <div class="details-body">
+      <p>Подставим в формулу: m = 1 грамм = 0.001 кг. Скорость света c ≈ 300 000 000 м/с.</p>
+      <p>E = 0.001 × (300 000 000)² = 0.001 × 90 000 000 000 000 000 = <b>90 000 000 000 000 джоулей</b>.</p>
+      <p>Это 90 <b>триллионов</b> джоулей. Если перевести в привычные единицы — это примерно <b>25 миллионов киловатт-часов</b>. Обычная квартира расходует около 200 кВт·ч в месяц. Значит, 1 грамма вещества хватит на <b>10 тысяч лет жизни одной квартиры</b>.</p>
+      <p>Или по-другому: этого хватит, чтобы месяц освещать и питать <b>город размером с Тверь</b>. Из одного грамма! 🤯</p>
+      <p>Вот почему ядерная энергия такая мощная. В обычных АЭС превращается в энергию не весь уран, а только маленькая часть его массы — но даже этого хватает, чтобы одна таблетка урана размером с ластик заменила тонну угля.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 6: ИСТОРИЯ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 6 · Уроки истории</span>
+  <h2>Страшные страницы, из которых человечество училось</h2>
+  <p class="lead">Ядерная энергия — огромная сила. Она может греть миллионы домов, а может и разрушать города. Вот четыре истории, которые изменили мир. Их важно знать, чтобы такое больше не повторялось.</p>
+
+  <!-- Хиросима и Нагасаки -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🕊</div>
+      <div class="history-title">
+        <h3>Хиросима и Нагасаки</h3>
+        <div class="history-date">6 и 9 августа 1945</div>
+      </div>
+    </div>
+    <p>Шла Вторая мировая война. США построили первое в истории ядерное оружие. 6 августа 1945 года американский самолёт сбросил атомную бомбу на японский город <b>Хиросиму</b>. Через три дня — вторую, на город <b>Нагасаки</b>. Это были единственные разы в истории, когда ядерное оружие применяли против людей.</p>
+    <p>Взрыв был невероятно мощным. В центре города в первые секунды температура достигла миллиона градусов — всё живое испарилось. Дальше от центра всё сгорело или было снесено ударной волной. Потом пошла невидимая смертоносная <b>радиация</b> — от неё люди умирали ещё много лет. Всего погибло около <b>200 тысяч человек</b>.</p>
+    <p>Япония вскоре сдалась, и Вторая мировая закончилась. Но мир навсегда изменился. Люди увидели, что у них в руках теперь есть оружие, способное уничтожить всё человечество.</p>
+    <div class="lesson-box">
+      <h5>🌱 Урок, который извлекли</h5>
+      <p>После этого страны начали договариваться не применять ядерное оружие. Сегодня оно есть у девяти государств, но его ни разу больше не использовали в войне — 80 лет. В Хиросиме горит <b>Вечный огонь мира</b>, он погаснет только когда на Земле не останется ни одной ядерной бомбы.</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>А почему бомбы на Хиросиму и Нагасаки были разными? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Да, это были две разные бомбы, устроенные по-разному. Бомба на Хиросиму называлась <b>«Little Boy»</b> («Малыш») — она работала на <b>уране-235</b>. Внутри была конструкция «пушечного» типа: два куска урана выстреливались навстречу друг другу и соединялись — и моментально начиналась цепная реакция.</p>
+      <p>Бомба на Нагасаки — <b>«Fat Man»</b> («Толстяк») — была на <b>плутонии-239</b>. Там «пушечная» схема не работает, поэтому использовали другую: шар плутония окружили взрывчаткой, которая <b>сжимала его со всех сторон одновременно</b>. Плутоний становился плотнее — и в нём начиналась цепная реакция.</p>
+      <p>Американцы сделали две разные бомбы, потому что не знали заранее, какая схема сработает лучше. Обе сработали. С тех пор все современные ядерные бомбы — по типу «Fat Man», это более эффективная схема.</p>
+    </div>
+  </details>
+
+  <!-- Чернобыль -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">☢️</div>
+      <div class="history-title">
+        <h3>Чернобыль</h3>
+        <div class="history-date">26 апреля 1986, СССР</div>
+      </div>
+    </div>
+    <p>На Чернобыльской атомной электростанции (тогда это был Советский Союз, сейчас — Украина) решили провести испытание. Хотели проверить, что будет, если электричество пропадёт: сможет ли реактор безопасно работать на инерции турбины, пока не запустятся резервные генераторы?</p>
+    <p>Но операторы нарушили инструкции, а сам реактор (тип РБМК) имел <b>конструктивные недостатки</b> — в определённых ситуациях он не останавливался, а, наоборот, разгонялся. Произошёл огромный выброс пара, крышку реактора весом 2000 тонн подбросило вверх, а затем — взрыв и пожар, который горел <b>десять дней</b>.</p>
+    <p>Самое страшное — в атмосферу вырвалось огромное облако радиоактивной пыли и унеслось ветром на сотни километров. Люди в ближайшем городе <b>Припяти</b> не знали об опасности почти сутки — их эвакуировали только на следующий день. <b>30 километров вокруг станции</b> закрыли — там нельзя жить до сих пор. Тысячи людей заболели и умерли от радиации в последующие годы.</p>
+    <div class="lesson-box">
+      <h5>🌱 Урок, который извлекли</h5>
+      <p>После Чернобыля во всём мире пересмотрели безопасность АЭС. Реакторы типа РБМК больше не строят. Современные реакторы устроены так, что в них физически <b>невозможно</b> повторить чернобыльский сценарий — если что-то идёт не так, они глушат сами себя. Сегодня АЭС — одни из самых безопасных промышленных объектов в мире.</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Что именно пошло не так в Чернобыле? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>В реакторе РБМК был <b>положительный паровой коэффициент реактивности</b>. Звучит страшно, но смысл простой: чем больше воды в реакторе <b>превращалось в пар</b>, тем <b>сильнее</b> шла реакция. В нормальных реакторах (с «отрицательным» коэффициентом) наоборот — больше пара = реакция затухает.</p>
+      <p>В ту ночь реактор работал на очень низкой мощности (для испытания), и операторы вытащили почти все управляющие стержни, чтобы удержать реакцию. Это было против инструкции. Когда что-то пошло не так, они нажали кнопку аварийной остановки <b>АЗ-5</b>, чтобы опустить все стержни. Но у этих стержней был ещё один недостаток конструкции — их нижние кончики были из графита, который <b>ускоряет</b> реакцию. В первые секунды опускания реактор не заглушился, а наоборот — резко разогнался.</p>
+      <p>За несколько секунд мощность выросла в <b>сотни раз выше нормы</b>. Вода мгновенно превратилась в пар, давление подскочило — и крышка реактора улетела вверх. Второй взрыв был химическим — горячий графит реагировал с кислородом и водой, образуя водород, который и рванул.</p>
+      <p>Это была цепочка ошибок: плохая конструкция + нарушенная инструкция + плохая коммуникация между сменами. Но после этой катастрофы учёные научились делать реакторы <b>«саморегулирующимися»</b>: если что-то идёт не так, физика сама тормозит реакцию.</p>
+    </div>
+  </details>
+
+  <!-- Фукусима -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🌊</div>
+      <div class="history-title">
+        <h3>Фукусима</h3>
+        <div class="history-date">11 марта 2011, Япония</div>
+      </div>
+    </div>
+    <p>У восточного побережья Японии произошло одно из сильнейших землетрясений в истории — магнитудой 9,0. Толчки почувствовала вся Япония. На атомной станции «Фукусима-1» шесть реакторов сразу <b>автоматически заглушились</b> — как и положено по инструкции. Это сработало отлично!</p>
+    <p>Но через час к станции пришло <b>цунами</b> — огромная волна высотой 14 метров. Она легко перевалила через защитную дамбу (она была рассчитана только на 6 метров) и <b>затопила резервные дизельные генераторы</b>. А именно они качали воду, которая охлаждала реакторы.</p>
+    <p>Без охлаждения остаточное тепло в реакторах начало разогревать воду. Пар реагировал с раскалённым металлом труб — образовывался <b>водород</b>. Он накапливался в зданиях реакторов и взорвался — три эффектных взрыва, которые потом показывали по всем новостям мира. Радиация вырвалась в воздух и попала в океан. Эвакуировали <b>160 тысяч человек</b>.</p>
+    <p>К счастью, никто не погиб непосредственно от радиации. Но последствия огромные: зону вокруг станции закрыли, и до сих пор десятки тысяч жителей не могут вернуться в свои дома. А сама Япония после этого на десять лет остановила почти все свои АЭС.</p>
+    <div class="lesson-box">
+      <h5>🌱 Урок, который извлекли</h5>
+      <p>Опасность не только в самом реакторе, но и в том, что его окружает. После Фукусимы все АЭС мира пересмотрели защиту от землетрясений, цунами, наводнений и других природных катастроф. Современные реакторы умеют охлаждаться <b>без электричества</b> — за счёт естественной циркуляции воды.</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Почему реакторы продолжали греться, если их уже остановили? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Вот это ключевая штука, которую все узнали после Фукусимы. Даже когда реактор <b>остановлен</b> — то есть цепная реакция прекратилась — в нём остаётся <b>остаточное тепло</b>. Почему?</p>
+      <p>За время работы в реакторе накапливаются осколки деления — те самые барий, криптон и сотни других атомов. Многие из них <b>нестабильны</b>: они продолжают потихоньку распадаться и выделять энергию. Сразу после остановки реактор всё ещё даёт <b>около 6–7% от полной мощности</b> в виде тепла. Через час — 1%. Через сутки — 0,3%.</p>
+      <p>Это кажется мало, но для большого реактора 1% — это десятки мегаватт тепла. Если не охлаждать — металл расплавится. Именно это и случилось на трёх реакторах Фукусимы: насосы не работали, вода в реакторе выкипела, топливо оголилось и начало плавиться.</p>
+      <p>Поэтому в современных АЭС делают <b>пассивное охлаждение</b>: вода циркулирует сама за счёт того, что горячее поднимается вверх, холодное опускается вниз. Не нужны ни электричество, ни насосы — это работает, пока есть вода и сила тяжести.</p>
+    </div>
+  </details>
+
+  <!-- Общий вывод -->
+  <div class="text-block purple-block">
+    <p>Каждая из этих катастроф — это огромная трагедия. Но из каждой люди извлекли уроки и сделали атомную энергию <b>безопаснее</b>. Современные реакторы (их называют «поколение III+» и «поколение IV») устроены так, что в них физически не может случиться ни Чернобыль, ни Фукусима.</p>
+    <p>Ядерная энергия — это мощный инструмент. Как огонь, как электричество. Огонь тоже когда-то сжигал целые города — но мы научились им пользоваться безопасно. С атомом то же самое. Правильно построенная АЭС даёт <b>огромное количество чистой энергии</b> и почти не загрязняет атмосферу — в отличие от угольных или газовых станций.</p>
+    <p>И главное: <b>ядерное оружие — это совсем другое.</b> Его применять нельзя никогда, и человечество договорилось об этом после Хиросимы. Атомная станция и атомная бомба устроены настолько по-разному, что АЭС <b>физически не может взорваться как бомба</b>. Это как велосипед и самолёт — оба с колёсами, но это совершенно разные вещи.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 7: ГДЕ ВСТРЕЧАЕТСЯ -->
+<section class="block container">
+  <span class="section-label label-7">Часть 7 · В жизни</span>
+  <h2>Где ещё мы видим эти реакции?</h2>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">☀️</span>
+      <h4>Солнце и звёзды</h4>
+      <p>Каждую секунду в Солнце 600 миллионов тонн водорода превращаются в гелий</p>
+      <span class="tag tag-fusion">Термоядерная</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🏭</span>
+      <h4>Атомная станция</h4>
+      <p>Делят уран, получают тепло, крутят турбину — и у нас в доме есть свет</p>
+      <span class="tag tag-fission">Ядерная</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🚢</span>
+      <h4>Атомные ледоколы</h4>
+      <p>Один раз загрузили уран — и корабль может плавать несколько лет без заправки</p>
+      <span class="tag tag-fission">Ядерная</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🏥</span>
+      <h4>Медицина</h4>
+      <p>Рентген, лучевая терапия рака, ПЭТ-сканеры — всё это работает благодаря радиации</p>
+      <span class="tag tag-fission">Ядерная</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🚀</span>
+      <h4>Космос</h4>
+      <p>Зонды к далёким планетам часто работают на «ядерных батарейках» — они дают энергию годами</p>
+      <span class="tag tag-fission">Ядерная</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🔬</span>
+      <h4>Токамак (ИТЭР)</h4>
+      <p>Учёные строят огромный реактор, чтобы повторить Солнце на Земле и получать чистую энергию</p>
+      <span class="tag tag-fusion">Термоядерная</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">💣</span>
+      <h4>Ядерное оружие</h4>
+      <p>Оно есть у 9 стран, но уже 80 лет не применялось — люди договорились этого не делать</p>
+      <span class="tag tag-fission">Ядерная</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌌</span>
+      <h4>Взрывы сверхновых</h4>
+      <p>Когда огромная звезда умирает, в ней за секунды синтезируется золото, платина и уран</p>
+      <span class="tag tag-fusion">Термоядерная</span>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACT -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт</h3>
+    <p>Свет, который ты сейчас видишь от Солнца, родился в его ядре <b style="color:var(--yellow)">тысячи лет назад</b>! Он так долго пробирался наружу через плотное вещество Солнца, что пока он летел к поверхности, на Земле успели возникнуть фараоны, построиться пирамиды, пасть Римская империя. А потом он летел до Земли ещё 8 минут. Так что солнечный зайчик на твоём окне — старше пирамид 🌞</p>
+  </div>
+</section>
+
+<!-- НАЗАД НА ГЛАВНУЮ -->
+<section class="block container" style="text-align:center;padding-top:20px">
+  <a href="../index.html" class="back-home">← На главную</a>
+</section>
+
+<footer>
+  Сделано с <span class="heart">❤</span> для любопытных учёных
+  <div class="signature">Kids Wiki · 18 апреля 2026</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Чёрные дыры</title>
+<meta name="description" content="Откуда берутся чёрные дыры, что там внутри, почему рядом с ними время течёт иначе, и что случится, если туда провалиться.">
+<meta name="emoji" content="🕳️">
+<meta name="date" content="2026-04-18">
+<meta name="reading-time" content="25 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&family=Bungee&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 55% 25%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(167, 139, 250, 0.15);
+    border: 2px solid var(--purple);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--purple);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 5.2rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--purple), var(--pink), var(--blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 40px rgba(167, 139, 250, 0.5));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* HERO BLACK HOLE */
+  .bh-visual {
+    width: 280px;
+    height: 280px;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .bh-core {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 90px; height: 90px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 50% 50%, #000 40%, #1a2150 60%, transparent 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 50px #000, inset 0 0 30px #000;
+    z-index: 3;
+  }
+
+  .bh-disk {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 260px; height: 260px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--orange), var(--yellow), var(--red), var(--purple), var(--blue), var(--orange));
+    filter: blur(6px);
+    animation: diskspin 6s linear infinite;
+    opacity: 0.8;
+  }
+
+  .bh-disk::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 150px; height: 150px;
+    transform: translate(-50%, -50%);
+    background: var(--bg);
+    border-radius: 50%;
+    filter: blur(4px);
+  }
+
+  @keyframes diskspin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .bh-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 180px; height: 180px;
+    transform: translate(-50%, -50%);
+    border: 3px solid transparent;
+    border-top-color: var(--yellow);
+    border-right-color: var(--orange);
+    border-radius: 50%;
+    animation: ringspin 3s linear infinite;
+    filter: drop-shadow(0 0 10px var(--orange));
+    z-index: 2;
+  }
+
+  @keyframes ringspin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .scroll-hint {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block {
+    padding: 60px 20px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-2 { background: rgba(255, 71, 87, 0.15); color: var(--red); }
+  .label-3 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-4 { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .label-5 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-6 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-7 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCKS */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--yellow); }
+
+  .text-block.red-block { border-color: var(--red); }
+  .text-block.red-block b { color: var(--orange); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.pink-block { border-color: var(--pink); }
+  .text-block.pink-block b { color: var(--pink); }
+
+  .text-block.blue-block { border-color: var(--blue); }
+  .text-block.blue-block b { color: var(--blue); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* DETAILS */
+  details {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(74, 158, 255, 0.04));
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    padding: 4px 24px;
+    margin: 18px 0;
+    transition: all 0.25s ease;
+  }
+
+  details[open] {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.06));
+    border-color: rgba(78, 205, 196, 0.4);
+  }
+
+  details summary {
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  details summary .tag-more {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  details .details-body {
+    padding: 4px 0 18px 24px;
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  details .details-body p {
+    margin-bottom: 12px;
+  }
+
+  details .details-body p:last-child { margin-bottom: 0; }
+
+  details .details-body b { color: var(--yellow); }
+
+  /* STAR DEATH VISUAL */
+  .life-cycle {
+    background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(167, 139, 250, 0.08));
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 20px 0;
+  }
+
+  .life-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .life-stage {
+    flex: 1;
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .life-stage .ball {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+  }
+
+  .life-stage.main-seq .ball {
+    background: radial-gradient(circle at 30% 30%, #ffd93d, #ff8c42);
+    box-shadow: 0 0 30px rgba(255, 140, 66, 0.7);
+    animation: pulse 2s infinite;
+  }
+
+  .life-stage.giant .ball {
+    width: 100px; height: 100px;
+    background: radial-gradient(circle at 30% 30%, #ff4757, #b91c1c);
+    box-shadow: 0 0 35px rgba(255, 71, 87, 0.6);
+  }
+
+  .life-stage.supernova .ball {
+    background: radial-gradient(circle at 30% 30%, white, #ffd93d, #ff4757, transparent);
+    box-shadow: 0 0 50px var(--yellow), 0 0 80px var(--orange);
+    animation: supernova 2s infinite;
+  }
+
+  .life-stage.bh .ball {
+    background: radial-gradient(circle at 50% 50%, #000, #1a2150);
+    box-shadow: 0 0 20px var(--purple), inset 0 0 15px #000;
+    border: 2px solid rgba(255, 140, 66, 0.4);
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  @keyframes supernova {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+  }
+
+  .life-stage h5 {
+    font-family: 'Fredoka', sans-serif;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .life-stage p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .life-arrow {
+    color: var(--yellow);
+    font-size: 1.6rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  /* HORIZON VISUAL */
+  .horizon-box {
+    background: radial-gradient(circle at center, rgba(0,0,0,0.6) 30%, rgba(167, 139, 250, 0.1) 60%, transparent 80%);
+    border-radius: 20px;
+    padding: 50px 20px;
+    margin: 20px 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .horizon-diagram {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .event-horizon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; height: 200px;
+    border: 3px dashed var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(255, 217, 61, 0.4);
+    animation: rotate-dash 20s linear infinite;
+  }
+
+  @keyframes rotate-dash {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .singularity {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 50% 50%, #000 60%, #1a2150 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(167, 139, 250, 0.5);
+  }
+
+  .horizon-label {
+    position: absolute;
+    background: var(--card);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .horizon-label.hl-singularity {
+    bottom: -40px; left: 50%; transform: translateX(-50%);
+    color: var(--pink);
+  }
+
+  .horizon-label.hl-horizon {
+    top: -30px; left: 50%; transform: translateX(-50%);
+    color: var(--yellow);
+  }
+
+  /* TIME VISUAL */
+  .time-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .time-panel {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 26px 24px;
+    border-top: 4px solid;
+    text-align: center;
+  }
+
+  .time-panel.earth { border-color: var(--blue); }
+  .time-panel.bh { border-color: var(--purple); }
+
+  .clock-face {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
+    border: 3px solid;
+    margin: 0 auto 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .time-panel.earth .clock-face { border-color: var(--blue); }
+  .time-panel.bh .clock-face { border-color: var(--purple); }
+
+  .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    background: currentColor;
+    border-radius: 4px;
+  }
+
+  .hand.hour { width: 4px; height: 28px; margin-left: -2px; }
+  .hand.minute { width: 3px; height: 38px; margin-left: -1.5px; }
+
+  .time-panel.earth { color: var(--blue); }
+  .time-panel.bh { color: var(--purple); }
+
+  .clock-face .center-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 8px; height: 8px;
+    background: currentColor;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .clock-earth .hand.hour { animation: sweep 20s linear infinite; }
+  .clock-earth .hand.minute { animation: sweep 3s linear infinite; }
+  .clock-bh .hand.hour { animation: sweep 500s linear infinite; }
+  .clock-bh .hand.minute { animation: sweep 80s linear infinite; }
+
+  @keyframes sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .time-panel h4 {
+    color: var(--text);
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+
+  .time-panel p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* SIZES COMPARE */
+  .size-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .size-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .size-viz {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .size-blob {
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #000, #1a2150);
+    border: 2px solid rgba(255, 140, 66, 0.4);
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+  }
+
+  .size-card h4 {
+    color: var(--text);
+    font-size: 1.02rem;
+    margin-bottom: 4px;
+  }
+
+  .size-card p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  /* FALL SEQUENCE */
+  .fall-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .fall-step {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    border-left: 4px solid var(--pink);
+  }
+
+  .fall-step .num {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  .fall-step h4 {
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .fall-step p {
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* WHERE GRID */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(255, 107, 157, 0.1));
+    border: 2px solid var(--purple);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--purple);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  /* BACK HOME */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 26px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  .back-home:hover {
+    background: rgba(78, 205, 196, 0.2);
+    transform: translateX(-4px);
+  }
+
+  .inline-link {
+    color: var(--cyan);
+    text-decoration: underline;
+    text-decoration-color: rgba(78, 205, 196, 0.4);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+
+  .inline-link:hover { color: var(--yellow); }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .signature {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 700px) {
+    .time-compare { grid-template-columns: 1fr; }
+    .life-row { flex-direction: column; gap: 8px; }
+    .life-arrow { transform: rotate(90deg); }
+    .fall-step { flex-direction: column; gap: 10px; }
+    .bh-visual { width: 230px; height: 230px; }
+    .bh-core { width: 72px; height: 72px; }
+    .bh-disk { width: 210px; height: 210px; }
+    .bh-disk::after { width: 120px; height: 120px; }
+    .bh-ring { width: 150px; height: 150px; }
+    .horizon-diagram { width: 220px; height: 220px; }
+    .event-horizon { width: 160px; height: 160px; }
+    .singularity { width: 60px; height: 60px; }
+    details { padding: 2px 18px; }
+    details .details-body { padding-left: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🕳️ Самое странное во Вселенной</span>
+  <h1>Чёрные<br>дыры</h1>
+  <p>Куда они ведут, что внутри, и почему рядом с ними даже время идёт не так, как у нас</p>
+
+  <div class="bh-visual">
+    <div class="bh-disk"></div>
+    <div class="bh-ring"></div>
+    <div class="bh-core"></div>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ЧАСТЬ 1: РОЖДЕНИЕ -->
+<section class="block container">
+  <span class="section-label label-1">Часть 1 · Как они рождаются</span>
+  <h2>Чёрная дыра — это мёртвая звезда</h2>
+  <p class="lead">Чёрные дыры не появляются просто так. Почти каждая из них — это то, что осталось от огромной звезды после её смерти. Давай посмотрим, как это происходит.</p>
+
+  <div class="text-block purple-block">
+    <p>Помнишь, в статье про <a href="nuclear.html" class="inline-link">ядерные реакции</a> мы говорили, что Солнце светит за счёт <b>термоядерного синтеза</b>? Внутри него два атома водорода каждую секунду сливаются в гелий — и выделяется огромная энергия. Эта энергия и не даёт звезде упасть саму в себя.</p>
+    <p>Смотри: любая звезда как будто играет в перетягивание каната. С одной стороны — её собственная <b>сила тяжести</b>, которая пытается сжать всё вещество в центр. С другой — <b>энергия термоядерных реакций</b>, которая распирает звезду изнутри. Пока топливо есть, силы равны — звезда стабильна.</p>
+    <p>Но когда у очень большой звезды водород заканчивается — баланс ломается. Останавливать силу тяжести больше нечем. И звезда <b>начинает падать сама в себя</b> — стремительно, за считанные секунды.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🎈</div>
+    <div class="content">
+      <h5>Представь себе так</h5>
+      <p>Звезда — это как надутый воздушный шарик. Пока воздух внутри давит наружу — шарик держит форму. А теперь выпусти воздух: резина сожмётся в крошечный комок. С большой звездой то же самое, только комок получается такой плотный, что ничего подобного мы в повседневной жизни не видим.</p>
+    </div>
+  </div>
+
+  <div class="life-cycle">
+    <p style="text-align:center;color:var(--muted);margin-bottom:20px;font-size:0.95rem">Жизнь огромной звезды — от рождения до чёрной дыры:</p>
+    <div class="life-row">
+      <div class="life-stage main-seq">
+        <div class="ball"></div>
+        <h5>Молодая звезда</h5>
+        <p>Спокойно жжёт водород миллионы лет</p>
+      </div>
+      <span class="life-arrow">→</span>
+      <div class="life-stage giant">
+        <div class="ball"></div>
+        <h5>Красный гигант</h5>
+        <p>Топливо заканчивается, звезда раздувается</p>
+      </div>
+      <span class="life-arrow">→</span>
+      <div class="life-stage supernova">
+        <div class="ball"></div>
+        <h5>Сверхновая</h5>
+        <p>Взрыв на секунды ярче всей галактики</p>
+      </div>
+      <span class="life-arrow">→</span>
+      <div class="life-stage bh">
+        <div class="ball"></div>
+        <h5>Чёрная дыра</h5>
+        <p>Ядро сжалось в точку, откуда не выбраться</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>И вот тут случается самое важное. Когда ядро огромной звезды (раз в 20 тяжелее Солнца) коллапсирует, оно сжимается до такой плотности, что <b>вся эта масса помещается в точку</b>. Представь: столько же вещества, сколько в 20 наших Солнцах, — и всё в одной точке, меньше кончика иголки.</p>
+    <p>Получается область с настолько сильным притяжением, что <b>даже свет не может оттуда вырваться</b>. А свет — это самое быстрое, что есть во Вселенной. Если уж свет не убежал — не убежит ничто. Вот поэтому она и «чёрная»: наружу ничего не светит.</p>
+  </div>
+
+  <details>
+    <summary>А все звёзды становятся чёрными дырами? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Нет, далеко не все. Судьба звезды зависит от её <b>массы</b>.</p>
+      <p><b>Маленькие звёзды</b> (как наше Солнце) в конце жизни просто тихо сбрасывают свои внешние слои и превращаются в <b>белого карлика</b> — плотный остывающий уголёк размером с Землю. Никаких взрывов, никаких чёрных дыр. Наше Солнце пройдёт этот путь через ~5 миллиардов лет.</p>
+      <p><b>Средние звёзды</b> (массой в 8-20 Солнц) взрываются сверхновой и оставляют после себя <b>нейтронную звезду</b> — это шарик размером с город, но массой с пару Солнц. Одна чайная ложка её вещества весила бы на Земле <b>миллиард тонн</b>.</p>
+      <p><b>Большие звёзды</b> (массой больше 20 Солнц) — вот они и превращаются в чёрные дыры. В них сила тяжести настолько сильна, что не может остановиться даже на стадии нейтронной звезды — она продолжает сжимать вещество дальше.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>А есть ли чёрные дыры в центре нашей Галактики? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Да! И не только в нашей. Астрономы выяснили, что в центре <b>почти каждой большой галактики</b> сидит огромная чёрная дыра. Их называют <b>сверхмассивными</b>, потому что они в миллионы и миллиарды раз тяжелее обычных.</p>
+      <p>В центре нашей галактики Млечный Путь живёт чёрная дыра <b>Стрелец A*</b> (читается «Стрелец а со звёздочкой»). Её масса — примерно 4 миллиона Солнц. Она относительно спокойная — не ест много вещества — но её влияние огромно: вокруг неё, как Земля вокруг Солнца, обращаются все звёзды галактики, включая наше Солнце.</p>
+      <p>Откуда взялись такие гигантские чёрные дыры — до сих пор загадка. Они слишком большие, чтобы образоваться из одной звезды. Возможно, много маленьких чёрных дыр постепенно сливались друг с другом за миллиарды лет. Или они образовались прямо из плотного облака газа в первые времена Вселенной. Учёные пока спорят.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 2: ГОРИЗОНТ -->
+<section class="block container">
+  <span class="section-label label-2">Часть 2 · Точка невозврата</span>
+  <h2>Горизонт событий — граница, после которой обратно нельзя</h2>
+  <p class="lead">У каждой чёрной дыры есть невидимая граница. До неё — ещё можно убежать. За ней — уже никогда. Эту границу называют <b style="color:var(--yellow)">горизонтом событий</b>.</p>
+
+  <div class="text-block red-block">
+    <p>Представь себе реку, которая впадает в огромный водопад. Пока ты далеко — можешь спокойно грести к берегу. Чем ближе к водопаду — тем сильнее течение. И есть невидимая черта на воде, после которой <b>никакая лодка уже не вырвется</b> — течение быстрее, чем может грести самый мощный мотор.</p>
+    <p>Вокруг чёрной дыры всё точно так же. Только вместо воды — само пространство. И вместо мотора — скорость света. <b>Горизонт событий</b> — это граница, после которой чтобы убежать, надо лететь быстрее света. А быстрее света не летает ничто.</p>
+    <p>И вот почему её называют «горизонтом событий»: всё, что происходит за этой чертой, <b>навсегда остаётся за ней</b>. Никакой сигнал, никакой свет, никакая информация оттуда не вернётся. Это как смотреть на горизонт — ты знаешь, что за ним что-то есть, но увидеть не можешь.</p>
+  </div>
+
+  <div class="horizon-box">
+    <div class="horizon-diagram">
+      <div class="event-horizon"></div>
+      <div class="singularity"></div>
+      <span class="horizon-label hl-horizon">← горизонт событий</span>
+      <span class="horizon-label hl-singularity">сингулярность в центре →</span>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🌊</div>
+    <div class="content">
+      <h5>Аналогия с рыбкой</h5>
+      <p>Представь рыбку, которая плывёт вверх по реке к водопаду. Она может плыть со скоростью 5 км/ч. Пока течение реки медленнее 5 км/ч — рыбка справляется. Но там, где течение становится сильнее 5 км/ч, рыбку начинает сносить назад, хоть она и изо всех сил плывёт вперёд. Вот эта граница и есть «горизонт событий» для неё.</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Интересно, что размер горизонта событий зависит от массы чёрной дыры. Чем больше массы внутри — тем шире граница. У <b>звёздной</b> чёрной дыры (из одной умершей звезды) горизонт — несколько десятков километров. У <b>сверхмассивной</b> — миллиарды километров.</p>
+    <p>А вот <b>снаружи</b> чёрная дыра не пытается тебя «засосать», как иногда показывают в мультиках. Если бы наше Солнце вдруг превратилось в чёрную дыру той же массы — Земля продолжила бы спокойно крутиться по той же орбите! Притяжение на расстоянии осталось бы тем же. Чёрная дыра опасна только вблизи, возле горизонта.</p>
+  </div>
+
+  <details>
+    <summary>Насколько маленькой стала бы Земля, если бы стала чёрной дырой? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Забавная мысленная игра. Существует формула, которая показывает радиус горизонта событий для любой массы — <b>радиус Шварцшильда</b>. Она очень простая.</p>
+      <p>Для массы нашего <b>Солнца</b> (2 × 10³⁰ кг) радиус получается около <b>3 км</b>. То есть если бы Солнце каким-то чудом сжалось в шарик радиусом 3 километра — оно стало бы чёрной дырой. Сейчас его радиус 700 000 км, так что до чёрной дыры далеко.</p>
+      <p>Для массы <b>Земли</b> радиус Шварцшильда — всего <b>9 миллиметров</b>. Представь: всю нашу планету сжать в шарик размером с виноградинку. Вот тогда получится чёрная дыра. Хорошо, что в природе нет процесса, способного это сделать.</p>
+      <p>А для массы <b>человека</b> (70 кг) — радиус был бы <b>10⁻²⁵ метров</b>. Это в триллионы раз меньше атома. Сжать человека до такого размера не может никакая сила во Вселенной.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 3: ЧТО ВНУТРИ -->
+<section class="block container">
+  <span class="section-label label-3">Часть 3 · Внутри</span>
+  <h2>А что там, внутри? Честный ответ</h2>
+  <p class="lead">Готов к честному ответу? <b style="color:var(--cyan)">Мы не знаем.</b> И это не потому что мы плохо искали — а потому что это в принципе невозможно узнать.</p>
+
+  <div class="text-block cyan-block">
+    <p>По всем нашим формулам получается, что в центре чёрной дыры всё вещество сжато в <b>одну точку</b>. Эта точка называется <b>сингулярность</b>. Там плотность становится бесконечной, а пространство и время как бы «ломаются».</p>
+    <p>Но «бесконечность» в физике — это обычно знак того, что <b>формула перестала работать</b>. Когда физики получают в ответе бесконечность, они говорят: значит, у нас чего-то не хватает, и мы не знаем, что именно происходит на самом деле.</p>
+    <p>Сейчас есть две главные теории физики: <b>общая теория относительности</b> (описывает большие объекты — планеты, звёзды) и <b>квантовая механика</b> (описывает крошечные — атомы и частицы). Обычно каждая работает в своём мире. А вот в сингулярности они <b>должны работать вместе</b> — но физики до сих пор не умеют их подружить. Эту задачу называют «квантовая гравитация» — и это одна из главных нерешённых загадок науки.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">📐</div>
+    <div class="content">
+      <h5>Почему мы не можем заглянуть внутрь</h5>
+      <p>Даже если бы ты смог туда полететь, ты бы не смог потом никому ничего рассказать — информация не выбирается из-за горизонта. Это как закрытая коробка, которую нельзя открыть ни из любопытства, ни ради науки. Всё, что мы можем — строить теории и надеяться, что когда-нибудь найдём способ заглянуть.</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Некоторые учёные думают, что внутри может происходить что-то совсем странное. Например, что чёрная дыра — это как бы <b>вход в другую Вселенную</b>. Или что на «дне» чёрной дыры рождается новая Вселенная со своими звёздами и галактиками. Это пока только гипотезы, у нас нет доказательств — но и опровергнуть мы их тоже не можем.</p>
+    <p>А может быть, сингулярности вообще не существует, и там что-то совсем другое, чего мы просто пока не представляем. История науки учит: когда физики находят бесконечность в формуле, потом обычно оказывается, что правильный ответ куда интереснее.</p>
+  </div>
+
+  <details>
+    <summary>Что такое общая теория относительности Эйнштейна? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Вот главная идея Эйнштейна: <b>масса искривляет пространство и время вокруг себя</b>. Представь натянутую простынь — это пространство. Положи на неё шар для боулинга — это Солнце. Простыня прогнётся. Теперь запусти рядом маленький шарик — он покатится не прямо, а по кривой, потому что простыня под ним наклонена.</p>
+      <p>Так работает гравитация по Эйнштейну. Земля не «притягивается» к Солнцу — она просто катится по искривлённому пространству. Мы раньше думали, что гравитация — это сила. А оказалось, это <b>геометрия</b>.</p>
+      <p>Когда в одном месте слишком много массы — прогиб становится настолько глубоким, что получается <b>воронка без дна</b>. Это и есть чёрная дыра. Пространство возле неё буквально «падает» внутрь.</p>
+      <p>Эйнштейн придумал эту теорию в 1915 году. Чёрные дыры тогда казались чем-то невозможным и только математическим трюком — сам Эйнштейн в них не верил. А сейчас мы их уже даже фотографируем.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>А можно ли чёрную дыру разрушить? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Интересно, что да! В 1974 году физик <b>Стивен Хокинг</b> показал: чёрные дыры на самом деле не совсем «чёрные». Они очень-очень медленно <b>испаряются</b>.</p>
+      <p>Вокруг горизонта событий постоянно рождаются и тут же исчезают пары крошечных частиц (это разрешает квантовая физика). Иногда одна из пары падает в чёрную дыру, а вторая улетает в космос. Получается, что чёрная дыра потихоньку <b>теряет массу</b>, отдавая её этим улетающим частицам. Это называется <b>излучение Хокинга</b>.</p>
+      <p>Процесс чудовищно медленный. Чёрная дыра массой с Солнце испарится примерно за <b>10⁶⁷ лет</b>. Это единица и 67 нулей. Возраст Вселенной — всего 10¹⁰ лет. То есть чёрные дыры переживут все звёзды, все галактики, и вообще будут последним, что останется во Вселенной.</p>
+      <p>Но маленькие чёрные дыры (если они где-то есть) могут испаряться быстро и закончить ярким взрывом. Такую вспышку учёные мечтают поймать телескопом — это было бы первое прямое доказательство излучения Хокинга.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 4: ВРЕМЯ -->
+<section class="block container">
+  <span class="section-label label-4">Часть 4 · Время</span>
+  <h2>А ещё — время там идёт по-другому</h2>
+  <p class="lead">Это самая невероятная вещь про чёрные дыры. Рядом с ними <b style="color:var(--yellow)">время течёт медленнее</b>. Не метафорически, не фигурально — <b>по-настоящему</b>. Если ты проведёшь у чёрной дыры час — на Земле тем временем могут пройти сотни лет.</p>
+
+  <div class="text-block red-block">
+    <p>Это звучит как фантастика, но это доказанный научный факт. Эйнштейн предсказал такое ещё сто лет назад, а проверили экспериментально давно. Даже на Земле время идёт чуть-чуть по-разному: на верхушке горы — чуть быстрее, чем у подножия. Микроскопически, но измеримо!</p>
+    <p>Правило простое: <b>где сильнее гравитация — там медленнее время</b>. Около чёрной дыры гравитация чудовищная, так что и замедление гигантское.</p>
+    <p>Это не значит, что для тебя самого время идёт странно. Если ты приблизишься к чёрной дыре — ты не заметишь ничего особенного. Твои часы тикают как обычно. Но если ты посмотришь на Землю — увидишь, что <b>там всё мчится со страшной скоростью</b>. А если кто-то на Земле посмотрит на тебя — увидит тебя как в очень замедленном кино.</p>
+  </div>
+
+  <div class="time-compare">
+    <div class="time-panel earth">
+      <div class="clock-face clock-earth">
+        <div class="hand hour"></div>
+        <div class="hand minute"></div>
+        <div class="center-dot"></div>
+      </div>
+      <h4>На Земле</h4>
+      <p>Часы идут обычно. Прошёл год — значит, год.</p>
+    </div>
+    <div class="time-panel bh">
+      <div class="clock-face clock-bh">
+        <div class="hand hour"></div>
+        <div class="hand minute"></div>
+        <div class="center-dot"></div>
+      </div>
+      <h4>Возле чёрной дыры</h4>
+      <p>Часы идут в сто раз медленнее. Прошёл год — на Земле уже сто лет.</p>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🎬</div>
+    <div class="content">
+      <h5>Видел фильм «Интерстеллар»?</h5>
+      <p>Там астронавты посещают планету рядом с огромной чёрной дырой Гаргантюа. Проводят на ней <b style="color:var(--purple)">всего пару часов</b>. А когда возвращаются на корабль — их товарищ, который их ждал, постарел на 23 года. Это не киношное преувеличение. Физика такое действительно разрешает, и авторы фильма консультировались с настоящим учёным — нобелевским лауреатом Кипом Торном.</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Может ли чёрная дыра быть способом «перепрыгнуть в будущее»? Формально — да. Если бы ты слетал к чёрной дыре, покрутился немного на безопасном расстоянии и вернулся — на Земле мог бы пройти век, пока ты постарел всего на пару месяцев.</p>
+    <p>Но есть проблемы. Во-первых, <b>ближайшая чёрная дыра далеко</b> — больше тысячи световых лет (и это если нам повезло с «соседкой»). Долететь туда человек пока не может. Во-вторых, <b>обратно время не прокрутишь</b> — машина времени «в прошлое» нам пока не светит. Только билет в один конец, в будущее.</p>
+  </div>
+
+  <details>
+    <summary>А почему время замедляется? Откуда связь времени и гравитации? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Вот это самый хитрый момент. По теории Эйнштейна, пространство и время — <b>это одно и то же</b>, единая ткань под названием «пространство-время». Масса искривляет не просто пространство, а именно пространство-время. А значит — искривляется и время тоже.</p>
+      <p>Представь, что время — это расстояние. Рядом с чёрной дырой путь через «секунду» становится длиннее, чем вдали от неё. Свет, событие, твоё сердцебиение — всё движется по этому пути, поэтому и замедляется.</p>
+      <p>Это проверяли много раз. Например, спутники GPS вращаются высоко над Землёй, где гравитация чуть слабее. Их часы идут быстрее, чем часы на Земле, на <b>38 микросекунд в сутки</b>. Если это не учитывать, GPS-навигаторы давали бы ошибку в несколько километров! Инженеры закладывают поправку Эйнштейна прямо в каждый GPS-приёмник.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 5: ПАДЕНИЕ -->
+<section class="block container">
+  <span class="section-label label-5">Часть 5 · А что если...</span>
+  <h2>А что будет, если всё-таки провалиться?</h2>
+  <p class="lead">Давай проведём мысленный эксперимент. Ты летишь в скафандре прямо к чёрной дыре — не к самой огромной, а к звёздной, размером пару десятков километров в поперечнике. Что ты увидишь и почувствуешь?</p>
+
+  <div class="fall-steps">
+    <div class="fall-step">
+      <div class="num">1</div>
+      <div>
+        <h4>Подлёт: всё странно, но красиво</h4>
+        <p>Звёзды за чёрной дырой начинают <b style="color:var(--yellow)">искривляться и смещаться</b> — свет огибает чёрную дыру, как дорога огибает холм. Ты видишь одну звезду в нескольких местах одновременно. Прямо перед тобой — идеально чёрный круг. Вокруг него светящийся диск из раскалённого газа — это вещество, которое падает в чёрную дыру, разогревается от трения и светится.</p>
+      </div>
+    </div>
+    <div class="fall-step">
+      <div class="num">2</div>
+      <div>
+        <h4>Время начинает разъезжаться</h4>
+        <p>Ты глядишь назад — на Землю. И видишь, что там всё мчится как в перемотке. Часы тикают бешено. Новости проносятся вспышками. А если на Земле смотрят в свой телескоп на тебя — ты для них как в очень замедленном кино. Так чем ближе ты к горизонту, тем медленнее ты двигаешься с их точки зрения, и они никогда не увидят, как ты пересёк границу.</p>
+      </div>
+    </div>
+    <div class="fall-step">
+      <div class="num">3</div>
+      <div>
+        <h4>Пересекаешь горизонт событий</h4>
+        <p>Самое странное: <b style="color:var(--pink)">ты ничего не почувствуешь</b>. Для большой чёрной дыры — никакой «стенки», никакого щелчка. Ты пересёк границу и даже не заметил. Но теперь всё — вернуться назад ты больше не можешь никак. Все пути ведут только внутрь.</p>
+      </div>
+    </div>
+    <div class="fall-step">
+      <div class="num">4</div>
+      <div>
+        <h4>Спагеттификация</h4>
+        <p>А вот дальше — плохо. Чем ближе к центру, тем <b>сильнее разница притяжения</b> между твоей головой и твоими ногами. Ноги ближе к центру — их тянет сильнее. Тебя начинает <b style="color:var(--red)">растягивать в длинную нитку</b>. Учёные серьёзно называют это <b>«спагеттификация»</b> (от слова «спагетти») — это реальный научный термин!</p>
+      </div>
+    </div>
+    <div class="fall-step">
+      <div class="num">5</div>
+      <div>
+        <h4>Сингулярность</h4>
+        <p>В какой-то момент ты достигнешь центра. Но что там — мы честно не знаем. По формулам — ты должен стать частью сингулярности. По более современным теориям — может быть, что-то ещё. Это и правда тайна, и она, к сожалению, для тебя навсегда.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🍝</div>
+    <div class="content">
+      <h5>Аналогия про растягивание</h5>
+      <p>Возьми кусок пластилина и потяни за два края. Сначала он просто растягивается. А потом становится тонкой ниткой и рвётся. С тобой будет то же самое: сначала растянет, потом разорвёт на атомы, потом эти атомы ещё растянет. И всё это — за доли секунды.</p>
+    </div>
+  </div>
+
+  <div class="text-block pink-block">
+    <p>Спагеттификация — это не потому что ты попал «куда-то страшное», а потому что чёрная дыра слишком маленькая. Сила тяжести меняется очень резко на коротком расстоянии. Для <b>сверхмассивной</b> чёрной дыры (как в центре галактики) ты бы, теоретически, мог пересечь горизонт событий и пожить там ещё некоторое время спокойно — потому что разница гравитации на твоём росте почти незаметна. Но выбраться оттуда всё равно уже нельзя.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 6: КАК НАХОДЯТ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 6 · Охота</span>
+  <h2>Как находить то, что ничего не светит?</h2>
+  <p class="lead">Это же задача со звёздочкой: найти объект, который <b>сам не испускает свет</b> и который нельзя увидеть напрямую. А мы их находим — и даже знаем несколько десятков штук. Как?</p>
+
+  <div class="text-block blue-block">
+    <p>Учёные охотятся за чёрными дырами тремя хитрыми способами.</p>
+    <p><b>Способ первый — по соседям.</b> Если у чёрной дыры есть звезда-компаньонка, чёрная дыра тянет с неё вещество. Газ с звезды закручивается в <b>аккреционный диск</b> вокруг чёрной дыры, разгоняется до безумной скорости и разогревается до миллионов градусов. Такой горячий газ излучает <b>рентгеновские лучи</b>, которые ловят специальные телескопы в космосе. Вот мы и знаем: где-то там, в центре этого свечения, — чёрная дыра.</p>
+    <p><b>Способ второй — по тому, что звёзды крутятся непонятно вокруг чего.</b> В центре нашей галактики астрономы 30 лет снимали, как звёзды движутся. Они крутятся вокруг какой-то невидимой точки. Посчитали массу — 4 миллиона Солнц. А свет эта точка не испускает. Значит, чёрная дыра. За это открытие в 2020 году дали Нобелевскую премию по физике.</p>
+    <p><b>Способ третий — гравитационные волны.</b> Когда две чёрные дыры сталкиваются и сливаются в одну, они сотрясают саму ткань пространства — это называется <b>гравитационные волны</b>. Их удалось впервые поймать в 2015 году на установке LIGO. Фактически, мы «услышали» слияние чёрных дыр.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🎣</div>
+    <div class="content">
+      <h5>Как увидеть невидимое</h5>
+      <p>Представь, что в пруду плавает прозрачная рыба — её саму не видно. Но по кругам на воде, по тому, как вздрагивают водоросли, по исчезающей рыбьей еде — ты точно знаешь: она там есть. С чёрными дырами мы примерно так и работаем.</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>В 2019 году произошло нечто невероятное — учёные <b>впервые сфотографировали тень чёрной дыры</b>. Это была сверхмассивная чёрная дыра в центре галактики M87, в 55 миллионах световых лет от нас. Чтобы её увидеть, телескопы со всего мира — от Антарктиды до Мексики — одновременно смотрели в одну точку, работая как один огромный телескоп размером с Землю.</p>
+    <p>На фотографии — светящееся оранжевое кольцо с чёрным кругом посередине. Это и есть горизонт событий, точка невозврата. Мы наконец увидели её своими глазами. А в 2022 году получили фото и нашей собственной — <b>Стрельца A*</b> в центре Млечного Пути.</p>
+  </div>
+
+  <details>
+    <summary>Как работает LIGO — как «услышать» чёрную дыру? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>LIGO (читается «лайго») — это два огромных прибора в США, длиной по 4 километра каждый. Представь букву L, две «ножки» которой — четырёхкилометровые трубы, в которых туда-сюда бегает лазерный луч.</p>
+      <p>Когда мимо Земли проходит гравитационная волна, она <b>растягивает и сжимает пространство</b> на крошечную долю. Настолько крошечную, что одна «ножка» становится длиннее другой на <b>одну тысячную диаметра протона</b>. Невообразимо мало! Но LIGO настолько точен, что это замечает — по тому, как лазер, отражённый от зеркал в конце труб, вернулся чуть-чуть в другом ритме.</p>
+      <p>14 сентября 2015 года LIGO впервые в истории поймал такую волну. Её источник — две чёрные дыры (по 30 солнечных масс каждая), которые 1,3 миллиарда лет назад слились в одну. За доли секунды слияния в волны превратилась энергия трёх наших Солнц. Эту волну и услышал LIGO — через 1,3 миллиарда лет пути.</p>
+      <p>За это открытие в 2017 году дали Нобелевскую премию. И с тех пор LIGO ловит такие слияния уже десятками — в среднем одно в неделю.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Три типа чёрных дыр — чем они отличаются? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p><b>Звёздные</b> — самые обычные. Образуются из умерших гигантских звёзд. Масса — от 5 до 100 Солнц. Размер горизонта событий — десятки километров. В нашей галактике их, по оценкам, около 100 миллионов. Мы знаем несколько десятков конкретно.</p>
+      <p><b>Промежуточные</b> — средние по размеру. Массой в тысячи Солнц. Откуда они берутся — не до конца понятно; возможно, это слияние нескольких звёздных, которые встретились в плотном звёздном скоплении. Таких нашли мало, и каждая находка — маленькое событие в науке.</p>
+      <p><b>Сверхмассивные</b> — гиганты в центрах галактик. Массой от миллионов до миллиардов Солнц. Стрелец A* (наша) — 4 миллиона солнечных масс. Чёрная дыра в центре M87 — 6,5 <b>миллиардов</b>. Откуда они взялись — одна из главных загадок астрономии.</p>
+      <p>Есть гипотеза ещё про <b>первобытные</b> чёрные дыры — крошечные, образовавшиеся прямо при рождении Вселенной. Их никто не видел, но теоретически они могли бы быть очень маленькими (меньше атома) и летать по галактике. Если они есть — то возможно, именно они и составляют знаменитую «тёмную материю». Но это пока гипотеза.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 7: РАЗМЕРЫ -->
+<section class="block container">
+  <span class="section-label label-7">Часть 7 · Масштабы</span>
+  <h2>Насколько большими они бывают?</h2>
+  <p class="lead">Чёрные дыры бывают разных размеров — от звёздных крошек до космических монстров. Вот они рядом, для сравнения:</p>
+
+  <div class="size-grid">
+    <div class="size-card">
+      <div class="size-viz">
+        <div class="size-blob" style="width:30px;height:30px"></div>
+      </div>
+      <h4>Звёздная</h4>
+      <p>~30 км<br>Масса: 10 Солнц<br>Гибель гигантской звезды</p>
+    </div>
+    <div class="size-card">
+      <div class="size-viz">
+        <div class="size-blob" style="width:50px;height:50px"></div>
+      </div>
+      <h4>Средняя</h4>
+      <p>~3 000 км<br>Масса: 1 000 Солнц<br>Редкость, мало изучены</p>
+    </div>
+    <div class="size-card">
+      <div class="size-viz">
+        <div class="size-blob" style="width:70px;height:70px"></div>
+      </div>
+      <h4>Стрелец A*</h4>
+      <p>12 млн км<br>Масса: 4 млн Солнц<br>В центре нашей галактики</p>
+    </div>
+    <div class="size-card">
+      <div class="size-viz">
+        <div class="size-blob" style="width:90px;height:90px"></div>
+      </div>
+      <h4>M87*</h4>
+      <p>38 млрд км<br>Масса: 6,5 млрд Солнц<br>Первое фото чёрной дыры</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Самая большая известная чёрная дыра называется <b>TON 618</b>. Её масса — <b>66 миллиардов Солнц</b>. Горизонт событий — в <b>1300 раз больше</b>, чем расстояние от Земли до Солнца. Если бы она оказалась на месте нашего Солнца — вся Солнечная система целиком поместилась бы у неё внутри.</p>
+    <p>Такие гиганты — чрезвычайная редкость. Большинство сверхмассивных чёрных дыр в центрах галактик всё-таки скромнее — миллионы Солнц, а не миллиарды.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 8: В ЖИЗНИ -->
+<section class="block container">
+  <span class="section-label label-3">Часть 8 · Где мы их встречаем</span>
+  <h2>Где чёрные дыры рядом с нами?</h2>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">🌌</span>
+      <h4>Центр Млечного Пути</h4>
+      <p>Стрелец A* — наша «домашняя» чёрная дыра в 26 000 световых лет отсюда</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">📷</span>
+      <h4>Первое фото (2019)</h4>
+      <p>Тень чёрной дыры в галактике M87 — снято телескопом Event Horizon</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌊</span>
+      <h4>LIGO ловит слияния</h4>
+      <p>Детекторы в США «слышат» столкновения чёрных дыр каждую неделю</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🔭</span>
+      <h4>Рентгеновские двойные</h4>
+      <p>Когда чёрная дыра ест соседнюю звезду, она ярко светится в рентгене</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🎬</span>
+      <h4>В кино и книгах</h4>
+      <p>«Интерстеллар» был сделан с реальными физиками — модель Гаргантюи верная</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🧭</span>
+      <h4>GPS в телефоне</h4>
+      <p>Чёрных дыр в нём нет, но релятивистская поправка Эйнштейна — есть</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">⭐</span>
+      <h4>Судьба больших звёзд</h4>
+      <p>Все звёзды тяжелее 20 Солнц рано или поздно станут чёрными дырами</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌠</span>
+      <h4>Квазары</h4>
+      <p>Самые яркие объекты Вселенной — это сверхмассивные чёрные дыры, жадно пожирающие галактики</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACT -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт</h3>
+    <p>Когда ты смотришь на фото чёрной дыры в галактике M87, ты видишь свет, который <b style="color:var(--purple)">покинул её 55 миллионов лет назад</b>. Когда этот свет тронулся в путь — на Земле ещё бродили существа, похожие на лемуров. Динозавры вымерли всего «недавно», 10 миллионов лет до того. А свет летел, летел, летел — и попал наконец-то в наш телескоп. Мы в буквальном смысле смотрим в прошлое.</p>
+  </div>
+</section>
+
+<!-- НАЗАД -->
+<section class="block container" style="text-align:center;padding-top:20px">
+  <a href="../index.html" class="back-home">← На главную</a>
+</section>
+
+<footer>
+  Сделано с <span class="heart">❤</span> для любопытных учёных
+  <div class="signature">Kids Wiki · 18 апреля 2026</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

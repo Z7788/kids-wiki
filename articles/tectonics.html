@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Плиты, вулканы и землетрясения</title>
+<meta name="description" content="Как устроена Земля внутри, почему континенты плывут, откуда берутся горы и почему дрожит земля.">
+<meta name="emoji" content="🌋">
+<meta name="date" content="2026-04-18">
+<meta name="reading-time" content="25 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 140, 66, 0.15);
+    border: 2px solid var(--orange);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--red));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(255, 140, 66, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* HERO EARTH VISUAL */
+  .hero-earth {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%,
+        #ffd93d 0%,
+        #ff8c42 18%,
+        #ff4757 38%,
+        #7a1e1e 60%,
+        #2d1050 85%,
+        #0a0e27 100%);
+    box-shadow:
+      0 0 60px rgba(255, 140, 66, 0.35),
+      inset -30px -30px 60px rgba(0,0,0,0.6);
+    animation: rotate-earth 24s linear infinite;
+    margin: 20px 0;
+  }
+
+  .hero-earth::before {
+    content: '';
+    position: absolute;
+    top: 10%; left: 15%;
+    width: 30%; height: 22%;
+    background: rgba(107, 207, 127, 0.6);
+    border-radius: 50% 40% 60% 30%;
+    box-shadow: 0 0 15px rgba(107, 207, 127, 0.4);
+  }
+
+  .hero-earth::after {
+    content: '';
+    position: absolute;
+    bottom: 18%; right: 12%;
+    width: 28%; height: 28%;
+    background: rgba(107, 207, 127, 0.5);
+    border-radius: 40% 50% 30% 60%;
+    box-shadow: 0 0 15px rgba(107, 207, 127, 0.4);
+  }
+
+  @keyframes rotate-earth {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .scroll-hint {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block { padding: 60px 20px; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-2 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-3 { background: rgba(255, 140, 66, 0.15); color: var(--orange); }
+  .label-4 { background: rgba(255, 71, 87, 0.15); color: var(--red); }
+  .label-5 { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .label-6 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-7 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-8 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCKS */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--yellow); }
+
+  .text-block.red-block { border-color: var(--red); }
+  .text-block.red-block b { color: var(--orange); }
+
+  .text-block.orange-block { border-color: var(--orange); }
+  .text-block.orange-block b { color: var(--yellow); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.blue-block { border-color: var(--blue); }
+  .text-block.blue-block b { color: var(--blue); }
+
+  .text-block.yellow-block { border-color: var(--yellow); }
+  .text-block.yellow-block b { color: var(--yellow); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon { font-size: 2rem; flex-shrink: 0; }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* DETAILS */
+  details {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(74, 158, 255, 0.04));
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    padding: 4px 24px;
+    margin: 18px 0;
+    transition: all 0.25s ease;
+  }
+
+  details[open] {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.06));
+    border-color: rgba(78, 205, 196, 0.4);
+  }
+
+  details summary {
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::before { transform: rotate(90deg); }
+
+  details summary .tag-more {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  details .details-body {
+    padding: 4px 0 18px 24px;
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  details .details-body p { margin-bottom: 12px; }
+  details .details-body p:last-child { margin-bottom: 0; }
+  details .details-body b { color: var(--yellow); }
+
+  /* EARTH LAYERS DIAGRAM */
+  .earth-layers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .earth-slice {
+    background: rgba(255, 140, 66, 0.05);
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .layer-ball {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    max-width: 100%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at center,
+        #ffd93d 0%,
+        #ffd93d 10%,
+        #ff8c42 10%,
+        #ff8c42 22%,
+        #ff4757 22%,
+        #ff4757 38%,
+        #7a1e1e 38%,
+        #7a1e1e 68%,
+        #6bcf7f 68%,
+        #6bcf7f 74%,
+        #3d6fa5 74%,
+        #3d6fa5 100%);
+    box-shadow: 0 0 40px rgba(255, 140, 66, 0.3);
+    margin: 0 auto;
+  }
+
+  .layer-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .layer-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border-left: 4px solid;
+  }
+
+  .layer-row.l-crust { border-color: var(--green); }
+  .layer-row.l-mantle { border-color: #7a1e1e; }
+  .layer-row.l-outer { border-color: var(--red); }
+  .layer-row.l-inner { border-color: var(--yellow); }
+
+  .layer-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 12px currentColor;
+  }
+
+  .layer-dot.d-crust { background: var(--green); color: var(--green); }
+  .layer-dot.d-mantle { background: #7a1e1e; color: #7a1e1e; }
+  .layer-dot.d-outer { background: var(--red); color: var(--red); }
+  .layer-dot.d-inner { background: var(--yellow); color: var(--yellow); }
+
+  .layer-row .l-info b {
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.05rem;
+  }
+
+  .layer-row .l-info span {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* PLATE MAP */
+  .plate-map {
+    background: linear-gradient(135deg, rgba(74, 158, 255, 0.1), rgba(78, 205, 196, 0.1));
+    border-radius: 20px;
+    padding: 40px 24px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .plate-map svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .plate-map .map-caption {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  /* PANGAEA DRIFT */
+  .pangaea-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .pangaea-step {
+    background: rgba(107, 207, 127, 0.06);
+    border: 1px solid rgba(107, 207, 127, 0.2);
+    border-radius: 16px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .pangaea-step .stage {
+    color: var(--green);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .pangaea-step .era {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+  }
+
+  .pangaea-step svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* BOUNDARY CARDS */
+  .boundary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+  }
+
+  .boundary-card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 24px;
+    border-top: 4px solid;
+  }
+
+  .boundary-card.b-diverge { border-color: var(--cyan); }
+  .boundary-card.b-converge { border-color: var(--red); }
+  .boundary-card.b-slide { border-color: var(--yellow); }
+
+  .boundary-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .boundary-svg {
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 12px;
+    margin: 14px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .boundary-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .boundary-card p:last-child { margin-bottom: 0; }
+
+  .boundary-card p b { color: var(--text); }
+
+  .boundary-card .example {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .boundary-card.b-diverge .example { background: rgba(78, 205, 196, 0.18); color: var(--cyan); }
+  .boundary-card.b-converge .example { background: rgba(255, 71, 87, 0.18); color: var(--red); }
+  .boundary-card.b-slide .example { background: rgba(255, 217, 61, 0.18); color: var(--yellow); }
+
+  /* QUAKE VISUAL (ruler snap) */
+  .quake-visual {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.1), rgba(255, 140, 66, 0.1));
+    border-radius: 18px;
+    padding: 32px 20px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .quake-visual svg { max-width: 100%; height: auto; }
+
+  .quake-visual p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-top: 12px;
+  }
+
+  /* RICHTER SCALE */
+  .richter {
+    background: rgba(255, 217, 61, 0.06);
+    border: 1px dashed rgba(255, 217, 61, 0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .richter h4 {
+    color: var(--yellow);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .richter-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+  }
+
+  .richter-row:last-child { border: none; }
+
+  .richter-badge {
+    background: linear-gradient(135deg, var(--yellow), var(--orange));
+    color: #0a0e27;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: 'Fredoka', sans-serif;
+    min-width: 56px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .richter-row .desc {
+    color: var(--text);
+    font-size: 0.98rem;
+    line-height: 1.5;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .richter-row .desc b { color: var(--yellow); }
+
+  /* VOLCANO DIAGRAM */
+  .volcano-viz {
+    background: linear-gradient(180deg, rgba(74, 158, 255, 0.08) 0%, rgba(255, 71, 87, 0.08) 100%);
+    border-radius: 18px;
+    padding: 20px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .volcano-viz svg { max-width: 100%; height: auto; }
+
+  .volcano-viz .caption {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+  /* COMPARE (два типа вулканов) */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 24px 0;
+  }
+
+  .compare-col {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px;
+    border-top: 4px solid;
+  }
+
+  .compare-col.shield-col { border-color: var(--cyan); }
+  .compare-col.strato-col { border-color: var(--red); }
+
+  .compare-col h3 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .compare-col ul { list-style: none; }
+
+  .compare-col li {
+    padding: 10px 0;
+    padding-left: 28px;
+    position: relative;
+    color: var(--muted);
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .compare-col li:last-child { border-bottom: none; }
+
+  .compare-col li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 16px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+  }
+
+  .shield-col li::before { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .strato-col li::before { background: var(--red); box-shadow: 0 0 8px var(--red); }
+
+  .compare-col li b { color: var(--text); }
+
+  /* TSUNAMI WAVE */
+  .tsunami-viz {
+    background: linear-gradient(180deg, rgba(74, 158, 255, 0.15), rgba(78, 205, 196, 0.05));
+    border-radius: 18px;
+    padding: 20px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .tsunami-viz svg { max-width: 100%; height: auto; }
+
+  .tsunami-viz .caption {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+  /* SAFETY STEPS */
+  .safety {
+    background: rgba(107, 207, 127, 0.06);
+    border: 1px solid rgba(107, 207, 127, 0.25);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .safety h4 {
+    color: var(--green);
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+  }
+
+  .safety ol {
+    padding-left: 24px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .safety ol li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+
+  .safety ol li b { color: var(--green); }
+
+  /* HISTORY CARDS */
+  .history-card {
+    background: linear-gradient(135deg, rgba(26,33,80,0.9), rgba(20, 26, 60, 0.9));
+    border: 1px solid rgba(255, 107, 157, 0.15);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .history-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--pink), var(--red));
+  }
+
+  .history-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .history-emoji {
+    font-size: 2.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .history-title h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .history-date {
+    color: var(--pink);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .history-card p {
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1.02rem;
+    margin-bottom: 14px;
+  }
+
+  .history-card p:last-child { margin-bottom: 0; }
+
+  .history-card b { color: var(--yellow); }
+
+  /* WHERE GRID */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .where-card h4 { font-size: 1.1rem; margin-bottom: 6px; }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji { font-size: 3rem; margin-bottom: 12px; }
+
+  .fun-fact h3 {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  /* LINK TO OTHER ARTICLE */
+  .crosslink {
+    background: rgba(78, 205, 196, 0.06);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+
+  .crosslink p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .crosslink a {
+    color: var(--cyan);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px dashed var(--cyan);
+  }
+
+  .crosslink a:hover { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+  /* BACK HOME */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 26px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  .back-home:hover {
+    background: rgba(78, 205, 196, 0.2);
+    transform: translateX(-4px);
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .signature {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 700px) {
+    .earth-layers { grid-template-columns: 1fr; }
+    .compare { grid-template-columns: 1fr; }
+    .pangaea-row { grid-template-columns: 1fr; gap: 12px; }
+    .layer-ball { width: 220px; height: 220px; }
+    .earth-slice { min-height: 300px; padding: 24px 16px; }
+    .history-card { padding: 24px 20px; }
+    .history-head { gap: 12px; }
+    .history-emoji { font-size: 2.2rem; }
+    details { padding: 2px 18px; }
+    details .details-body { padding-left: 12px; }
+    .card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🌋 Наука для любопытных</span>
+  <h1>Плиты,<br>вулканы<br>и землетрясения</h1>
+  <p>Почему земля под ногами дрожит, откуда берутся горы, и как материки потихоньку плывут по океану</p>
+
+  <div class="hero-earth"></div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ЧАСТЬ 1: ВНУТРИ ЗЕМЛИ -->
+<section class="block container">
+  <span class="section-label label-1">Часть 1 · Загляни внутрь</span>
+  <h2>Что спрятано у нас под ногами?</h2>
+  <p class="lead">Земля только снаружи кажется твёрдой и спокойной. Но если мысленно разрезать её, как арбуз, внутри ты увидишь что-то совершенно неожиданное — раскалённую огненную кашу.</p>
+
+  <div class="text-block">
+    <p>Представь себе большой шар — нашу Землю. Сверху на неё нанесён тонкий слой, по которому мы ходим. Это <b>земная кора</b>. Она из твёрдых камней, и толщина её — всего от 5 до 70 километров. Звучит как много? А теперь сравни с размером Земли — её диаметр 12 742 километра. Кора по сравнению с ней — как тоненькая шкурка на яблоке.</p>
+    <p>А под корой начинается самое интересное. Там находится <b>мантия</b> — гигантский слой горячего вещества, которое ведёт себя необычно: оно и не жидкое, и не твёрдое. Это густая, раскалённая, медленно текущая порода. Её толщина — почти 3000 км.</p>
+    <p>Ещё глубже — <b>внешнее ядро</b>. Это по-настоящему жидкий металл: расплавленное железо и никель. А в самом центре — <b>внутреннее ядро</b>, такое же горячее, но из-за чудовищного давления сверху — твёрдое. Температура там около <b>6000 °C</b> — как на поверхности Солнца!</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🥚</div>
+    <div class="content">
+      <h5>Главная аналогия всей статьи</h5>
+      <p>Представь себе <b style="color:var(--yellow)">сваренное вкрутую яйцо</b>. Тонкая скорлупа — это земная кора. Белок — мантия. Жёлток — ядро. Теперь мысленно потрескай скорлупу — и держи этот образ в голове. Мы к нему ещё вернёмся.</p>
+    </div>
+  </div>
+
+  <div class="card earth-layers">
+    <div class="earth-slice">
+      <div class="layer-ball"></div>
+    </div>
+    <div class="layer-labels">
+      <div class="layer-row l-crust">
+        <div class="layer-dot d-crust"></div>
+        <div class="l-info">
+          <b>Кора</b>
+          <span>5–70 км, твёрдая, по ней мы ходим. Температура до 400 °C</span>
+        </div>
+      </div>
+      <div class="layer-row l-mantle">
+        <div class="layer-dot d-mantle"></div>
+        <div class="l-info">
+          <b>Мантия</b>
+          <span>~2900 км, густая раскалённая порода. От 500 до 4000 °C</span>
+        </div>
+      </div>
+      <div class="layer-row l-outer">
+        <div class="layer-dot d-outer"></div>
+        <div class="l-info">
+          <b>Внешнее ядро</b>
+          <span>~2200 км, жидкое железо и никель. Около 5000 °C</span>
+        </div>
+      </div>
+      <div class="layer-row l-inner">
+        <div class="layer-dot d-inner"></div>
+        <div class="l-info">
+          <b>Внутреннее ядро</b>
+          <span>~1200 км, твёрдое от давления. Около 6000 °C</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-block orange-block">
+    <p>Почему внутри так горячо? Во-первых, Земля образовалась 4,5 миллиарда лет назад из столкновений огромных кусков камня — и всё это тепло от ударов осталось внутри, как в термосе. Во-вторых, в глубине до сих пор потихоньку распадаются <b>радиоактивные элементы</b> (уран, торий), и они греют планету изнутри, как крошечная невидимая батарея.</p>
+    <p>И самое главное: горячая мантия <b>медленно движется</b>. Горячее вещество снизу поднимается вверх, остывает у поверхности, опускается обратно — получается огромный круговорот. Именно этот круговорот и двигает кору сверху. Как суп в кастрюле: если снизу греть, а сверху остужать — суп начинает медленно циркулировать.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🍲</div>
+    <div class="content">
+      <h5>Аналогия: густой суп</h5>
+      <p>Мантия — это как очень-очень густой, очень медленный суп. Если капнуть ложкой — останется след. А если оставить его кипеть часами, внутри всё равно пойдут медленные потоки. За миллион лет эти потоки успевают сдвинуть целые континенты.</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>А как учёные узнали, что там внутри? Никто же туда не копал! <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Действительно, самая глубокая скважина в мире — <b>Кольская сверхглубокая</b> на севере России — дошла всего до 12,3 км. Это почти ничего по сравнению с радиусом Земли в 6371 км. Значит, внутреннее ядро мы никогда не видели своими глазами.</p>
+      <p>Но у учёных есть хитрый трюк — <b>сейсмические волны</b>. Когда где-то происходит землетрясение, по планете разбегаются упругие волны. Они как рентген: проходят через разные слои с разной скоростью. В твёрдом веществе волны идут быстрее, в жидком — медленнее, а некоторые виды волн в жидкости вообще не проходят.</p>
+      <p>Повесив сейсмометры по всему миру, учёные смотрят, когда и под каким углом волны приходят от одного и того же землетрясения. По этим «теням» и скоростям они и вычислили: вот кора, вот мантия, а вот внешнее ядро жидкое (туда некоторые волны не проходят), а внутреннее — снова твёрдое. Это как просветить арбуз фонариком и по теням понять, где косточки.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 2: ПЛИТЫ -->
+<section class="block container">
+  <span class="section-label label-2">Часть 2 · Плиты</span>
+  <h2>Кора — это не одна целая штука, а куча кусков</h2>
+  <p class="lead">Самый важный секрет геологии: земная кора <b style="color:var(--green)">треснула</b> на большие куски. Эти куски называют <b>тектоническими плитами</b>, и они ползают по мягкой мантии, как льдины по реке.</p>
+
+  <div class="text-block green-block">
+    <p>Помнишь наше сваренное яйцо? Теперь вообрази, что ты легонько стукнул его и скорлупа треснула — но не развалилась, а осталась лежать кусочками на белке. Вот именно так устроена Земля: <b>кора расколота примерно на 15 больших плит</b> плюс несколько мелких.</p>
+    <p>Каждая плита — это огромный кусок камня, на котором могут быть и сухие континенты, и дно океана. Плиты ползают по горячей мантии очень-очень медленно. Насколько медленно? Примерно <b>2–5 см в год</b> — столько же, сколько растут у тебя ногти!</p>
+    <p>Звучит несерьёзно. Но подожди: за <b>миллион</b> лет плита уезжает на 20–50 километров. А за сотни миллионов лет — перемещается через целую планету. Именно это и есть главный секрет нашей Земли.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🍕</div>
+    <div class="content">
+      <h5>Аналогия: потрескавшаяся корка на горячем пироге</h5>
+      <p>Представь себе свежий горячий пирог, который ты достал из печки. Сверху у него хрустящая корка, а под ней — мягкая, горячая начинка. Если корка треснула на куски — они будут медленно сползать по мягкой начинке и толкать друг друга краями. Это ровно то, что происходит с нашей планетой прямо сейчас, пока ты читаешь этот текст.</p>
+    </div>
+  </div>
+
+  <div class="plate-map">
+    <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background ocean -->
+      <rect x="0" y="0" width="600" height="340" fill="#1a2150" rx="12"/>
+      <!-- Grid dots -->
+      <g fill="rgba(255,255,255,0.08)">
+        <circle cx="100" cy="50" r="1"/><circle cx="200" cy="80" r="1"/>
+        <circle cx="400" cy="100" r="1"/><circle cx="500" cy="260" r="1"/>
+        <circle cx="50" cy="280" r="1"/><circle cx="300" cy="310" r="1"/>
+      </g>
+
+      <!-- Тихоокеанская (Pacific) -->
+      <polygon points="0,100 130,80 180,180 150,260 0,280" fill="#4a9eff" opacity="0.35" stroke="#4ecdc4" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="60" y="190" fill="#f1f5ff" font-family="Fredoka" font-size="11" font-weight="600">ТИХООКЕАНСКАЯ</text>
+
+      <!-- Североамериканская -->
+      <polygon points="130,40 260,50 270,150 180,180 130,80" fill="#6bcf7f" opacity="0.35" stroke="#6bcf7f" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="150" y="100" fill="#f1f5ff" font-family="Fredoka" font-size="10" font-weight="600">С. АМЕРИКА</text>
+
+      <!-- Южноамериканская -->
+      <polygon points="180,180 270,150 290,260 200,280 150,260" fill="#a78bfa" opacity="0.35" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="200" y="220" fill="#f1f5ff" font-family="Fredoka" font-size="10" font-weight="600">Ю. АМЕРИКА</text>
+
+      <!-- Африканская -->
+      <polygon points="270,150 360,130 380,250 290,260" fill="#ff8c42" opacity="0.4" stroke="#ff8c42" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="295" y="200" fill="#f1f5ff" font-family="Fredoka" font-size="10" font-weight="600">АФРИКА</text>
+
+      <!-- Евразийская -->
+      <polygon points="260,50 510,50 500,140 360,130 270,150" fill="#ffd93d" opacity="0.3" stroke="#ffd93d" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="360" y="95" fill="#f1f5ff" font-family="Fredoka" font-size="11" font-weight="600">ЕВРАЗИЯ</text>
+
+      <!-- Индийская/Австралийская -->
+      <polygon points="380,140 500,140 520,240 400,250 380,200" fill="#4ecdc4" opacity="0.35" stroke="#4ecdc4" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="410" y="200" fill="#f1f5ff" font-family="Fredoka" font-size="10" font-weight="600">ИНДО-АВСТР.</text>
+
+      <!-- Антарктическая -->
+      <polygon points="0,280 600,280 600,340 0,340" fill="#f1f5ff" opacity="0.3" stroke="#f1f5ff" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="260" y="315" fill="#0a0e27" font-family="Fredoka" font-size="11" font-weight="700">АНТАРКТИЧЕСКАЯ</text>
+
+      <!-- Arrows showing direction -->
+      <g stroke="#ff4757" stroke-width="2" fill="#ff4757">
+        <line x1="80" y1="150" x2="50" y2="130" marker-end="url(#arrow1)"/>
+        <line x1="230" y1="200" x2="260" y2="220" marker-end="url(#arrow1)"/>
+        <line x1="320" y1="190" x2="350" y2="170" marker-end="url(#arrow1)"/>
+        <line x1="450" y1="200" x2="430" y2="170" marker-end="url(#arrow1)"/>
+      </g>
+      <defs>
+        <marker id="arrow1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff4757"/>
+        </marker>
+      </defs>
+
+      <!-- Border -->
+      <rect x="0" y="0" width="600" height="340" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" rx="12"/>
+    </svg>
+    <div class="map-caption">Крупные плиты Земли (упрощённо). Красные стрелки — направление движения. Пунктир — границы плит.</div>
+  </div>
+
+  <!-- WOW-ФИШКА: Пангея -->
+  <div class="text-block purple-block">
+    <p>А теперь внимание, <b>самый удивительный факт</b> этого раздела. Посмотри на карту мира: видишь, как восточный берег <b>Южной Америки</b> и западный берег <b>Африки</b> — будто два кусочка одного пазла? Это не случайность.</p>
+    <p>Когда-то — 250 миллионов лет назад, во времена динозавров — все континенты были <b>одним огромным суперконтинентом</b>. Его назвали <b>Пангея</b>, что по-гречески значит «вся земля». А потом Пангея раскололась, и её куски поехали в разные стороны. Африка и Южная Америка уплыли друг от друга, и между ними возник Атлантический океан.</p>
+    <p>И самое важное: <b>они продолжают расходиться прямо сейчас</b>! Каждый год Атлантика становится шире примерно на 2,5 см. Пока ты читаешь это предложение, Америка отодвинулась от Африки на доли миллиметра. Медленно, но неумолимо.</p>
+  </div>
+
+  <div class="pangaea-row">
+    <div class="pangaea-step">
+      <div class="stage">Шаг 1</div>
+      <div class="era">250 млн лет назад</div>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" fill="#4a9eff" opacity="0.3"/>
+        <path d="M 30,25 Q 55,15 75,35 Q 80,60 65,80 Q 40,85 20,65 Q 15,40 30,25 Z" fill="#6bcf7f" stroke="#a78bfa" stroke-width="1"/>
+        <text x="50" y="55" text-anchor="middle" fill="#0a0e27" font-family="Fredoka" font-size="9" font-weight="700">ПАНГЕЯ</text>
+      </svg>
+      <p style="margin-top:10px;color:var(--muted);font-size:0.85rem">Все материки вместе — один огромный суперконтинент</p>
+    </div>
+    <div class="pangaea-step">
+      <div class="stage">Шаг 2</div>
+      <div class="era">100 млн лет назад</div>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" fill="#4a9eff" opacity="0.3"/>
+        <path d="M 18,30 Q 35,20 42,40 Q 38,65 28,75 Q 15,65 18,30 Z" fill="#a78bfa" stroke="#a78bfa" stroke-width="1"/>
+        <path d="M 55,25 Q 80,30 78,55 Q 72,78 55,75 Q 48,50 55,25 Z" fill="#ff8c42" stroke="#ff8c42" stroke-width="1"/>
+      </svg>
+      <p style="margin-top:10px;color:var(--muted);font-size:0.85rem">Пангея раскололась, появился Атлантический океан</p>
+    </div>
+    <div class="pangaea-step">
+      <div class="stage">Шаг 3</div>
+      <div class="era">Сегодня</div>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" fill="#4a9eff" opacity="0.3"/>
+        <path d="M 12,28 Q 28,22 35,38 Q 30,58 20,70 Q 10,55 12,28 Z" fill="#a78bfa" stroke="#a78bfa" stroke-width="1"/>
+        <path d="M 62,22 Q 85,28 85,52 Q 78,82 60,78 Q 55,48 62,22 Z" fill="#ff8c42" stroke="#ff8c42" stroke-width="1"/>
+        <g stroke="#ff4757" stroke-width="1" fill="#ff4757">
+          <line x1="38" y1="50" x2="30" y2="50"/>
+          <polygon points="30,50 34,47 34,53" fill="#ff4757"/>
+          <line x1="58" y1="50" x2="66" y2="50"/>
+          <polygon points="66,50 62,47 62,53" fill="#ff4757"/>
+        </g>
+      </svg>
+      <p style="margin-top:10px;color:var(--muted);font-size:0.85rem">Материки далеко друг от друга и продолжают расходиться</p>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">💅</div>
+    <div class="content">
+      <h5>Насколько это медленно</h5>
+      <p>Скорость движения плит — <b style="color:var(--purple)">как скорость роста твоих ногтей</b>. Посмотри на свои пальцы — вот ровно столько в год проплывают континенты. Но земля у нас под ногами никогда не останавливается.</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Как учёные доказали, что плиты реально движутся? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Идею предложил немецкий учёный <b>Альфред Вегенер</b> ещё в 1912 году. Он заметил, как совпадают берега Африки и Америки, как совпадают одинаковые окаменелости и породы по разные стороны океана — и смело сказал: раньше материки были вместе! Большинство учёных тогда над ним посмеялись. «Как это камни могут плавать?»</p>
+      <p>Настоящие доказательства появились только в 1960-х, когда учёные начали изучать <b>дно океанов</b>. И обнаружили невероятную вещь: посреди Атлантики идёт гигантский подводный хребет, где <b>из трещины постоянно выходит свежая магма</b>. Она застывает, образует новую кору и расталкивает Америку и Африку в стороны.</p>
+      <p>А главная находка — <b>магнитные полосы</b>. Каждые несколько сотен тысяч лет магнитное поле Земли меняет свою полярность (север становится югом и наоборот). И когда новая лава застывает, она «запоминает», куда был направлен магнит в этот момент. На дне океана получились <b>полосатые узоры</b> — одна полоса с северной полярностью, рядом с южной, потом снова с северной. И эти полосы <b>симметричны</b> по обе стороны от хребта! Будто кто-то разделил штрихкод на две половины и раздвигает их. Это и было неопровержимое доказательство: дно океана реально растёт, а плиты — реально двигаются.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>А почему на Венере и Марсе нет тектоники плит? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Земля — удивительное исключение. У наших соседей по солнечной системе плит нет. Почему?</p>
+      <p><b>Марс</b> — слишком маленький и уже почти остыл внутри. Его мантия больше не кипит так сильно, чтобы двигать кору. Поэтому у Марса кора одна сплошная, как шкура на остывшем пудинге. Зато там есть вулкан <b>Олимп</b> — самая большая гора в солнечной системе, высотой 25 км. Он такой огромный именно потому, что Марс не двигался: магма тысячи веков лилась в одно и то же место и росла всё выше.</p>
+      <p><b>Венера</b> по размеру почти как Земля и внутри у неё тоже горячо. Но на Венере <b>нет воды</b>. А вода, оказывается, очень важна для тектоники плит: она смазывает границы, делает мантию более «текучей», помогает плитам двигаться и нырять друг под друга. Без воды плиты как будто «зависают» — мантия всё равно кипит, но кора стоит на месте, пока не взорвётся по всей планете сразу. Учёные думают, что у Венеры каждые несколько сотен миллионов лет вся поверхность переворачивается одним махом.</p>
+      <p>Получается, на Земле сложилось уникальное сочетание: достаточно горячее нутро + много воды. И поэтому плиты едут, океаны обновляются, рождаются горы. И именно благодаря этому на Земле возникла жизнь такой, какой мы её знаем — плиты перемешивают минералы, удерживают углекислый газ в нужном количестве, поддерживают климат.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 3: ГРАНИЦЫ ПЛИТ -->
+<section class="block container">
+  <span class="section-label label-3">Часть 3 · Границы плит</span>
+  <h2>Три способа, которыми плиты встречаются</h2>
+  <p class="lead">Самые интересные события происходят <b style="color:var(--orange)">на границах плит</b> — там, где два куска коры трутся друг о друга. Всего бывает три варианта встречи.</p>
+
+  <div class="text-block orange-block">
+    <p>Смотри: если две плиты двигаются в разные стороны — они <b>расходятся</b> и между ними появляется щель. Если двигаются навстречу — они <b>сталкиваются</b> и давят друг на друга. А если едут параллельно, но в разные стороны — они просто <b>трутся боками</b>.</p>
+    <p>И каждая из этих ситуаций даёт свои особые вещи на поверхности. Понимая эти три случая, ты уже почти всё знаешь про вулканы, горы и землетрясения.</p>
+  </div>
+
+  <div class="boundary-grid">
+    <!-- Расходятся -->
+    <div class="boundary-card b-diverge">
+      <h4>↔ Расходятся</h4>
+      <div class="boundary-svg">
+        <svg viewBox="0 0 200 100" width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="55" width="90" height="30" fill="#6bcf7f" opacity="0.7" rx="3"/>
+          <rect x="110" y="55" width="90" height="30" fill="#6bcf7f" opacity="0.7" rx="3"/>
+          <!-- magma -->
+          <polygon points="95,85 100,55 105,85" fill="#ff4757"/>
+          <polygon points="92,90 100,50 108,90" fill="#ff8c42" opacity="0.6"/>
+          <!-- arrows -->
+          <line x1="40" y1="45" x2="15" y2="45" stroke="#4ecdc4" stroke-width="2"/>
+          <polygon points="15,45 22,41 22,49" fill="#4ecdc4"/>
+          <line x1="160" y1="45" x2="185" y2="45" stroke="#4ecdc4" stroke-width="2"/>
+          <polygon points="185,45 178,41 178,49" fill="#4ecdc4"/>
+          <!-- ground -->
+          <rect x="0" y="85" width="200" height="15" fill="#7a1e1e" opacity="0.5"/>
+        </svg>
+      </div>
+      <p><b>Что происходит:</b> плиты едут в разные стороны. Между ними образуется щель, в которую снизу поднимается магма и застывает, образуя новую кору.</p>
+      <p><b>Что получается на поверхности:</b> подводные хребты в океане, трещины с вулканами, а иногда — новые моря.</p>
+      <span class="example">Пример: Исландия, Срединно-Атлантический хребет</span>
+    </div>
+
+    <!-- Сходятся -->
+    <div class="boundary-card b-converge">
+      <h4>→← Сходятся</h4>
+      <div class="boundary-svg">
+        <svg viewBox="0 0 200 100" width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="60" width="100" height="25" fill="#6bcf7f" opacity="0.7" rx="3"/>
+          <rect x="100" y="55" width="100" height="30" fill="#a78bfa" opacity="0.7" rx="3"/>
+          <!-- mountain -->
+          <polygon points="80,55 105,25 130,55" fill="#ffd93d"/>
+          <polygon points="90,55 105,35 120,55" fill="#ff8c42"/>
+          <!-- arrows -->
+          <line x1="30" y1="45" x2="60" y2="45" stroke="#ff4757" stroke-width="2"/>
+          <polygon points="60,45 53,41 53,49" fill="#ff4757"/>
+          <line x1="170" y1="45" x2="140" y2="45" stroke="#ff4757" stroke-width="2"/>
+          <polygon points="140,45 147,41 147,49" fill="#ff4757"/>
+          <!-- ground -->
+          <rect x="0" y="85" width="200" height="15" fill="#7a1e1e" opacity="0.5"/>
+        </svg>
+      </div>
+      <p><b>Что происходит:</b> плиты давят друг на друга. Либо одна ныряет под другую, либо они мнутся вверх, как скомканная бумага.</p>
+      <p><b>Что получается:</b> горы, вулканы и самые мощные землетрясения на планете.</p>
+      <span class="example">Пример: Гималаи (Индия давит на Евразию)</span>
+    </div>
+
+    <!-- Скользят -->
+    <div class="boundary-card b-slide">
+      <h4>⇅ Скользят</h4>
+      <div class="boundary-svg">
+        <svg viewBox="0 0 200 100" width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="55" width="95" height="30" fill="#6bcf7f" opacity="0.7" rx="3"/>
+          <rect x="105" y="55" width="95" height="30" fill="#4ecdc4" opacity="0.7" rx="3"/>
+          <!-- crack -->
+          <path d="M 100 55 L 98 65 L 101 70 L 99 80 L 102 85" stroke="#ffd93d" stroke-width="2" fill="none"/>
+          <!-- arrows showing sliding -->
+          <line x1="50" y1="45" x2="80" y2="45" stroke="#ffd93d" stroke-width="2"/>
+          <polygon points="80,45 73,41 73,49" fill="#ffd93d"/>
+          <line x1="150" y1="45" x2="120" y2="45" stroke="#ffd93d" stroke-width="2"/>
+          <polygon points="120,45 127,41 127,49" fill="#ffd93d"/>
+          <!-- ground -->
+          <rect x="0" y="85" width="200" height="15" fill="#7a1e1e" opacity="0.5"/>
+        </svg>
+      </div>
+      <p><b>Что происходит:</b> плиты едут параллельно, но в разные стороны — и трутся боками. Зацепляются, копят напряжение и срываются.</p>
+      <p><b>Что получается:</b> длинные разломы и сильные землетрясения без вулканов.</p>
+      <span class="example">Пример: разлом Сан-Андреас, Калифорния</span>
+    </div>
+  </div>
+
+  <div class="text-block green-block">
+    <p>Самый потрясающий пример сходящихся плит — это <b>Гималаи</b>. 50 миллионов лет назад небольшая Индийская плита поехала на север и врезалась в огромную Евразийскую плиту. Но ни одна из них не утонула в мантии — обе были из лёгкой «континентальной» коры. И поэтому они просто смялись вверх, как автомобиль при столкновении.</p>
+    <p>Так и появились Гималаи — самые высокие горы мира, с <b>Эверестом на вершине (8849 м)</b>. И самое крутое: Индия <b>до сих пор давит на Евразию</b> со скоростью около 5 см в год. А значит, Гималаи <b>продолжают расти</b> — на несколько миллиметров каждый год. Эверест сегодня чуть выше, чем когда на нём впервые побывал человек в 1953 году.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🚗</div>
+    <div class="content">
+      <h5>Аналогия: две машины на низкой скорости</h5>
+      <p>Представь две машины, которые медленно-медленно едут навстречу и прижимаются друг к другу. Бамперы смялись, капоты встали горбом. Вот так же смялась кора Индии и Евразии, только вместо металла был камень, а вместо капотов — горы.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 4: ЗЕМЛЕТРЯСЕНИЯ -->
+<section class="block container">
+  <span class="section-label label-4">Часть 4 · Землетрясения</span>
+  <h2>Почему земля дрожит?</h2>
+  <p class="lead">Плиты не плывут плавно, как льдины. Они <b style="color:var(--red)">зацепляются</b> краями, долго стоят на месте и копят напряжение. А потом резко срываются — и вот это и есть землетрясение.</p>
+
+  <div class="text-block red-block">
+    <p>Представь два шершавых камня, которые трутся друг о друга. Если толкать их — они не поползут плавно. Они сначала <b>упрутся</b>, их края зацепятся. Внутри них будет накапливаться напряжение — как в сжатой пружине. А потом в какой-то момент зацеп не выдерживает, камни резко срываются и проскакивают сразу на метр-два.</p>
+    <p>В этот момент вся накопленная энергия вырывается в виде <b>дрожи</b>, которая разбегается волнами во все стороны. Эти волны мы и чувствуем как землетрясение.</p>
+    <p>Точка в глубине Земли, где произошёл разрыв, называется <b>гипоцентр</b>. А точка на поверхности прямо над гипоцентром — <b>эпицентр</b>. Чем ближе эпицентр, тем сильнее трясёт.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">📏</div>
+    <div class="content">
+      <h5>Аналогия: сгибаем линейку</h5>
+      <p>Возьми пластиковую линейку и начни её сгибать. Она гнётся, гнётся, гнётся — а потом как ЩЁЛКНЕТ! и распрямится. Энергия, которую ты в неё вложил, выскочит одним разом. Так и с плитами: они «гнутся» тысячи лет, а потом одним разом щёлкают. Только у Земли «щелчок» — это землетрясение на пол-города.</p>
+    </div>
+  </div>
+
+  <div class="quake-visual">
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ground layers -->
+      <rect x="0" y="120" width="240" height="80" fill="#7a1e1e" opacity="0.5"/>
+      <rect x="260" y="120" width="240" height="80" fill="#7a1e1e" opacity="0.5"/>
+      <!-- Surface grass -->
+      <rect x="0" y="120" width="240" height="10" fill="#6bcf7f" opacity="0.6"/>
+      <rect x="260" y="120" width="240" height="10" fill="#6bcf7f" opacity="0.6"/>
+      <!-- Fault crack -->
+      <path d="M 250 120 L 245 140 L 255 155 L 248 170 L 252 200" stroke="#ffd93d" stroke-width="3" fill="none"/>
+      <!-- Star at focus -->
+      <polygon points="250,160 255,170 266,170 258,177 261,188 250,181 239,188 242,177 234,170 245,170" fill="#ff4757"/>
+      <!-- Waves -->
+      <circle cx="250" cy="120" r="60" fill="none" stroke="#ffd93d" stroke-width="2" opacity="0.6"/>
+      <circle cx="250" cy="120" r="90" fill="none" stroke="#ff8c42" stroke-width="2" opacity="0.5"/>
+      <circle cx="250" cy="120" r="120" fill="none" stroke="#ff4757" stroke-width="2" opacity="0.4"/>
+      <!-- Arrows -->
+      <line x1="100" y1="160" x2="140" y2="160" stroke="#ff4757" stroke-width="2"/>
+      <polygon points="140,160 134,156 134,164" fill="#ff4757"/>
+      <line x1="400" y1="160" x2="360" y2="160" stroke="#ff4757" stroke-width="2"/>
+      <polygon points="360,160 366,156 366,164" fill="#ff4757"/>
+      <!-- Labels -->
+      <text x="250" y="115" text-anchor="middle" fill="#ffd93d" font-family="Fredoka" font-size="12" font-weight="700">ЭПИЦЕНТР</text>
+      <text x="250" y="210" text-anchor="middle" fill="#ff4757" font-family="Fredoka" font-size="10" font-weight="600">гипоцентр (разрыв)</text>
+      <!-- House -->
+      <rect x="230" y="100" width="20" height="18" fill="#f1f5ff" opacity="0.6"/>
+      <polygon points="228,100 240,92 252,100" fill="#ff8c42"/>
+    </svg>
+    <p>Разрыв происходит в глубине (гипоцентр), а волны расходятся во все стороны, как круги от брошенного камня.</p>
+  </div>
+
+  <div class="richter">
+    <h4>📊 Шкала магнитуд на пальцах</h4>
+    <p style="color:var(--muted);font-size:0.96rem;margin-bottom:16px;line-height:1.6">Силу землетрясений измеряют специальной шкалой (раньше она называлась шкалой Рихтера, сейчас — шкалой моментных магнитуд). И это не обычные числа! Шкала <b style="color:var(--yellow)">логарифмическая</b> — каждая следующая единица означает, что колебания в <b style="color:var(--yellow)">10 раз сильнее</b>, а энергия — примерно в <b style="color:var(--yellow)">32 раза</b> больше. То есть магнитуда 7 — это не «чуть сильнее шестёрки», а в 32 раза мощнее!</p>
+
+    <div class="richter-row">
+      <div class="richter-badge">2–3</div>
+      <div class="desc">Никто не замечает. Только приборы. Таких в мире <b>миллионы в год</b>.</div>
+    </div>
+    <div class="richter-row">
+      <div class="richter-badge">4</div>
+      <div class="desc">Звенят стаканы в шкафу, качается люстра. Почувствовать можно, но не страшно.</div>
+    </div>
+    <div class="richter-row">
+      <div class="richter-badge">5</div>
+      <div class="desc">Падают мелкие предметы, трещины в штукатурке. Старые дома могут пострадать.</div>
+    </div>
+    <div class="richter-row">
+      <div class="richter-badge">6</div>
+      <div class="desc">Разрушаются слабые дома. Уже опасно.</div>
+    </div>
+    <div class="richter-row">
+      <div class="richter-badge">7</div>
+      <div class="desc">Серьёзные разрушения. Трещины в земле. Это <b>сильное</b> землетрясение.</div>
+    </div>
+    <div class="richter-row">
+      <div class="richter-badge">8</div>
+      <div class="desc">Катастрофа. Рушатся большие здания, появляются огромные трещины.</div>
+    </div>
+    <div class="richter-row">
+      <div class="richter-badge">9+</div>
+      <div class="desc">Очень редко. Почти всё в эпицентре уничтожено. Таких за сто лет <b>всего несколько</b>.</div>
+    </div>
+  </div>
+
+  <details>
+    <summary>Почему шкала логарифмическая, а не обычная? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Потому что землетрясения бывают <b>очень</b> разные по силе — слабые в миллионы раз слабее самых сильных. Если бы шкала была обычной (1, 2, 3, 4... где 4 в два раза сильнее 2), то самые мощные землетрясения оказались бы на отметке «миллион», и шкала была бы бесконечной. Неудобно.</p>
+      <p>Поэтому её сделали <b>логарифмической</b>: каждая следующая единица — это умножение на 10 по амплитуде колебаний. Магнитуда 3 — амплитуда в 10 раз больше, чем у магнитуды 2. Магнитуда 4 — в 100 раз. Магнитуда 5 — в 1000 раз. И так далее.</p>
+      <p>По энергии разница ещё больше — каждая единица это примерно <b>в 32 раза</b> больше энергии. Вот таблица для сравнения с тем, что ты знаешь:</p>
+      <p>• Магнитуда 4 ≈ энергия средней молнии.<br>
+      • Магнитуда 6 ≈ энергия одной атомной бомбы Хиросимы.<br>
+      • Магнитуда 7 ≈ 32 Хиросимы.<br>
+      • Магнитуда 8 ≈ 1000 Хиросим.<br>
+      • Магнитуда 9 ≈ 32 000 Хиросим одновременно.</p>
+      <p>Видишь? Разница между «семёркой» и «девяткой» — это разница между одной машиной и целым автозаводом. Поэтому когда в новостях говорят «магнитуда 8.5», а ты подумал «чуть сильнее восьмёрки» — нет, это раз в пять больше энергии!</p>
+    </div>
+  </details>
+
+  <div class="safety">
+    <h4>🛡️ Что делать, если трясёт</h4>
+    <ol>
+      <li><b>Не паникуй.</b> Обычно самая сильная фаза длится 15–30 секунд. Она пройдёт.</li>
+      <li><b>Если ты в доме</b> — залезь под крепкий стол или в дверной проём. Подальше от окон, стекла и высоких шкафов, которые могут упасть.</li>
+      <li><b>Не беги сломя голову</b> — на лестнице во время тряски больше всего травм. Дождись паузы.</li>
+      <li><b>Если ты на улице</b> — отойди от зданий, проводов и деревьев на открытое место.</li>
+      <li><b>После толчков</b> — будут ещё «афтершоки» (толчки поменьше). Ещё часок будь внимателен.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 5: ВУЛКАНЫ -->
+<section class="block container">
+  <span class="section-label label-5">Часть 5 · Вулканы</span>
+  <h2>Вулкан — это окошко в преисподнюю</h2>
+  <p class="lead">Если плиты расходятся или одна ныряет под другую — горячая магма из мантии находит путь наверх. А когда она прорывается на поверхность — рождается <b style="color:var(--yellow)">вулкан</b>.</p>
+
+  <div class="text-block yellow-block">
+    <p>В глубине Земли, на границе коры и мантии, есть огромные карманы раскалённой жидкой породы — это <b>магма</b>. Пока магма под давлением сидит глубоко — всё спокойно. Но стоит появиться трещине, и магма начнёт ползти вверх, как сироп в бутылке, которую ты перевернул.</p>
+    <p>Когда магма выходит на поверхность, она уже называется <b>лавой</b>. Она раскалена до <b>700–1200 °C</b> — это в сто раз горячее, чем кипящая вода. Лава течёт, застывает, и из неё складывается гора — это и есть вулкан.</p>
+    <p>А ещё из вулкана вылетают газ, пепел, раскалённые камни (их называют <b>бомбами</b>) и раскалённые облака из пепла и газа, которые несутся вниз со скоростью до 700 км/ч. Такое облако сжигает всё на своём пути — именно оно погубило Помпеи.</p>
+  </div>
+
+  <div class="volcano-viz">
+    <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sky -->
+      <rect x="0" y="0" width="400" height="260" fill="#0a0e27" rx="12"/>
+
+      <!-- Ash cloud -->
+      <ellipse cx="200" cy="40" rx="60" ry="25" fill="#4a9eff" opacity="0.3"/>
+      <ellipse cx="210" cy="30" rx="45" ry="20" fill="#a5b0d9" opacity="0.4"/>
+
+      <!-- Volcano cone -->
+      <polygon points="80,240 200,70 320,240" fill="#7a1e1e" opacity="0.9"/>
+      <polygon points="100,240 200,90 300,240" fill="#2d1050" opacity="0.6"/>
+
+      <!-- Lava flowing down -->
+      <path d="M 200 80 Q 210 110 220 140 Q 230 170 240 200 L 260 240 L 240 240 Q 210 170 200 80 Z" fill="#ff4757"/>
+      <path d="M 200 80 Q 195 120 192 160 Q 190 200 188 240 L 170 240 Q 185 160 200 80 Z" fill="#ff8c42"/>
+
+      <!-- Crater glow -->
+      <circle cx="200" cy="75" r="14" fill="#ffd93d"/>
+      <circle cx="200" cy="75" r="8" fill="#ff8c42"/>
+
+      <!-- Bombs in air -->
+      <circle cx="140" cy="100" r="4" fill="#ff4757"/>
+      <circle cx="260" cy="110" r="5" fill="#ff8c42"/>
+      <circle cx="180" cy="55" r="3" fill="#ffd93d"/>
+
+      <!-- Magma chamber -->
+      <ellipse cx="200" cy="235" rx="90" ry="20" fill="#ff4757" opacity="0.5"/>
+
+      <!-- Pipe (magma channel) -->
+      <rect x="195" y="80" width="10" height="160" fill="#ff4757" opacity="0.8"/>
+
+      <!-- Labels -->
+      <text x="200" y="25" text-anchor="middle" fill="#a5b0d9" font-family="Fredoka" font-size="11" font-weight="600">облако пепла и газа</text>
+      <line x1="200" y1="30" x2="200" y2="45" stroke="#a5b0d9" stroke-width="1"/>
+
+      <text x="330" y="170" fill="#ff8c42" font-family="Fredoka" font-size="11" font-weight="600">лава</text>
+      <line x1="325" y1="167" x2="245" y2="170" stroke="#ff8c42" stroke-width="1"/>
+
+      <text x="70" y="225" fill="#ff4757" font-family="Fredoka" font-size="10" font-weight="600">магма</text>
+      <line x1="90" y1="228" x2="160" y2="235" stroke="#ff4757" stroke-width="1"/>
+
+      <text x="200" y="255" text-anchor="middle" fill="#ffd93d" font-family="Fredoka" font-size="10" font-weight="600">магматический очаг</text>
+    </svg>
+    <div class="caption">Вулкан в разрезе: из глубинного очага магма ползёт по каналу наверх и вырывается на поверхность.</div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🥤</div>
+    <div class="content">
+      <h5>Аналогия: газировка</h5>
+      <p>Взболтай бутылку с газировкой и быстро открой крышку — пузырьки вынесут жидкость наружу фонтаном. Примерно то же происходит с вулканом: под землёй в магме растворены газы. Когда давление падает (магма поднимается вверх), газы расширяются и выбрасывают всё наружу. Чем больше газов — тем страшнее взрыв.</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Вулканы встречаются в основном там, где <b>плиты сходятся</b> (например, вдоль Тихого океана) или <b>расходятся</b> (Исландия, подводные хребты). Но есть и особые места — <b>горячие точки</b>, где магма пробивается наружу прямо посреди плиты, вдали от её границ.</p>
+    <p>Самый известный пример горячей точки — <b>Гавайские острова</b>. Они стоят посреди огромной Тихоокеанской плиты, вдали от любых границ. Но там в мантии есть постоянный горячий столб — «факел», который прожигает плиту снизу и создаёт вулканы.</p>
+  </div>
+
+  <details>
+    <summary>Почему Гавайи — это цепочка островов, а не один большой? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Вот где начинается самое интересное. Горячая точка под Гавайями <b>стоит на месте</b> в глубине мантии. А Тихоокеанская плита над ней <b>медленно движется</b> — примерно 10 см в год на северо-запад.</p>
+      <p>Представь себе: ты держишь зажигалку неподвижно, а над ней медленно тянешь лист бумаги. Зажигалка прожжёт на бумаге дорожку из обугленных точек — первая, вторая, третья. И последняя, которая сейчас над пламенем, будет самая горячая.</p>
+      <p>Ровно так же работают Гавайи. Горячая точка прожигает плиту, рождается вулкан, он растёт. Потом плита уезжает, вулкан уплывает вместе с ней в сторону и потихоньку потухает. А над горячей точкой рождается следующий остров. Так возникла <b>длинная цепочка островов</b>, вытянутая на северо-запад.</p>
+      <p>Самый старший из них — почти потухший и сильно погружённый в океан. А самый молодой — <b>Большой остров (Гавайи)</b> с огромным действующим вулканом <b>Мауна-Лоа</b>. А рядом, под водой, уже растёт следующий — его назвали <b>Каома̄хуакалаке (Kama'ehuakanaloa)</b>. Через несколько сотен тысяч лет он вылезет из воды и станет новым гавайским островом.</p>
+      <p>Удивительно? Ещё как. Получается, мы можем <b>смотреть в прошлое</b>, просто двигаясь по цепочке от молодых островов к старым. Каждый остров — это страничка в истории Тихоокеанской плиты.</p>
+    </div>
+  </details>
+
+  <div class="compare">
+    <div class="compare-col shield-col">
+      <h3>🌋 Щитовые (спокойные)</h3>
+      <ul>
+        <li><b>Пологие, широкие</b>, как перевёрнутый щит</li>
+        <li>Лава <b>жидкая</b>, течёт далеко, но не взрывается</li>
+        <li>Извержение идёт <b>спокойно</b> — можно стоять рядом</li>
+        <li>Растут <b>очень большими</b> — Мауна-Лоа самая большая гора в мире (если считать от дна океана)</li>
+        <li>Примеры: <b>Гавайи, Исландия</b></li>
+      </ul>
+    </div>
+    <div class="compare-col strato-col">
+      <h3>💥 Стратовулканы (взрывные)</h3>
+      <ul>
+        <li><b>Крутые, высокие</b>, с острой вершиной</li>
+        <li>Лава <b>густая</b>, легко закупоривает канал</li>
+        <li>Извержение — <b>страшный взрыв</b> с облаком пепла</li>
+        <li>Именно они устраивают <b>катастрофы</b></li>
+        <li>Примеры: <b>Везувий, Фудзияма, Ключевская Сопка</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <details>
+    <summary>Йеллоустоун — супервулкан, который когда-нибудь рванёт? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Да, и это одно из самых тревожных мест на планете. <b>Йеллоустоунский национальный парк</b> в США знаменит гейзерами, горячими источниками и грязевыми котлами. Всё это — потому что прямо под парком сидит огромный <b>магматический очаг</b> шириной в десятки километров.</p>
+      <p>И это не обычный вулкан. Это <b>супервулкан</b>. Когда он извергается (а было это за последние 2 миллиона лет трижды — 2.1 млн, 1.3 млн и 640 тысяч лет назад), он выбрасывает столько пепла и пыли, что затмевает Солнце над всем Северным полушарием на несколько лет. Это меняет климат всей планеты.</p>
+      <p>Хорошая новость: в ближайшие сотни и, скорее всего, тысячи лет Йеллоустоун не собирается взрываться. Учёные следят за ним очень внимательно, и никаких признаков, что он готовится к извержению, <b>нет</b>.</p>
+      <p>Плохая новость: рано или поздно он всё равно рванёт. Правда, «рано или поздно» для геологии — это может быть через 100 тысяч лет. Это очень-очень нескоро по человеческим меркам.</p>
+      <p>Кстати, под Камчаткой и Италией тоже есть похожие большие магматические очаги. Но Йеллоустоун — самый впечатляющий из изученных.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 6: ЦУНАМИ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 6 · Цунами</span>
+  <h2>Гигантская волна, которую делает земля</h2>
+  <p class="lead">Когда подводное землетрясение резко поднимает или опускает кусок морского дна — оно «толкает» воду над собой. Так рождается <b style="color:var(--cyan)">цунами</b> — волна, способная пересечь океан.</p>
+
+  <div class="text-block cyan-block">
+    <p>Если ты хлопнул ладонью по воде в ванной — по поверхности пошли круги. А теперь представь, что по воде хлопнул не ладонью, а <b>куском дна океана размером с целую страну</b>. И куском, который подпрыгнул на метр-два. Вот это и есть источник цунами.</p>
+    <p>Главное отличие цунами от обычной волны — она «идёт» <b>от самого дна до поверхности</b>. Обычные волны, которые гонит ветер, болтают только верхний слой воды. А цунами толкает всю толщу сразу. Поэтому в ней безумно много энергии.</p>
+    <p>В открытом океане цунами почти не видно — всего полметра высоты, но длиной 200 км! Корабль на ней просто качнётся. А вот когда волна подходит к берегу и мелководье начинает тормозить её нижнюю часть — верх обгоняет низ, и волна <b>встаёт стеной</b>. Из полуметровой она может вырасти в 10-метровую стену воды, которая ломает всё на своём пути.</p>
+  </div>
+
+  <div class="tsunami-viz">
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sky -->
+      <rect x="0" y="0" width="500" height="80" fill="#0a0e27" rx="12"/>
+      <!-- Ocean -->
+      <rect x="0" y="80" width="500" height="100" fill="#4a9eff" opacity="0.4"/>
+      <!-- Deep water wave (small) -->
+      <path d="M 40 85 Q 70 70 100 85 T 160 85" stroke="#4ecdc4" stroke-width="2" fill="none"/>
+      <text x="100" y="60" text-anchor="middle" fill="#4ecdc4" font-family="Fredoka" font-size="10" font-weight="600">В океане: низкая, длинная</text>
+      <text x="100" y="105" text-anchor="middle" fill="#f1f5ff" font-family="Fredoka" font-size="9">~0.5 м высоты</text>
+
+      <!-- Wave rising -->
+      <path d="M 200 85 Q 240 65 260 75" stroke="#ffd93d" stroke-width="2" fill="none"/>
+      <text x="240" y="60" text-anchor="middle" fill="#ffd93d" font-family="Fredoka" font-size="10" font-weight="600">Приближается к берегу</text>
+
+      <!-- Beach bottom gradient -->
+      <polygon points="310,180 500,180 500,100 440,110 380,120 330,140" fill="#7a1e1e" opacity="0.8"/>
+
+      <!-- Big wave at shore -->
+      <path d="M 320 85 Q 350 30 380 40 Q 400 50 420 100 Q 430 140 380 140 Q 350 130 320 85 Z" fill="#ff4757" opacity="0.8"/>
+      <path d="M 335 80 Q 365 45 390 55 Q 405 70 415 100 L 370 130 Q 340 110 335 80 Z" fill="#ff8c42" opacity="0.7"/>
+
+      <text x="380" y="30" text-anchor="middle" fill="#ff4757" font-family="Fredoka" font-size="11" font-weight="700">У берега: высокая стена</text>
+      <text x="380" y="165" text-anchor="middle" fill="#ffd93d" font-family="Fredoka" font-size="10" font-weight="600">до 10-40 м!</text>
+
+      <!-- Sea bottom indicators -->
+      <line x1="0" y1="180" x2="300" y2="180" stroke="#7a1e1e" stroke-width="3"/>
+      <!-- Earthquake star on bottom -->
+      <polygon points="60,170 63,178 72,178 65,184 68,192 60,187 52,192 55,184 48,178 57,178" fill="#ffd93d"/>
+      <text x="60" y="200" text-anchor="middle" fill="#ffd93d" font-family="Fredoka" font-size="9">землетрясение</text>
+
+      <!-- Arrow from quake to waves -->
+      <line x1="70" y1="165" x2="90" y2="130" stroke="#ffd93d" stroke-width="1"/>
+    </svg>
+    <div class="caption">В открытом океане волна низкая и длинная. У берега мелководье тормозит её низ, вода встаёт стеной — и это уже цунами.</div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🏃</div>
+    <div class="content">
+      <h5>Аналогия: бегущие в толпе</h5>
+      <p>Представь колонну людей, которые бегут по широкой улице. Впереди — узкая арка. Первые бегуны пробежали, а следующие <b style="color:var(--purple)">натыкаются на них</b> в узком месте — и получается давка, люди громоздятся друг на друга. Вот так и вода: на глубине волна бежит свободно, а у берега её «начало» тормозится, и «задние» слои воды наваливаются сверху.</p>
+    </div>
+  </div>
+
+  <div class="crosslink">
+    <p>Кстати, именно цунами, а не само землетрясение, стало главной бедой в 2011 году в Японии. Волна высотой 14 метров затопила АЭС «Фукусима», и начались проблемы с реакторами. О том, что именно там случилось, можно прочитать в статье <a href="nuclear.html">«Ядерная и термоядерная реакции»</a> — так хорошо видно, как две разные природные силы могут переплетаться.</p>
+  </div>
+
+  <div class="text-block blue-block">
+    <p>Важный признак цунами: <b>перед большой волной вода у берега внезапно отступает</b>. Океан как бы «вдыхает» — обнажается дно на сотни метров. Увидел такое — беги от берега на возвышенность, не оглядываясь. Через несколько минут волна придёт.</p>
+    <p>В странах Тихоокеанского побережья (Япония, Камчатка, Калифорния, Чили) давно стоят системы <b>раннего предупреждения цунами</b>. Датчики на дне океана ловят подземный толчок, и у людей появляется 15–30 минут, чтобы уйти от берега. Это спасает тысячи жизней.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 7: ИСТОРИИ -->
+<section class="block container">
+  <span class="section-label label-7">Часть 7 · Знаменитые события</span>
+  <h2>Когда Земля вела себя громко</h2>
+  <p class="lead">Вот четыре знаменитых события, в которых плиты, вулканы или цунами показали свою силу. Люди до сих пор помнят эти даты — и по ним учат геологию.</p>
+
+  <!-- Помпеи -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🏛️</div>
+      <div class="history-title">
+        <h3>Помпеи и Везувий</h3>
+        <div class="history-date">24 августа 79 года, Италия</div>
+      </div>
+    </div>
+    <p>Недалеко от современного Неаполя стоял древнеримский город <b>Помпеи</b>. Богатый, с фонтанами, банями, красивыми мозаиками. Рядом возвышалась гора Везувий — люди знали, что это вулкан, но он не извергался тысячи лет, и о нём почти забыли.</p>
+    <p>И вот в августе 79 года Везувий взорвался. В небо поднялась <b>колонна пепла и газа высотой 30 км</b>. Пепел сыпался на Помпеи 18 часов подряд, засыпая улицы и крыши. А потом с горы сорвалось раскалённое облако — <b>пирокластический поток</b>, смесь пепла и газа при 400 °C. Оно за пару минут сожгло всё живое.</p>
+    <p>Город погрузился под слой пепла толщиной 6 метров и лежал там <b>1700 лет</b>. Когда его откопали в XVIII веке, учёные увидели поразительную картину: пепел сохранил даже форму людей в последние мгновения их жизни — в пустотах на их местах. Сегодня Помпеи — музей под открытым небом.</p>
+  </div>
+
+  <!-- Кракатау -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🌋</div>
+      <div class="history-title">
+        <h3>Взрыв Кракатау</h3>
+        <div class="history-date">27 августа 1883, Индонезия</div>
+      </div>
+    </div>
+    <p>Маленький необитаемый вулканический остров между Явой и Суматрой. Утром 27 августа 1883 года он взорвался — это был <b>один из самых громких звуков в истории человечества</b>. Звук слышали за <b>4800 км</b> от острова — в Австралии и на острове Родригес в Индийском океане! Это как если бы из Москвы было слышно извержение где-то в Африке.</p>
+    <p>Сам остров почти полностью <b>исчез</b> — его разорвало на куски. А главное — взрыв вызвал чудовищные <b>цунами высотой до 40 метров</b>, которые обрушились на побережья Явы и Суматры. Погибли около 36 тысяч человек.</p>
+    <p>Пепел поднялся в стратосферу и несколько лет летал вокруг Земли. Из-за этого закаты по всему миру стали ярко-красными, а температура планеты на год-два упала на полградуса. Многие художники того времени писали те самые красные небеса — вулкан невольно повлиял на живопись.</p>
+  </div>
+
+  <!-- Сан-Франциско -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🏙️</div>
+      <div class="history-title">
+        <h3>Землетрясение в Сан-Франциско</h3>
+        <div class="history-date">18 апреля 1906, США</div>
+      </div>
+    </div>
+    <p>Ровно в 5:12 утра жители Сан-Франциско проснулись от мощнейшего толчка. Плита сорвалась вдоль <b>разлома Сан-Андреас</b> — того самого, где две плиты скользят мимо друг друга. Магнитуда была около <b>7.9</b>. Толчки почувствовали от Орегона до Лос-Анджелеса.</p>
+    <p>Но самое страшное случилось после. Землетрясение <b>порвало газовые трубы</b> в городе, и в десятках мест начались пожары. Водопровод тоже был сломан, пожарные не могли тушить. Пламя бушевало три дня и уничтожило больше домов, чем сам толчок. Погибли около 3000 человек, без крова остались 225 тысяч.</p>
+    <p>Именно после этой катастрофы учёные по-настоящему взялись за изучение землетрясений. Они составили первые подробные карты разломов, начали записывать сейсмограммы, разработали правила строительства «сейсмоустойчивых» зданий. Сегодня в Калифорнии дома умеют качаться во время толчков и не рассыпаться.</p>
+  </div>
+
+  <!-- Япония 2011 -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🌊</div>
+      <div class="history-title">
+        <h3>Землетрясение и цунами в Японии</h3>
+        <div class="history-date">11 марта 2011</div>
+      </div>
+    </div>
+    <p>Одно из сильнейших землетрясений в истории человечества — <b>магнитуда 9.1</b>. Эпицентр был в Тихом океане, недалеко от острова Хонсю. Там Тихоокеанская плита ныряет под Евразийскую — и в один миг плита сорвалась и сдвинулась сразу на <b>20–50 метров</b>.</p>
+    <p>Сам толчок Япония пережила неплохо — их здания рассчитаны на такие вещи. Но через 30–50 минут пришло <b>цунами высотой до 40 метров</b>. Оно прокатилось по восточному побережью, смывая всё: машины, дома, целые деревни. Погибли около 20 тысяч человек.</p>
+    <p>А ещё цунами затопило атомную станцию <b>«Фукусима-1»</b> — вода залила резервные генераторы, без которых нельзя было охлаждать остановленные реакторы. Так одна геологическая катастрофа породила вторую, уже техногенную. Это показало всему миру, насколько важно учитывать природные риски при строительстве особо опасных объектов.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 8: ГДЕ В ЖИЗНИ -->
+<section class="block container">
+  <span class="section-label label-8">Часть 8 · В жизни</span>
+  <h2>Где тектоника встречается рядом с нами</h2>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">🔥</span>
+      <h4>Огненное кольцо</h4>
+      <p>Вокруг Тихого океана — цепь вулканов и землетрясений: Камчатка, Япония, Филиппины, Чили, Аляска. 90% всех землетрясений планеты — именно тут</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">♨️</span>
+      <h4>Геотермальная энергия</h4>
+      <p>Исландия сидит прямо на стыке двух плит. Её дома отапливают горячей водой прямо из-под земли, а электричество делают из подземного пара</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">⛰️</span>
+      <h4>Молодые и старые горы</h4>
+      <p>Гималаи и Альпы молодые и острые — они ещё растут. А Уральские горы старые и округлые — их плиты давно не двигают, ветер и дождь их стачивают</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🛢️</span>
+      <h4>Нефть и газ</h4>
+      <p>Нефтяные месторождения часто рождаются в складках земли, которые появились из-за движения плит. Геологи изучают тектонику, чтобы знать, где бурить</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">💎</span>
+      <h4>Алмазы и вулканы</h4>
+      <p>Алмазы приходят к нам из мантии — их выносит на поверхность в особых вулканических трубках. Якутия богата алмазами именно из-за древних вулканов</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🏝️</span>
+      <h4>Новые острова</h4>
+      <p>В 2013 году у берегов Японии вылез из моря новый остров — вулкан Ниидзима. За несколько лет он вырос в километр шириной. Земля буквально создаёт сушу у нас на глазах</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌍</span>
+      <h4>Большая Рифтовая долина</h4>
+      <p>В Восточной Африке прямо сейчас плита раскалывается надвое. Через миллионы лет здесь появится новый океан, а кусок Африки уплывёт в сторону</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌡️</span>
+      <h4>Горячие источники</h4>
+      <p>Камчатка, Йеллоустоун, Новая Зеландия — где горячие гейзеры, там точно есть вулканическая активность внизу. В них даже купаются!</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACT -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт</h3>
+    <p>Через <b style="color:var(--yellow)">50 миллионов лет</b> Австралия приедет к Азии и врежется в неё — точно так же, как когда-то Индия врезалась в Евразию и родила Гималаи. Появятся новые горы размером с Гималаи, а карты мира будут выглядеть совершенно по-другому. А ещё через пару сотен миллионов лет все континенты, скорее всего, снова соберутся вместе — в новый суперконтинент. Учёные уже придумали ему имя: <b style="color:var(--yellow)">«Пангея Ультима»</b>. Так что то, на чём мы живём, — это просто промежуточный кадр из очень долгого кино.</p>
+  </div>
+</section>
+
+<!-- BACK HOME -->
+<section class="block container" style="text-align:center;padding-top:20px">
+  <a href="../index.html" class="back-home">← На главную</a>
+</section>
+
+<footer>
+  Сделано с <span class="heart">❤</span> для любопытных учёных
+  <div class="signature">Kids Wiki · 18 апреля 2026</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

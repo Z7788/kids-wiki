@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Молнии и электричество</title>
+<meta name="description" content="Что такое ток, почему молния зигзагом, и почему её канал в 5 раз горячее Солнца.">
+<meta name="emoji" content="⚡">
+<meta name="date" content="2026-04-18">
+<meta name="reading-time" content="25 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&family=Bungee&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  a { color: var(--cyan); text-decoration: none; border-bottom: 1px dashed rgba(78, 205, 196, 0.5); transition: all 0.2s; }
+  a:hover { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 217, 61, 0.15);
+    border: 2px solid var(--yellow);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--yellow);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(255, 217, 61, 0.35));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* HERO LIGHTNING VISUAL */
+  .hero-sky {
+    width: 280px;
+    height: 260px;
+    position: relative;
+    margin: 10px 0 20px;
+  }
+
+  .hero-cloud {
+    position: absolute;
+    top: 10px; left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 70px;
+    background: radial-gradient(ellipse at 30% 50%, #4a5ba6 0%, #2a3470 60%, transparent 100%),
+                radial-gradient(ellipse at 70% 50%, #5a6ab6 0%, #2a3470 60%, transparent 100%);
+    border-radius: 50%;
+    filter: blur(2px);
+    box-shadow: 0 0 40px rgba(74, 91, 166, 0.5);
+  }
+
+  .hero-bolt {
+    position: absolute;
+    top: 65px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 180px;
+    animation: flash 2.6s infinite;
+  }
+
+  @keyframes flash {
+    0%, 10%, 14%, 40%, 100% { filter: drop-shadow(0 0 10px var(--yellow)) drop-shadow(0 0 20px var(--orange)); opacity: 1; }
+    12%, 13% { filter: drop-shadow(0 0 25px white) drop-shadow(0 0 50px var(--yellow)); opacity: 0.7; }
+    50%, 90% { opacity: 0; }
+  }
+
+  .scroll-hint {
+    margin-top: 30px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block { padding: 60px 20px; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-2 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+  .label-3 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-4 { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .label-5 { background: rgba(255, 140, 66, 0.15); color: var(--orange); }
+  .label-6 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-7 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-8 { background: rgba(255, 71, 87, 0.15); color: var(--red); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCKS */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--yellow); }
+
+  .text-block.blue-block { border-color: var(--blue); }
+  .text-block.blue-block b { color: var(--blue); }
+
+  .text-block.yellow-block { border-color: var(--yellow); }
+  .text-block.yellow-block b { color: var(--yellow); }
+
+  .text-block.orange-block { border-color: var(--orange); }
+  .text-block.orange-block b { color: var(--orange); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.pink-block { border-color: var(--pink); }
+  .text-block.pink-block b { color: var(--pink); }
+
+  .text-block.red-block { border-color: var(--red); }
+  .text-block.red-block b { color: var(--red); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* DETAILS */
+  details {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(74, 158, 255, 0.04));
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    padding: 4px 24px;
+    margin: 18px 0;
+    transition: all 0.25s ease;
+  }
+
+  details[open] {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.06));
+    border-color: rgba(78, 205, 196, 0.4);
+  }
+
+  details summary {
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  details summary .tag-more {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  details .details-body {
+    padding: 4px 0 18px 24px;
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  details .details-body p {
+    margin-bottom: 12px;
+  }
+
+  details .details-body p:last-child { margin-bottom: 0; }
+
+  details .details-body b { color: var(--yellow); }
+
+  /* ATOM / CHARGES DIAGRAM */
+  .charges-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 24px 0;
+  }
+
+  .charge-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    border: 2px solid;
+  }
+
+  .charge-card.same { border-color: var(--red); }
+  .charge-card.opp { border-color: var(--green); }
+
+  .charge-card h4 {
+    font-size: 1.1rem;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .charge-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .charge-balls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    height: 70px;
+  }
+
+  .ch-ball {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: white;
+  }
+
+  .ch-plus { background: radial-gradient(circle at 30% 30%, #ff8c42, #ff4757); box-shadow: 0 0 20px rgba(255, 71, 87, 0.5); }
+  .ch-minus { background: radial-gradient(circle at 30% 30%, #7dd3fc, #4a9eff); box-shadow: 0 0 20px rgba(74, 158, 255, 0.5); }
+
+  .arrow-push { font-size: 1.5rem; color: var(--red); font-weight: 900; animation: pushPull 1.6s infinite; }
+  .arrow-pull { font-size: 1.5rem; color: var(--green); font-weight: 900; animation: pullPush 1.6s infinite; }
+
+  @keyframes pushPull {
+    0%, 100% { letter-spacing: 0; }
+    50% { letter-spacing: 10px; }
+  }
+  @keyframes pullPush {
+    0%, 100% { letter-spacing: 10px; }
+    50% { letter-spacing: 0; }
+  }
+
+  /* WIRE / CURRENT ANIMATION */
+  .wire-visual {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.08), rgba(255, 140, 66, 0.08));
+    border-radius: 20px;
+    padding: 36px 24px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wire {
+    position: relative;
+    height: 60px;
+    background: linear-gradient(90deg, rgba(165, 176, 217, 0.2), rgba(165, 176, 217, 0.4), rgba(165, 176, 217, 0.2));
+    border-radius: 30px;
+    border: 2px solid rgba(255,255,255,0.08);
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  .electron-flow {
+    position: absolute;
+    top: 50%;
+    width: 18px; height: 18px;
+    transform: translateY(-50%);
+    background: radial-gradient(circle at 30% 30%, #7dd3fc, #4a9eff);
+    border-radius: 50%;
+    box-shadow: 0 0 14px var(--blue);
+    animation: flowRight 2.4s linear infinite;
+  }
+
+  @keyframes flowRight {
+    from { left: -20px; }
+    to { left: 100%; }
+  }
+
+  .e-1 { animation-delay: 0s; }
+  .e-2 { animation-delay: 0.35s; }
+  .e-3 { animation-delay: 0.7s; }
+  .e-4 { animation-delay: 1.05s; }
+  .e-5 { animation-delay: 1.4s; }
+  .e-6 { animation-delay: 1.75s; }
+  .e-7 { animation-delay: 2.1s; }
+
+  .wire-ends {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .wire-end {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .wire-icon {
+    font-size: 1.8rem;
+  }
+
+  /* CHAIN OF PEOPLE */
+  .chain-people {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    padding: 20px 10px;
+    background: rgba(167, 139, 250, 0.05);
+    border-radius: 14px;
+  }
+
+  .person {
+    font-size: 1.8rem;
+    animation: pass 1.2s ease-in-out infinite;
+  }
+
+  .ball-pass {
+    font-size: 1.4rem;
+    color: var(--yellow);
+    animation: roll 1.2s ease-in-out infinite;
+  }
+
+  @keyframes pass {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+  @keyframes roll {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    50% { transform: translateX(8px) rotate(180deg); }
+  }
+
+  /* STATIC / BALLOON */
+  .static-demo {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(255, 107, 157, 0.08));
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .static-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    margin: 14px 0;
+    flex-wrap: wrap;
+  }
+
+  .static-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .static-icon {
+    font-size: 3rem;
+  }
+
+  .static-step .label {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .static-arrow {
+    color: var(--yellow);
+    font-size: 2rem;
+    font-weight: 900;
+  }
+
+  /* LIGHTNING DIAGRAM */
+  .sky-diagram {
+    background: linear-gradient(180deg, rgba(20, 26, 60, 0.8) 0%, rgba(42, 52, 112, 0.6) 60%, rgba(107, 207, 127, 0.15) 100%);
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 24px 0;
+    position: relative;
+    min-height: 320px;
+    overflow: hidden;
+  }
+
+  .big-cloud {
+    position: relative;
+    margin: 0 auto 20px;
+    width: min(280px, 80%);
+    height: 80px;
+    background: radial-gradient(ellipse at 30% 60%, #4a5ba6 0%, #2a3470 60%, transparent 100%),
+                radial-gradient(ellipse at 70% 60%, #5a6ab6 0%, #2a3470 60%, transparent 100%);
+    border-radius: 50%;
+    filter: blur(1px);
+    box-shadow: 0 0 50px rgba(74, 91, 166, 0.4);
+  }
+
+  .cloud-charges {
+    position: absolute;
+    bottom: 5px; left: 50%;
+    transform: translateX(-50%);
+    color: var(--blue);
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 6px;
+    text-shadow: 0 0 8px var(--blue);
+  }
+
+  .lightning-svg {
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 10px var(--yellow)) drop-shadow(0 0 20px var(--orange));
+    animation: flicker 3s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 8%, 12%, 100% { opacity: 1; }
+    10% { opacity: 0.3; }
+    50%, 80% { opacity: 0.9; }
+  }
+
+  .ground-line {
+    position: absolute;
+    bottom: 20px; left: 5%; right: 5%;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    border-radius: 3px;
+  }
+
+  .ground-charges {
+    position: absolute;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    color: var(--red);
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 6px;
+    text-shadow: 0 0 8px var(--red);
+  }
+
+  /* THUNDER CALC */
+  .thunder-calc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .thunder-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px;
+    border-top: 4px solid;
+    text-align: center;
+  }
+
+  .thunder-card.flash-card { border-color: var(--yellow); }
+  .thunder-card.boom-card { border-color: var(--orange); }
+
+  .thunder-card .big-num {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2.2rem;
+    color: var(--text);
+    margin: 10px 0;
+    font-weight: 700;
+  }
+
+  .thunder-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .thunder-card .emoji {
+    font-size: 2.4rem;
+  }
+
+  .formula-box {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px dashed var(--yellow);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    margin: 18px 0;
+  }
+
+  .formula-box .formula-txt {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+    color: var(--yellow);
+    font-weight: 700;
+  }
+
+  .formula-box .formula-note {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  /* SAFETY GRID */
+  .safety-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .safe-col {
+    background: rgba(107, 207, 127, 0.06);
+    border: 2px solid rgba(107, 207, 127, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .danger-col {
+    background: rgba(255, 71, 87, 0.06);
+    border: 2px solid rgba(255, 71, 87, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .safe-col h4 { color: var(--green); margin-bottom: 12px; }
+  .danger-col h4 { color: var(--red); margin-bottom: 12px; }
+
+  .safe-col ul, .danger-col ul { list-style: none; }
+
+  .safe-col li, .danger-col li {
+    padding: 8px 0 8px 26px;
+    position: relative;
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 0.98rem;
+  }
+
+  .safe-col li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 900;
+  }
+
+  .danger-col li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: 900;
+  }
+
+  /* POWER CHAIN (electricity flow) */
+  .power-chain {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 22px 0;
+  }
+
+  .power-step {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px 10px;
+    text-align: center;
+    position: relative;
+  }
+
+  .power-step .p-emoji {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .power-step h5 {
+    color: var(--yellow);
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .power-step p {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .power-step::after {
+    content: '→';
+    position: absolute;
+    right: -12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--yellow);
+    font-size: 1.4rem;
+    font-weight: 900;
+    z-index: 2;
+  }
+
+  .power-step:last-child::after { display: none; }
+
+  /* WHERE GRID */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .fun-fact p + p { margin-top: 12px; }
+
+  /* CHAIN BOX */
+  .chain-box {
+    background: rgba(255, 217, 61, 0.08);
+    border: 2px dashed rgba(255, 217, 61, 0.4);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .chain-box h4 {
+    font-size: 1.2rem;
+    color: var(--yellow);
+    margin-bottom: 8px;
+  }
+
+  .chain-box p {
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* WOW BOX (30 000°C) */
+  .wow-box {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.12), rgba(255, 140, 66, 0.12));
+    border: 2px solid var(--red);
+    border-radius: 20px;
+    padding: 28px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .wow-box .big-temp {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--red));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    margin: 8px 0;
+    filter: drop-shadow(0 0 20px rgba(255, 140, 66, 0.4));
+  }
+
+  .wow-box .compare-line {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .wow-box b { color: var(--yellow); }
+
+  /* BACK HOME */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 26px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  .back-home:hover {
+    background: rgba(78, 205, 196, 0.2);
+    transform: translateX(-4px);
+    color: var(--cyan);
+    border-bottom-color: rgba(78, 205, 196, 0.3);
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .signature {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 700px) {
+    .charges-grid { grid-template-columns: 1fr; }
+    .thunder-calc { grid-template-columns: 1fr; }
+    .safety-grid { grid-template-columns: 1fr; }
+    .power-chain { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .power-step::after { display: none; }
+    details { padding: 2px 18px; }
+    details .details-body { padding-left: 12px; }
+    .hero-sky { width: 220px; height: 220px; }
+    .chain-people { gap: 4px; }
+    .person { font-size: 1.4rem; }
+    .ball-pass { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">⚡ Наука для любопытных</span>
+  <h1>Молнии<br>и электричество</h1>
+  <p>Что такое ток, почему молния зигзагом, и почему её канал в 5 раз горячее поверхности Солнца</p>
+
+  <div class="hero-sky">
+    <div class="hero-cloud"></div>
+    <svg class="hero-bolt" viewBox="0 0 60 180" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="30,0 10,80 28,80 5,180 45,70 27,70 50,0" fill="#ffd93d" stroke="#ff8c42" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ЧАСТЬ 1: ОСНОВЫ (ЗАРЯДЫ) -->
+<section class="block container">
+  <span class="section-label label-1">Часть 1 · Повторяем основу</span>
+  <h2>Сначала — плюс и минус</h2>
+  <p class="lead">Всё электричество на свете — и ток в розетке, и молния в небе, и искра, когда ты снял свитер через голову — сводится к одной простой штуке. Есть два типа зарядов: <b style="color:var(--orange)">плюс (+)</b> и <b style="color:var(--blue)">минус (−)</b>. И они очень любопытно друг к другу относятся.</p>
+
+  <div class="text-block">
+    <p>Представь себе атом. Это крошечный шарик, из которого сделано вообще всё вокруг — стол, воздух, твои руки. Как мы уже видели в статье про <a href="nuclear.html">ядерные реакции</a>, в центре атома сидит <b>ядро</b> с <b>протонами</b> (у них заряд «плюс»), а вокруг, как планеты вокруг Солнца, летают <b>электроны</b> (у них заряд «минус»).</p>
+    <p>Так вот, эти самые электроны и есть главные герои всей истории про электричество. Они крошечные, лёгкие и — что очень важно — могут <b>перепрыгивать</b> с одного атома на другой. А протоны сидят в ядре намертво и никуда не денутся.</p>
+  </div>
+
+  <div class="charges-grid">
+    <div class="charge-card same">
+      <div class="charge-balls">
+        <div class="ch-ball ch-plus">+</div>
+        <div class="arrow-push">← →</div>
+        <div class="ch-ball ch-plus">+</div>
+      </div>
+      <h4>Одинаковые — отталкиваются</h4>
+      <p>Плюс и плюс разбегаются. Минус и минус — тоже. Как два магнита одинаковыми сторонами.</p>
+    </div>
+    <div class="charge-card opp">
+      <div class="charge-balls">
+        <div class="ch-ball ch-plus">+</div>
+        <div class="arrow-pull">→ ←</div>
+        <div class="ch-ball ch-minus">−</div>
+      </div>
+      <h4>Разные — притягиваются</h4>
+      <p>Плюс и минус хотят слипнуться. Они буквально тянут друг друга, как магниты разными сторонами.</p>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🧲</div>
+    <div class="content">
+      <h5>Аналогия с магнитами</h5>
+      <p>Возьми два магнита и попробуй соединить их одинаковыми сторонами — они будут упрямо отталкиваться, как будто между ними пружина. А если перевернуть один — они сами прыгнут друг к другу. С плюсами и минусами точно так же, только магнитом тут работает сам <b style="color:var(--purple)">электрический заряд</b>.</p>
+    </div>
+  </div>
+
+  <div class="text-block blue-block">
+    <p>Когда у предмета поровну протонов и электронов — он <b>нейтральный</b>. Плюсы и минусы уравновешены, наружу ничего не торчит. Именно такие все обычные вещи: стол, вода, твой свитер в шкафу.</p>
+    <p>Но стоит где-то добавить или убрать немного электронов — и предмет сразу «заряжается». Избыток электронов = минус. Недостаток электронов = плюс. И вот отсюда уже начинается вся электрическая магия.</p>
+  </div>
+
+  <details>
+    <summary>Почему именно электроны прыгают, а не протоны? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Всё дело в «весе» и «креплении». Протон примерно в <b>1836 раз тяжелее</b> электрона — это огромная разница, как между гирей и пушинкой. Плюс к этому протоны плотно упакованы в ядре и удерживаются там очень сильным «клеем» — сильным ядерным взаимодействием. Оторвать протон от ядра — это как раз то, что происходит в ядерной реакции, а на это нужны огромные энергии.</p>
+      <p>А электроны летают по наружным «оболочкам» атома и держатся там довольно слабо. Самые внешние электроны у многих веществ (особенно у металлов) сидят настолько свободно, что их может сдвинуть даже лёгкое электрическое поле. Вот они и бегают.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 2: ЧТО ТАКОЕ ТОК -->
+<section class="block container">
+  <span class="section-label label-2">Часть 2 · Ток</span>
+  <h2>Что такое электрический ток?</h2>
+  <p class="lead">Если коротко — это <b style="color:var(--yellow)">движение электронов</b>. Но тут есть интересная штука: электрон не бежит через всю комнату от выключателя к лампочке. Они работают совсем иначе — по цепочке.</p>
+
+  <div class="text-block yellow-block">
+    <p>Смотри. В металлическом проводе (например, медном) миллиарды атомов стоят плотно в ряд. У каждого атома есть свой облачко «свободных» электронов, которые особо ни к кому не привязаны и летают где-то рядом. Это как дети на большой перемене — каждый сам по себе, но толпа общая.</p>
+    <p>Когда ты включаешь выключатель, к одному концу провода «прикладывается» <b>напряжение</b> — это как толчок. Электроны с того конца провода начинают подпихивать своих соседей. Те — следующих. И так далее — по цепочке по всей длине провода.</p>
+    <p>В результате <b>на другом конце провода тут же появляется ток</b> — хотя сам первый электрон ещё почти не сдвинулся с места. Двигается вся <b>цепочка целиком</b>, а не один конкретный электрон через весь дом.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🏐</div>
+    <div class="content">
+      <h5>Главная аналогия — мяч по цепочке</h5>
+      <p>Представь: выстроилась толпа детей в один длинный ряд, плечом к плечу, от входа в школу до класса. Первому дали мяч. Он тут же передал соседу, тот — следующему, и мяч быстро «добежал» до конца. А теперь заметь: <b style="color:var(--purple)">первый ребёнок никуда не бежал</b> — он остался на месте. И мяч фактически долетел не за счёт чьей-то пробежки, а за счёт того, что все дёрнулись по цепочке. Точно так же электроны в проводе: они почти не перемещаются сами, но «толчок» от выключателя мгновенно долетает до лампочки.</p>
+    </div>
+  </div>
+
+  <div class="wire-visual">
+    <div class="wire-ends">
+      <div class="wire-end"><span class="wire-icon">🔋</span> Батарейка</div>
+      <div class="wire-end">Лампочка <span class="wire-icon">💡</span></div>
+    </div>
+    <div class="wire">
+      <div class="electron-flow e-1"></div>
+      <div class="electron-flow e-2"></div>
+      <div class="electron-flow e-3"></div>
+      <div class="electron-flow e-4"></div>
+      <div class="electron-flow e-5"></div>
+      <div class="electron-flow e-6"></div>
+      <div class="electron-flow e-7"></div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:0.9rem;margin-top:10px">Электроны (синие) бегут по проводу по цепочке</p>
+  </div>
+
+  <div class="chain-people">
+    <span class="person">🧒</span>
+    <span class="ball-pass">⚽</span>
+    <span class="person">🧒</span>
+    <span class="ball-pass">⚽</span>
+    <span class="person">🧒</span>
+    <span class="ball-pass">⚽</span>
+    <span class="person">🧒</span>
+    <span class="ball-pass">⚽</span>
+    <span class="person">🧒</span>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🚰</div>
+    <div class="content">
+      <h5>Другая аналогия — вода в шланге</h5>
+      <p>Налей воды в длинный шланг до краёв. Капни воды в один конец — и <b style="color:var(--purple)">из другого конца тут же потечёт</b>. Вода ведь уже там, ей не надо пробегать всю длину. То же самое с электронами: их в проводе <b style="color:var(--purple)">уже полно</b>, батарейка просто их подталкивает. <br><br>В этой аналогии <b style="color:var(--cyan)">напряжение</b> — это давление воды (как сильно её подпихивают), а <b style="color:var(--cyan)">сила тока</b> — это сколько воды протекает в секунду.</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Постоянный и переменный ток — в чём разница? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Есть два вида тока. <b>Постоянный (DC)</b> — как в батарейке. Электроны бегут всегда в одну сторону: от минуса к плюсу. Просто и понятно.</p>
+      <p><b>Переменный (AC)</b> — как в розетке дома. Электроны там не бегут в одну сторону, а <b>дёргаются туда-сюда</b> — 50 раз в секунду в России и Европе (60 раз в США). Шаг вперёд, шаг назад, и снова. Они фактически почти стоят на месте, только трепыхаются.</p>
+      <p>Зачем так? Потому что переменный ток <b>намного проще передавать по длинным проводам</b> от электростанции к городу — он теряет меньше энергии. Представь: на электростанции есть огромные «трансформаторы», которые могут поднять напряжение переменного тока очень высоко (чтобы ток по проводам потёк тоненькой струйкой без потерь), а в городе другой трансформатор опускает его до безопасных 220 вольт. С постоянным током такой фокус не работает.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Почему птицы на проводах не бьются током? <span class="tag-new">интересно</span><span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Чтобы тебя ударило током, нужна одна важная вещь — <b>разница потенциалов</b>. Это как «перепад высоты». Ток потечёт через тебя только если одна твоя рука в одном «потенциале» (например, на проводе под напряжением), а другая — в другом (например, на земле или на другом проводе).</p>
+      <p>Птица сидит на одном проводе. Обе её лапки — на <b>одном и том же</b> проводе, в одной точке. Никакого перепада нет. Ток предпочитает бежать по меди провода (это проще), а не сворачивать через птицу. Поэтому птице всё равно — она хоть весь день там сиди.</p>
+      <p>А вот если бы у птицы был размах крыльев <b>несколько метров</b> и она бы умудрилась одновременно коснуться двух разных проводов — ей бы не поздоровилось. Именно поэтому крупные птицы иногда действительно гибнут на линиях электропередач с широко расставленными проводами.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 3: СТАТИЧЕСКОЕ ЭЛЕКТРИЧЕСТВО -->
+<section class="block container">
+  <span class="section-label label-3">Часть 3 · Статика</span>
+  <h2>Почему шарик прилипает к волосам?</h2>
+  <p class="lead">А теперь — самый весёлый эксперимент, который точно каждый делал. Потри воздушный шарик о волосы. И он начнёт прилипать к стене. А волосы будут стоять дыбом. Это — <b style="color:var(--pink)">статическое электричество</b>.</p>
+
+  <div class="text-block pink-block">
+    <p>Обычно в шарике и в твоих волосах <b>поровну</b> плюсов и минусов — они нейтральны. Но когда ты с силой трёшь шарик о волосы, часть электронов <b>перепрыгивает</b> с волос на шарик. Просто потому, что разные материалы по-разному держат свои электроны.</p>
+    <p>И вот теперь у шарика <b>избыток</b> электронов — он заряжен отрицательно (минус). А у волос <b>недостаток</b> — они заряжены положительно (плюс). Что делают плюс и минус? Правильно, тянутся друг к другу! Поэтому волосы встают дыбом и тянутся к шарику.</p>
+    <p>А прилипает шарик к стене, потому что его отрицательный заряд слегка «отпугивает» электроны в стене — у поверхности стены остаются плюсы, которые и притягивают шарик. Слабо, но хватает, чтобы шарик повисел несколько секунд.</p>
+  </div>
+
+  <div class="static-demo">
+    <div class="static-row">
+      <div class="static-step">
+        <span class="static-icon">🎈</span>
+        <span class="label">Шарик нейтральный</span>
+      </div>
+      <div class="static-arrow">+</div>
+      <div class="static-step">
+        <span class="static-icon">🧑‍🦱</span>
+        <span class="label">Волосы нейтральные</span>
+      </div>
+      <div class="static-arrow">→</div>
+      <div class="static-step">
+        <span class="static-icon">⚡</span>
+        <span class="label">Трём!</span>
+      </div>
+    </div>
+    <div class="static-row" style="margin-top:20px">
+      <div class="static-step">
+        <span class="static-icon">🎈</span>
+        <span class="label" style="color:var(--blue)">Шарик: минус −</span>
+      </div>
+      <div class="static-arrow" style="color:var(--green)">↔</div>
+      <div class="static-step">
+        <span class="static-icon">🧑‍🦱</span>
+        <span class="label" style="color:var(--orange)">Волосы: плюс +</span>
+      </div>
+      <div class="static-arrow">→</div>
+      <div class="static-step">
+        <span class="static-icon">😂</span>
+        <span class="label">Волосы дыбом!</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🧥</div>
+    <div class="content">
+      <h5>Почему свитер «бьётся искрой»</h5>
+      <p>Когда ты снимаешь шерстяной свитер зимой, он трётся о твою рубашку или о волосы. Электроны перепрыгивают, заряд накапливается. И когда ты потом дотрагиваешься до чего-нибудь металлического (например, дверной ручки) — избыточные электроны с тебя <b style="color:var(--purple)">мгновенно перебегают</b> на металл через крошечный зазор воздуха. Это и есть искра — маленькая молния размером в миллиметр. Щелчок, который ты слышишь — это почти настоящий мини-гром!</p>
+    </div>
+  </div>
+
+  <div class="chain-box">
+    <h4>🔑 Главная мысль</h4>
+    <p>Статическое электричество — это просто <b>накопленный заряд</b>, который сидит на месте и ждёт момента разрядиться. Чем больше накопилось — тем сильнее будет разряд. И именно так, только в миллиард раз масштабнее, рождается <b>молния</b>.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 4: МОЛНИЯ -->
+<section class="block container">
+  <span class="section-label label-4">Часть 4 · Молния</span>
+  <h2>Молния — это гигантская искра</h2>
+  <p class="lead">Теперь самое интересное. Молния — это <b style="color:var(--yellow)">статическое электричество, но в миллиард раз мощнее</b>, чем искра от свитера. И все хитрости, которые мы только что обсудили, работают и здесь.</p>
+
+  <div class="text-block yellow-block">
+    <p>Представь себе грозовую тучу. Она огромная, полная капелек воды и кристалликов льда. Внутри тучи страшные ветры мотают эти льдинки и капли вверх-вниз, они трутся друг о друга — точно как шарик о волосы. И часть электронов перескакивает.</p>
+    <p>В итоге <b>низ тучи заряжается отрицательно</b> (избыток электронов), а <b>верх — положительно</b>. Получается, что туча работает как огромная батарейка.</p>
+    <p>А что делает земля под тучей? Свои электроны, которые на поверхности, пугаются минуса сверху и убегают вглубь. Поэтому земля под тучей тоже «поляризуется» — её <b>поверхность становится плюсом</b>. Между тучей и землёй накапливается чудовищная разница потенциалов — десятки миллионов вольт.</p>
+    <p>И когда напряжение становится таким, что даже воздух уже не может служить «изолятором» — происходит <b>разряд</b>. Электроны из тучи мощным потоком устремляются к земле. Это и есть молния.</p>
+  </div>
+
+  <div class="sky-diagram">
+    <div class="big-cloud">
+      <div class="cloud-charges">− − − − −</div>
+    </div>
+    <svg class="lightning-svg" width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="60,0 35,40 52,45 20,100 45,95 10,180 75,80 55,85 90,30 68,35 80,0" fill="#ffd93d" stroke="#ff8c42" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <div class="ground-line"></div>
+    <div class="ground-charges">+ + + + +</div>
+  </div>
+
+  <div class="text-block orange-block">
+    <p>А теперь — самый твой вопрос. <b>Почему молния зигзагом?</b></p>
+    <p>Дело в том, что воздух — это в принципе плохой проводник. Он сопротивляется току. Но сопротивляется он неравномерно — где-то чуть больше влажности, где-то пылинка, где-то воздух чуть теплее или разреженнее. Эти крошечные различия делают так, что в каждой точке есть «чуть более удобный путь» и «менее удобный».</p>
+    <p>И молния ищет себе <b>путь наименьшего сопротивления</b>. Она как бы прощупывает воздух короткими прыжками — по 50 метров за раз. В каждой точке она выбирает направление, где воздух «проламывается» легче всего. И поэтому путь получается <b>не прямой, а зигзагом</b>, повторяющий невидимые «дорожки» самого слабого сопротивления в воздухе.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">💧</div>
+    <div class="content">
+      <h5>Представь — вода по холмистой местности</h5>
+      <p>Вылей ведро воды на холмистый двор. Побежит ли вода по прямой линии вниз? Нет — она будет <b style="color:var(--purple)">петлять</b>, обходя камни, ныряя в ямки и выбирая самые низкие места. Молния делает ровно то же самое, только вместо камней и ямок у неё — участки более плотного или менее плотного воздуха. Ей тоже удобнее ломаным зигзагом, чем по прямой.</p>
+    </div>
+  </div>
+
+  <div class="wow-box">
+    <div style="font-size:2.5rem">🔥</div>
+    <div style="color:var(--muted);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:0.85rem;margin-top:6px">Температура канала молнии</div>
+    <div class="big-temp">30 000 °C</div>
+    <p class="compare-line">Это <b>в 5 раз горячее, чем поверхность Солнца</b> (у Солнца «всего» около 6 000 °C). На долю секунды воздух внутри молнии раскаляется сильнее, чем что-либо на поверхности нашей звезды. Именно поэтому молния <b>светится</b> — раскалённый воздух сам испускает ослепительный белый свет.</p>
+  </div>
+
+  <div class="text-block yellow-block">
+    <p>Длина одной молнии — обычно <b>2–5 километров</b>, но бывают и «ветвистые» разряды, растянутые на десятки километров по небу. Ток внутри молнии — около <b>30 000 ампер</b> (в розетке твоего дома — примерно 6 ампер, чувствуешь разницу?).</p>
+    <p>И всё это длится всего <b>0,0002 секунды</b>. Ты даже моргнуть не успеешь.</p>
+  </div>
+
+  <details>
+    <summary>Бенджамин Франклин и воздушный змей — реальная история <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>В 1752 году американский учёный <b>Бенджамин Франклин</b> (да-да, тот самый, который на стодолларовой купюре) провёл очень смелый — и вообще-то очень опасный — эксперимент. Он хотел доказать, что молния — это <b>то же самое электричество</b>, которое люди уже умели получать в лабораториях, только огромное.</p>
+      <p>Во время грозы Франклин запустил <b>воздушного змея</b>, к которому был привязан металлический ключ. Шнурок был мокрый от дождя и отлично проводил ток. Когда в змей попала не прямо молния, а только небольшой заряд с тучи, ключ заискрил — и Франклин получил слабый удар током. Это и доказало его теорию.</p>
+      <p>Важный момент: <b>не повторяй это</b>. Франклину очень повезло, что в змей не ударило по-настоящему. Двое других учёных, пытавшихся повторить эксперимент, погибли от разряда. Зато благодаря этому открытию Франклин же изобрёл <b>громоотвод</b> — металлический штырь на крыше, который принимает удар молнии на себя и безопасно уводит ток в землю.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 5: ГРОМ -->
+<section class="block container">
+  <span class="section-label label-5">Часть 5 · Гром</span>
+  <h2>А гром — это что?</h2>
+  <p class="lead">Ты уже знаешь, что молния разогревает воздух до 30 000 градусов. Что будет с воздухом, который вдруг мгновенно стал в 5 раз горячее Солнца? Правильно — он <b style="color:var(--orange)">взорвётся</b>. Вот этот взрыв воздуха — и есть гром.</p>
+
+  <div class="text-block orange-block">
+    <p>Когда что-то резко нагревается, оно резко <b>расширяется</b>. Как воздух в воздушном шарике, если его бросить в костёр — он взорвётся, потому что молекулы внутри стали двигаться в сто раз быстрее и начали давить на стенки.</p>
+    <p>В канале молнии воздух разогревается за миллионные доли секунды. Он не успевает «спокойно раздуться» — он <b>взрывается наружу</b> со скоростью, превышающей скорость звука. А потом вокруг холодный воздух опять смыкается, и получается резкий хлопок-волна. Эта волна долетает до твоих ушей — ты слышишь гром.</p>
+    <p>Раскатистый «рокот» грома — это эхо. Разные части длинной молнии (она же километры!) находятся на разном расстоянии от тебя, и звук от них долетает с разной задержкой. Поэтому гром не один «бах», а долгое «гррр-баа-дум».</p>
+  </div>
+
+  <div class="thunder-calc">
+    <div class="thunder-card flash-card">
+      <div class="emoji">⚡</div>
+      <h4 style="color:var(--yellow)">Свет</h4>
+      <div class="big-num">300 000 км/с</div>
+      <p>Свет долетает до тебя <b style="color:var(--text)">мгновенно</b>. Ты видишь молнию в ту же секунду, когда она сверкнула.</p>
+    </div>
+    <div class="thunder-card boom-card">
+      <div class="emoji">💥</div>
+      <h4 style="color:var(--orange)">Звук</h4>
+      <div class="big-num">340 м/с</div>
+      <p>Звук движется <b style="color:var(--text)">в миллион раз медленнее</b>. Поэтому ты слышишь гром с задержкой.</p>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-txt">⏱ секунды между вспышкой и громом × 340 м ≈ расстояние до молнии</div>
+    <p class="formula-note">Например: сверкнуло — считаешь «один-два-три» — раздался гром. Значит, молния примерно в 1 км от тебя.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🎆</div>
+    <div class="content">
+      <h5>Как с фейерверком</h5>
+      <p>Ты когда-нибудь смотрел салют издалека? Сначала видишь вспышку — потом, через пару секунд, слышишь «бам». Это тот же эффект. Свет прилетает мгновенно, а звук плетётся со скоростью 340 метров в секунду — вот и получается задержка. С молнией то же самое, только в природном масштабе.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 6: БЕЗОПАСНОСТЬ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 6 · Безопасность</span>
+  <h2>Что делать во время грозы?</h2>
+  <p class="lead">Без страшилок. Просто физика: молния ищет <b style="color:var(--green)">самый короткий путь к земле</b>. Значит, надо не быть этим путём. И всё.</p>
+
+  <div class="text-block green-block">
+    <p>Молния предпочитает самые <b>высокие</b> и самые <b>проводящие</b> точки поблизости. Высокое дерево в поле, одинокий столб, человек на вершине холма — всё это для неё «удобные» кандидаты. А в лесу или в доме ты в безопасности: вокруг есть более высокие объекты, и молния с гораздо большей вероятностью ударит в них.</p>
+    <p>Самое безопасное место во время грозы (после дома) — <b>внутри машины</b>. И это не шутка.</p>
+  </div>
+
+  <div class="safety-grid">
+    <div class="safe-col">
+      <h4>✅ Безопасно</h4>
+      <ul>
+        <li>Внутри дома (не у окна)</li>
+        <li><b>Внутри машины</b> с закрытыми окнами</li>
+        <li>В низине, в яме, в оврагах</li>
+        <li>В лесу (среди деревьев одинаковой высоты)</li>
+        <li>Сидеть на корточках, если застало в поле</li>
+      </ul>
+    </div>
+    <div class="danger-col">
+      <h4>⚠️ Не стоит</h4>
+      <ul>
+        <li>Под одиноким высоким деревом</li>
+        <li>На вершине холма или крыши</li>
+        <li>В открытом поле стоя во весь рост</li>
+        <li>В воде (озеро, река, море)</li>
+        <li>Держать в руках металлические штуки</li>
+      </ul>
+    </div>
+  </div>
+
+  <details>
+    <summary>Клетка Фарадея — почему в машине безопасно <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>В 1836 году учёный <b>Майкл Фарадей</b> открыл удивительную штуку: если обернуть что-нибудь металлической сеткой или коробкой, то внутри не будет никакого электричества снаружи. Электрический заряд всегда распределяется только по <b>наружной поверхности</b> металла и внутрь не проникает. Эту штуку называют <b>клеткой Фарадея</b>.</p>
+      <p>Машина — почти идеальная клетка Фарадея. Корпус металлический. Если в машину попадёт молния, ток <b>побежит по металлическому корпусу снаружи</b> в землю (через шины и дождевую воду). А внутри салона тебя не тронет — ток туда просто не попадёт.</p>
+      <p>Важно: дело <b>не в резиновых шинах</b>, как многие думают. Молния только что пробила километр воздуха — её десяток сантиметров резины не остановит. Дело именно в металлической «коробке» вокруг тебя. Поэтому машина с пластиковой крышей (кабриолет с опущенным верхом) — уже <b>не клетка Фарадея</b> и не так безопасна.</p>
+      <p>По тому же принципу тебя защищает корпус самолёта. В самолёт молния попадает в среднем раз в год — и никто внутри даже не замечает. Салон — это огромная клетка Фарадея на высоте 10 километров.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 7: ЭЛЕКТРИЧЕСТВО В БЫТУ -->
+<section class="block container">
+  <span class="section-label label-7">Часть 7 · Розетка и электростанция</span>
+  <h2>Откуда берётся ток в розетке?</h2>
+  <p class="lead">Когда ты включаешь лампу, электроны начинают двигаться по проводам у тебя в стене. Но кто-то же их туда «подтолкнул». И этот кто-то — электростанция за много-много километров отсюда.</p>
+
+  <div class="text-block purple-block">
+    <p>Почти все электростанции работают по одному и тому же принципу. Крутится большая катушка из медной проволоки внутри магнита (или наоборот — крутится магнит внутри катушки). Это называется <b>генератор</b>. Когда медь движется рядом с магнитом, электроны в проволоке начинают <b>дёргаться</b> — и получается ток.</p>
+    <p>Вопрос в том, <b>кто крутит</b> эту катушку. И вот тут все электростанции отличаются.</p>
+  </div>
+
+  <div class="power-chain">
+    <div class="power-step">
+      <span class="p-emoji">🔥</span>
+      <h5>1. Жжём топливо</h5>
+      <p>Уголь, газ или атом греет воду</p>
+    </div>
+    <div class="power-step">
+      <span class="p-emoji">💨</span>
+      <h5>2. Пар</h5>
+      <p>Вода закипает, получается мощный пар</p>
+    </div>
+    <div class="power-step">
+      <span class="p-emoji">⚙️</span>
+      <h5>3. Турбина</h5>
+      <p>Пар крутит огромное колесо</p>
+    </div>
+    <div class="power-step">
+      <span class="p-emoji">🔌</span>
+      <h5>4. Генератор</h5>
+      <p>Колесо крутит магнит — течёт ток</p>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>На тепловых электростанциях сжигают уголь или газ. На ГЭС (гидроэлектростанциях) крутит турбину <b>падающая вода</b> из огромной плотины. Ветряные станции используют ветер. Солнечные панели — это особый случай, они превращают свет сразу в ток без крутящихся частей.</p>
+    <p>А на <b>атомных электростанциях</b> — знаешь, что работает «кипятильником»? <b>Ядерная реакция</b>. Мы подробно разбирали её в статье про <a href="nuclear.html">ядерные реакции</a>: уран в реакторе делится, выделяется огромное тепло, это тепло кипятит воду, пар крутит турбину, турбина крутит генератор — и вот у тебя в розетке появляются 220 вольт. Так что, включая настольную лампу, ты в прямом смысле пользуешься силой атома.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🚲</div>
+    <div class="content">
+      <h5>Велосипедный фонарик</h5>
+      <p>У старых велосипедов фары светились без батареек. К колесу прижималось маленькое колёсико-генератор, которое крутилось вместе с шиной. Внутри — тот же принцип: магнит, медная катушка, движение. Крутишь педали сильнее — едешь быстрее — генератор вращается быстрее — фара светит ярче. Ровно так же работает электростанция, только в миллион раз масштабнее.</p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Как работает батарейка — химическое электричество <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Не везде ток берётся от крутящегося магнита. Батарейка умеет выдавать его прямо из <b>химической реакции</b>. Внутри обычной батарейки есть два разных вещества (например, цинк и диоксид марганца) и специальный «раствор» между ними, который называется <b>электролит</b>.</p>
+      <p>Когда батарейка подключена к цепи (например, к лампочке фонарика), на одном электроде атомы одного вещества <b>теряют электроны</b>, а на другом — <b>получают</b>. И этим электронам приходится идти по проводу снаружи — от минуса к плюсу. Вот это движение по проводу и есть ток, который зажигает лампочку.</p>
+      <p>Когда все атомы «закончатся», батарейка сядет — больше брать электроны неоткуда. В <b>аккумуляторе</b> (например, в телефоне) эта реакция обратимая: когда ты ставишь телефон на зарядку, ток от розетки «гонит» реакцию в обратную сторону, и батарея снова готова к работе.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 8: ГДЕ ВСТРЕЧАЕТСЯ -->
+<section class="block container">
+  <span class="section-label label-8">Часть 8 · Где это встречается</span>
+  <h2>Где электричество в жизни</h2>
+  <p class="lead">Ты, наверное, думаешь: ну электричество — это провода, розетки, молнии. А на самом деле оно <b style="color:var(--cyan)">вообще везде</b>, в том числе прямо у тебя в голове.</p>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">⛈</span>
+      <h4>Молнии в грозу</h4>
+      <p>Самый мощный природный разряд — до 1 миллиарда вольт в одной молнии.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">💡</span>
+      <h4>Все электроприборы</h4>
+      <p>Лампы, холодильник, телевизор, зарядки, микроволновка — миллиарды электронов бегают по проводам каждую секунду.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🚗</span>
+      <h4>Электромобили</h4>
+      <p>Вместо двигателя и бензина — огромный аккумулятор и электромотор. Ускорение — мгновенное.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🧠</span>
+      <h4>Твой мозг</h4>
+      <p>Все мысли и чувства — это <b style="color:var(--text)">электрические импульсы</b> между нейронами. Ты буквально <b style="color:var(--text)">думаешь током</b>.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🫀</span>
+      <h4>Сердцебиение</h4>
+      <p>Сердце тоже заставляют биться электрические сигналы. ЭКГ в больнице — это прибор, который ловит эти крошечные токи.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🗼</span>
+      <h4>Громоотводы</h4>
+      <p>На каждом высотном здании торчит металлический штырь. Он ловит молнию на себя и безопасно сбрасывает её ток в землю.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🐟</span>
+      <h4>Электрические скаты и угри</h4>
+      <p>Эти рыбы могут бить током до 600 вольт — чтобы оглушить добычу. У них настоящая батарейка внутри!</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🌍</span>
+      <h4>Магнитное поле Земли</h4>
+      <p>В самом центре нашей планеты тоже течёт ток — потоки расплавленного железа создают магнитное поле, которое нас защищает.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACT -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт</h3>
+    <p>В любую секунду на Земле идёт примерно <b style="color:var(--yellow)">2000 гроз одновременно</b> и сверкает около <b style="color:var(--yellow)">100 молний в секунду</b>. Пока ты читал это предложение, в мире уже сверкнуло раз пятьсот.</p>
+    <p>А теперь самое безумное. У тебя в голове <b style="color:var(--yellow)">86 миллиардов нейронов</b>, и между ними каждую секунду пролетают миллиарды крошечных электрических импульсов. Ты сейчас думаешь эту мысль — и это буквально <b style="color:var(--yellow)">маленькая гроза в твоей голове</b>. Такая же физика, как в молнии, только в миллионы раз слабее и точнее. Так что да — ты думаешь электричеством ⚡🧠</p>
+  </div>
+</section>
+
+<!-- НАЗАД НА ГЛАВНУЮ -->
+<section class="block container" style="text-align:center;padding-top:20px">
+  <a href="../index.html" class="back-home">← На главную</a>
+</section>
+
+<footer>
+  Сделано с <span class="heart">❤</span> для любопытных учёных
+  <div class="signature">Kids Wiki · 18 апреля 2026</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>
