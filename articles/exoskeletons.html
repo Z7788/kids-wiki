@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>Экзоскелеты</title>
+<meta name="description" content="Как работают железные костюмы, которые усиливают тело — от заводских грузчиков до людей, снова научившихся ходить.">
+<meta name="emoji" content="🦾">
+<meta name="date" content="2026-04-19">
+<meta name="reading-time" content="25 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(78, 205, 196, 0.15);
+    border: 2px solid var(--cyan);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--cyan), var(--blue), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(78, 205, 196, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* HERO — человек в экзоскелете */
+  .hero-suit {
+    width: 220px;
+    height: 280px;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .suit-body {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 180px;
+    background: linear-gradient(180deg, rgba(78, 205, 196, 0.25), rgba(167, 139, 250, 0.25));
+    border: 2px solid var(--cyan);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(78, 205, 196, 0.35), inset 0 0 20px rgba(167, 139, 250, 0.25);
+  }
+
+  .suit-head {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle at 30% 30%, var(--purple), var(--blue));
+    border-radius: 50%;
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 25px rgba(167, 139, 250, 0.5);
+  }
+
+  .suit-arm {
+    position: absolute;
+    width: 22px;
+    height: 110px;
+    background: linear-gradient(180deg, rgba(78, 205, 196, 0.3), rgba(167, 139, 250, 0.2));
+    border: 2px solid var(--cyan);
+    border-radius: 16px;
+    top: 70px;
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.4);
+  }
+
+  .suit-arm.left { left: 30px; animation: armSway 2.5s ease-in-out infinite; transform-origin: top center; }
+  .suit-arm.right { right: 30px; animation: armSway 2.5s ease-in-out infinite reverse; transform-origin: top center; }
+
+  @keyframes armSway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+  }
+
+  .suit-leg {
+    position: absolute;
+    width: 28px;
+    height: 100px;
+    background: linear-gradient(180deg, rgba(167, 139, 250, 0.25), rgba(78, 205, 196, 0.25));
+    border: 2px solid var(--cyan);
+    border-radius: 14px;
+    bottom: 0;
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.4);
+  }
+
+  .suit-leg.left { left: 70px; }
+  .suit-leg.right { right: 70px; }
+
+  .suit-joint {
+    position: absolute;
+    width: 16px; height: 16px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--yellow);
+    animation: jointPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes jointPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+  }
+
+  .j-shoulder-l { top: 65px; left: 40px; }
+  .j-shoulder-r { top: 65px; right: 40px; }
+  .j-hip-l { top: 180px; left: 72px; }
+  .j-hip-r { top: 180px; right: 72px; }
+
+  .scroll-hint {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block { padding: 60px 20px; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-2 { background: rgba(255, 140, 66, 0.15); color: var(--orange); }
+  .label-3 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-4 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-5 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-6 { background: rgba(255, 71, 87, 0.15); color: var(--red); }
+  .label-7 { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .label-8 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+  .label-9 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCKS */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+  .text-block b { color: var(--yellow); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.orange-block { border-color: var(--orange); }
+  .text-block.orange-block b { color: var(--orange); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.pink-block { border-color: var(--pink); }
+  .text-block.pink-block b { color: var(--pink); }
+
+  .text-block.red-block { border-color: var(--red); }
+  .text-block.red-block b { color: var(--orange); }
+
+  .text-block.blue-block { border-color: var(--blue); }
+  .text-block.blue-block b { color: var(--blue); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  .analogy.cyan-analogy {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(107, 207, 127, 0.1));
+    border-color: rgba(78, 205, 196, 0.3);
+  }
+  .analogy.cyan-analogy .content h5 { color: var(--cyan); }
+
+  .analogy.orange-analogy {
+    background: linear-gradient(135deg, rgba(255, 140, 66, 0.1), rgba(255, 217, 61, 0.1));
+    border-color: rgba(255, 140, 66, 0.3);
+  }
+  .analogy.orange-analogy .content h5 { color: var(--orange); }
+
+  .analogy.pink-analogy {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.12), rgba(167, 139, 250, 0.08));
+    border-color: rgba(255, 107, 157, 0.3);
+  }
+  .analogy.pink-analogy .content h5 { color: var(--pink); }
+
+  /* DETAILS */
+  details {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.04), rgba(74, 158, 255, 0.04));
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 14px;
+    padding: 4px 24px;
+    margin: 18px 0;
+    transition: all 0.25s ease;
+  }
+
+  details[open] {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.06));
+    border-color: rgba(78, 205, 196, 0.4);
+  }
+
+  details summary {
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::before { transform: rotate(90deg); }
+
+  details summary .tag-more {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  details .details-body {
+    padding: 4px 0 18px 24px;
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  details .details-body p { margin-bottom: 12px; }
+  details .details-body p:last-child { margin-bottom: 0; }
+  details .details-body b { color: var(--yellow); }
+
+  details .details-body a {
+    color: var(--cyan);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--cyan);
+    transition: all 0.2s;
+  }
+  details .details-body a:hover {
+    color: var(--yellow);
+    border-bottom-color: var(--yellow);
+  }
+
+  /* CROSS-LINK INLINE */
+  .cross-link {
+    color: var(--cyan);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--cyan);
+    transition: all 0.2s;
+  }
+  .cross-link:hover { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+  /* BUGS (природные экзоскелеты) */
+  .bug-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .bug-card {
+    background: rgba(107, 207, 127, 0.07);
+    border: 1px solid rgba(107, 207, 127, 0.25);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .bug-card .bug-emoji {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .bug-card h4 {
+    font-size: 1rem;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  .bug-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* SCHEMA: человек vs человек+экзо */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 24px 0;
+  }
+
+  .compare-col {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px;
+    border-top: 4px solid;
+    position: relative;
+  }
+
+  .compare-col.plain { border-color: var(--muted); }
+  .compare-col.suit { border-color: var(--cyan); }
+
+  .compare-col h3 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .compare-col ul { list-style: none; }
+
+  .compare-col li {
+    padding: 10px 0;
+    padding-left: 28px;
+    position: relative;
+    color: var(--muted);
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .compare-col li:last-child { border-bottom: none; }
+
+  .compare-col li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 16px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+  }
+
+  .compare-col.plain li::before { background: var(--muted); box-shadow: 0 0 8px var(--muted); }
+  .compare-col.suit li::before { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+  .compare-col li b { color: var(--text); }
+
+  /* СХЕМА ПАССИВНОГО ЭКЗО — груз, пружины, ноги */
+  .diagram {
+    background: linear-gradient(135deg, rgba(255, 140, 66, 0.08), rgba(255, 217, 61, 0.06));
+    border-radius: 20px;
+    padding: 36px 20px;
+    margin: 24px 0;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .diagram.cyan-diagram {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(74, 158, 255, 0.06));
+  }
+
+  .diagram.purple-diagram {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(255, 107, 157, 0.06));
+  }
+
+  .diagram-title {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .passive-scene {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .figure-head {
+    width: 36px; height: 36px;
+    background: radial-gradient(circle at 30% 30%, var(--purple), var(--blue));
+    border-radius: 50%;
+    margin-bottom: 6px;
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.4);
+  }
+
+  .figure-torso {
+    width: 46px; height: 68px;
+    background: linear-gradient(180deg, var(--cyan), var(--blue));
+    border-radius: 14px;
+    margin-bottom: 4px;
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+    position: relative;
+  }
+
+  .figure-torso.loaded::before {
+    content: '📦';
+    position: absolute;
+    top: -46px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    animation: loadBob 2s ease-in-out infinite;
+  }
+
+  @keyframes loadBob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-3px); }
+  }
+
+  .figure-legs {
+    display: flex;
+    gap: 6px;
+  }
+
+  .figure-leg {
+    width: 16px; height: 70px;
+    background: linear-gradient(180deg, var(--blue), var(--purple));
+    border-radius: 6px;
+  }
+
+  .spring-frame {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    left: -18px;
+    right: -18px;
+    border: 2px solid var(--orange);
+    border-radius: 10px;
+    background: rgba(255, 140, 66, 0.08);
+    pointer-events: none;
+  }
+
+  .spring {
+    position: absolute;
+    width: 4px;
+    height: 40px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--yellow) 0 2px,
+      transparent 2px 4px
+    );
+    border-left: 2px solid var(--yellow);
+    border-right: 2px solid var(--yellow);
+    animation: springy 1.2s ease-in-out infinite;
+  }
+
+  @keyframes springy {
+    0%, 100% { height: 40px; }
+    50% { height: 32px; }
+  }
+
+  .spring.s1 { top: 50px; left: -14px; }
+  .spring.s2 { top: 50px; right: -14px; }
+
+  .arrow-down {
+    font-size: 1.4rem;
+    color: var(--yellow);
+    animation: arrowPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes arrowPulse {
+    0%, 100% { opacity: 0.5; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(4px); }
+  }
+
+  .force-path {
+    text-align: center;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  /* СХЕМА АКТИВНОГО ЭКЗО — сигнал */
+  .signal-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .flow-box {
+    background: var(--card);
+    border: 2px solid;
+    border-radius: 14px;
+    padding: 14px 18px;
+    min-width: 130px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
+  }
+
+  .flow-box .flow-emoji {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .flow-box h5 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .flow-box p {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .flow-box.b1 { border-color: var(--red); }
+  .flow-box.b1 h5 { color: var(--red); }
+  .flow-box.b2 { border-color: var(--yellow); }
+  .flow-box.b2 h5 { color: var(--yellow); }
+  .flow-box.b3 { border-color: var(--cyan); }
+  .flow-box.b3 h5 { color: var(--cyan); }
+  .flow-box.b4 { border-color: var(--green); }
+  .flow-box.b4 h5 { color: var(--green); }
+
+  .flow-arrow {
+    color: var(--cyan);
+    font-size: 1.6rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  /* WEIGHT BAR */
+  .weight-bar {
+    margin: 20px 0;
+  }
+
+  .weight-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .weight-label {
+    min-width: 170px;
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .weight-track {
+    flex: 1;
+    height: 28px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .weight-fill {
+    height: 100%;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    color: white;
+    font-weight: 800;
+    font-size: 0.85rem;
+    transition: width 1.5s ease;
+  }
+
+  .weight-fill.f-hard {
+    background: linear-gradient(90deg, var(--red), var(--orange));
+    width: 100%;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
+  }
+
+  .weight-fill.f-easy {
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    width: 20%;
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.4);
+  }
+
+  /* HISTORY */
+  .history-card {
+    background: linear-gradient(135deg, rgba(26,33,80,0.9), rgba(20, 26, 60, 0.9));
+    border: 1px solid rgba(255, 107, 157, 0.15);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .history-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--pink), var(--purple));
+  }
+
+  .history-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .history-emoji {
+    font-size: 2.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .history-title h3 {
+    font-size: 1.4rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .history-date {
+    color: var(--pink);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .history-card p {
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 1.02rem;
+    margin-bottom: 14px;
+  }
+  .history-card p:last-child { margin-bottom: 0; }
+  .history-card b { color: var(--yellow); }
+
+  /* CHAIN BOX */
+  .chain-box {
+    background: rgba(167, 139, 250, 0.08);
+    border: 2px dashed rgba(167, 139, 250, 0.35);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .chain-box h4 {
+    font-size: 1.2rem;
+    color: var(--purple);
+    margin-bottom: 8px;
+  }
+
+  .chain-box p {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .chain-box.cyan-chain { background: rgba(78, 205, 196, 0.08); border-color: rgba(78, 205, 196, 0.35); }
+  .chain-box.cyan-chain h4 { color: var(--cyan); }
+
+  .chain-box.green-chain { background: rgba(107, 207, 127, 0.08); border-color: rgba(107, 207, 127, 0.35); }
+  .chain-box.green-chain h4 { color: var(--green); }
+
+  /* WHERE GRID */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.08rem;
+    margin-bottom: 6px;
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .where-card .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .tag-medical { background: rgba(107, 207, 127, 0.2); color: var(--green); }
+  .tag-industry { background: rgba(255, 140, 66, 0.2); color: var(--orange); }
+  .tag-army { background: rgba(255, 71, 87, 0.2); color: var(--red); }
+  .tag-sport { background: rgba(167, 139, 250, 0.2); color: var(--purple); }
+  .tag-rescue { background: rgba(74, 158, 255, 0.2); color: var(--blue); }
+  .tag-future { background: rgba(255, 107, 157, 0.2); color: var(--pink); }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .fun-fact p:last-child { margin-bottom: 0; }
+
+  /* BACK HOME */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 26px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  .back-home:hover {
+    background: rgba(78, 205, 196, 0.2);
+    transform: translateX(-4px);
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  footer .signature {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* MUSCLE — EMG визуал */
+  .emg-scene {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .muscle-icon {
+    width: 110px;
+    height: 70px;
+    background: radial-gradient(ellipse at center, var(--red), #8b1a26);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.35);
+    animation: flex 1.4s ease-in-out infinite;
+  }
+
+  @keyframes flex {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+  }
+
+  .electrode {
+    position: absolute;
+    width: 14px; height: 14px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--yellow);
+  }
+
+  .electrode.e1 { top: 18px; left: 20px; }
+  .electrode.e2 { top: 18px; right: 20px; }
+
+  .emg-wave {
+    width: 220px;
+    height: 80px;
+    background: rgba(10, 14, 39, 0.6);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .emg-wave::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 200%;
+    height: 2px;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    transform: translateY(-50%);
+    animation: emgPulse 2s linear infinite;
+  }
+
+  @keyframes emgPulse {
+    0% { clip-path: polygon(0 50%, 5% 50%, 7% 10%, 9% 90%, 11% 30%, 13% 50%, 18% 50%, 20% 20%, 22% 80%, 24% 50%, 30% 50%, 32% 5%, 34% 95%, 36% 50%, 50% 50%, 52% 10%, 54% 90%, 56% 50%, 80% 50%, 100% 50%); transform: translate(-50%, -50%); }
+    100% { clip-path: polygon(0 50%, 5% 50%, 7% 10%, 9% 90%, 11% 30%, 13% 50%, 18% 50%, 20% 20%, 22% 80%, 24% 50%, 30% 50%, 32% 5%, 34% 95%, 36% 50%, 50% 50%, 52% 10%, 54% 90%, 56% 50%, 80% 50%, 100% 50%); transform: translate(0%, -50%); }
+  }
+
+  /* CROSS-LINK CARD */
+  .crosslink-card {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(74, 158, 255, 0.08));
+    border: 2px solid rgba(255, 217, 61, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.25s;
+  }
+
+  .crosslink-card:hover {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.18), rgba(74, 158, 255, 0.12));
+    border-color: var(--yellow);
+    transform: translateX(4px);
+  }
+
+  .crosslink-card .cl-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .crosslink-card .cl-text h5 {
+    color: var(--yellow);
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .crosslink-card .cl-text p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 700px) {
+    .compare { grid-template-columns: 1fr; }
+    .signal-flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+    .weight-label { min-width: 120px; font-size: 0.85rem; }
+    .bug-grid { grid-template-columns: repeat(2, 1fr); }
+    .history-card { padding: 24px 20px; }
+    .history-head { gap: 12px; }
+    .history-emoji { font-size: 2.2rem; }
+    details { padding: 2px 18px; }
+    details .details-body { padding-left: 12px; }
+    .passive-scene { gap: 16px; }
+    .figure-head { width: 28px; height: 28px; }
+    .figure-torso { width: 38px; height: 56px; }
+    .figure-leg { height: 56px; }
+    .emg-wave { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🦾 Техника, которая усиливает тело</span>
+  <h1>Экзо-<br>скелеты</h1>
+  <p>Железные костюмы, которые надеваются поверх тела и превращают обычного человека в силача — а парализованного снова заставляют ходить</p>
+
+  <div class="hero-suit">
+    <div class="suit-body"></div>
+    <div class="suit-head"></div>
+    <div class="suit-arm left"></div>
+    <div class="suit-arm right"></div>
+    <div class="suit-leg left"></div>
+    <div class="suit-leg right"></div>
+    <div class="suit-joint j-shoulder-l"></div>
+    <div class="suit-joint j-shoulder-r"></div>
+    <div class="suit-joint j-hip-l"></div>
+    <div class="suit-joint j-hip-r"></div>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ЧАСТЬ 1: ПРИРОДА -->
+<section class="block container">
+  <span class="section-label label-1">Часть 1 · Сначала — в природе</span>
+  <h2>Что такое экзоскелет вообще?</h2>
+  <p class="lead">Слово «экзо» по-гречески значит «снаружи». А скелет — это каркас, на котором держится тело. Получается: экзоскелет = скелет, который снаружи, а не внутри. И такое в природе встречается сплошь и рядом.</p>
+
+  <div class="text-block green-block">
+    <p>Смотри: у тебя скелет <b>внутри</b>. Кости спрятаны под мышцами и кожей, и снаружи их не видно. А у жука, краба или паука всё устроено наоборот. Их «кости» — это твёрдый панцирь <b>снаружи</b>, а мягкие мышцы и внутренности спрятаны внутри, как в коробке.</p>
+    <p>Этот панцирь и есть настоящий, природный экзоскелет. Он выполняет сразу две работы: <b>держит форму тела</b> (как для нас — обычный скелет) и <b>защищает</b> от ударов, зубов и даже от высыхания.</p>
+    <p>У кого-то экзоскелет тонкий и лёгкий — как у мухи. У кого-то — толстый и прочный, как броня средневекового рыцаря — например, у краба или омара.</p>
+  </div>
+
+  <div class="analogy cyan-analogy">
+    <div class="icon">🥚</div>
+    <div class="content">
+      <h5>Аналогия</h5>
+      <p>Представь варёное яйцо. Скорлупа снаружи — это как экзоскелет: она твёрдая, держит форму, защищает мягкое содержимое. А теперь представь помидор: он, наоборот, мягкий снаружи и сочный внутри — у него «скелета» снаружи нет. Жуки — это «яйцо», а ты и собака — «помидор» с косточками внутри.</p>
+    </div>
+  </div>
+
+  <div class="bug-grid">
+    <div class="bug-card">
+      <span class="bug-emoji">🦀</span>
+      <h4>Краб</h4>
+      <p>Толстая броня из хитина с кальцием. Прочнее твоих костей!</p>
+    </div>
+    <div class="bug-card">
+      <span class="bug-emoji">🪲</span>
+      <h4>Жук</h4>
+      <p>Лёгкий панцирь. Защищает от ударов и хищников.</p>
+    </div>
+    <div class="bug-card">
+      <span class="bug-emoji">🦞</span>
+      <h4>Омар</h4>
+      <p>Такой крепкий, что нужны специальные щипцы, чтобы расколоть.</p>
+    </div>
+    <div class="bug-card">
+      <span class="bug-emoji">🕷</span>
+      <h4>Паук</h4>
+      <p>Панцирь плюс мышцы внутри — шагает восемью ногами.</p>
+    </div>
+  </div>
+
+  <div class="text-block green-block">
+    <p>Но у природных экзоскелетов есть одна проблема: они <b>не растут</b>. Жук не может увеличиться, оставаясь в том же панцире. Поэтому все жуки, крабы и пауки периодически <b>линяют</b> — вылезают из старой «брони», пару часов ходят мягкие и беззащитные, а потом отращивают новую, побольше.</p>
+    <p>Именно на эту идею — жёсткий каркас снаружи — и обратили внимание инженеры. Они подумали: «А что если сделать такой же каркас, только не вместо нашего обычного скелета, а <b>поверх</b> него?» Так и родилась мысль о человеческом экзоскелете.</p>
+  </div>
+
+  <details>
+    <summary>А почему гигантских насекомых не бывает? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Хороший вопрос. Если бы ты увеличил обычного жука до размера слона — он бы не смог ходить. Развалился бы на куски под собственным весом. Почему? Потому что у экзоскелета есть <b>предел прочности</b>: чем толще панцирь, тем он тяжелее, а значит ноги ещё слабее его тащат.</p>
+      <p>У настоящего (внутреннего) скелета всё чуть лучше — кости могут быть большими и длинными, а мышцы работают эффективно, потому что крепятся прямо к костям. Поэтому все крупные животные — от собаки до синего кита — с внутренним скелетом. А все «с внешним» остаются небольшими: самое крупное насекомое весит всего около 70 граммов.</p>
+      <p>Ещё одна проблема: насекомые дышат не лёгкими, а крошечными трубочками в теле. Чем больше насекомое, тем хуже до середины тела доходит кислород. В древности, когда в воздухе было больше кислорода, летали стрекозы с крыльями <b>70 см в размахе</b>. Сейчас таких нет — воздух изменился.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 2: ЗАЧЕМ ЧЕЛОВЕКУ -->
+<section class="block container">
+  <span class="section-label label-2">Часть 2 · Зачем это человеку</span>
+  <h2>Зачем надевать скелет поверх скелета?</h2>
+  <p class="lead">У тебя уже есть собственный скелет, мышцы, суставы. Зачем тогда таскать на себе железный каркас, который весит иногда больше твоего портфеля? Ответ простой: чтобы стать <b style="color:var(--orange)">сильнее, выносливее или снова начать двигаться</b>, если сам уже не можешь.</p>
+
+  <div class="text-block orange-block">
+    <p>Человеческий экзоскелет — это <b>механический костюм</b>, который надевается сверху, как рюкзак с лямками, и работает вместе с твоими мышцами. У него своя «кость» (жёсткая рама), свои «суставы» (шарниры в плечах, локтях, коленях) и иногда — свои «мышцы» (моторы или пружины).</p>
+    <p>Главная идея: экзоскелет <b>не двигается сам по себе</b>. Он двигается тогда, когда двигаешься ты. Ты делаешь шаг — и он делает шаг. Ты поднимаешь руку — и он поднимает. Только сильнее, дольше и увереннее.</p>
+    <p>Поэтому у экзоскелетов три главные задачи: <b>усиливать</b> (чтоб поднять то, что сам бы не смог), <b>защищать</b> (чтоб не надорвать спину) и <b>заменять</b> сломанные или парализованные мышцы (чтоб снова ходить).</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🚴</div>
+    <div class="content">
+      <h5>Аналогия — велосипед с мотором</h5>
+      <p>Представь себе обычный велосипед. Ты крутишь педали — колёса крутятся. Устал — едешь медленно. А теперь велосипед с <b>электромотором</b>: ты крутишь так же, как обычно, но мотор чувствует усилие и <b>добавляет своё</b>. Ты в 3 раза быстрее, и устаёшь в 3 раза меньше. Экзоскелет работает точно так же — только не для колёс, а для твоих рук и ног.</p>
+    </div>
+  </div>
+
+  <div class="analogy orange-analogy">
+    <div class="icon">🧑‍🚀</div>
+    <div class="content">
+      <h5>Главная аналогия — скафандр</h5>
+      <p>Лучший способ представить: надень на себя железный скафандр. Снаружи — жёсткая металлическая оболочка. На суставах — шарниры, чтоб можно было двигаться. А внутри — ты, с обычными руками и ногами. Ты шевелишь рукой — и рука скафандра двигается с тобой. Вот это и есть экзоскелет.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--orange); margin-bottom:16px; font-size:1.2rem">Три работы, которые делает экзоскелет</h3>
+    <div class="compare" style="margin-top:0">
+      <div class="compare-col plain">
+        <h3 style="color:var(--muted)">🧍 Сам человек</h3>
+        <ul>
+          <li>Поднимает до <b>20-30 кг</b> и быстро устаёт</li>
+          <li>Может надорвать спину от тяжёлого груза</li>
+          <li>Парализованные ноги <b>вообще не двигаются</b></li>
+          <li>Через час носки на стройке — «уставший»</li>
+          <li>Часть работы приходится делать тяжёлой техникой</li>
+        </ul>
+      </div>
+      <div class="compare-col suit">
+        <h3 style="color:var(--cyan)">🦾 Человек + экзоскелет</h3>
+        <ul>
+          <li>Поднимает до <b>100 кг</b> без напряжения</li>
+          <li>Груз давит на раму, а <b>не на позвоночник</b></li>
+          <li>Моторы двигают ноги за парализованного</li>
+          <li>Работает на стройке 8 часов без усталости</li>
+          <li>Человек сам делает то, что раньше — кран</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 3: ПАССИВНЫЕ -->
+<section class="block container">
+  <span class="section-label label-3">Часть 3 · Пассивные экзоскелеты</span>
+  <h2>Без моторов и без батареек — только хитрая механика</h2>
+  <p class="lead">Самая простая разновидность экзоскелета — <b style="color:var(--cyan)">пассивный</b>. В нём вообще нет электричества. Ни батарей, ни проводов, ни компьютера. Только пружины, рычаги и резинки. И это не мешает ему быть очень полезным.</p>
+
+  <div class="text-block cyan-block">
+    <p>В чём их секрет? В <b>перенаправлении силы</b>. Представь: ты несёшь тяжёлый ящик. Груз давит тебе сверху вниз — на плечи, потом на позвоночник, потом через бёдра, колени и до ступней. Больше всего страдает <b>спина</b>, потому что позвоночник — это тонкая «башня», и большой вес её сгибает.</p>
+    <p>Пассивный экзоскелет работает так: он берёт вес груза и <b>пускает его в обход позвоночника</b>. Сам груз ложится на жёсткую раму, рама идёт вниз по бокам тела, через жёсткий пояс передаёт нагрузку на бёдра, оттуда по ногам раз — и сразу в землю. Позвоночник ничего не чувствует.</p>
+    <p>А пружины и эластичные ленты — как пружина в диване или в матрасе — сжимаются и распрямляются, <b>возвращая тебе часть энергии</b>. Присел — пружина сжалась. Встал — пружина толкнула тебя вверх, как будто помогла подняться.</p>
+  </div>
+
+  <div class="analogy cyan-analogy">
+    <div class="icon">🛋</div>
+    <div class="content">
+      <h5>Аналогия — пружина в диване</h5>
+      <p>Прыгни на диван. Он продавится, а потом отбросит тебя вверх. Это пружины отдают обратно энергию, которую ты в них вложил. Пассивный экзоскелет — такой же диван, только на суставах. Присел — пружина накопила энергию. Встал — она тебе её вернула. Поэтому встаёшь «как будто полегче».</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Как груз минует позвоночник</div>
+    <div class="passive-scene">
+      <div class="figure">
+        <div class="figure-head"></div>
+        <div class="figure-torso loaded"></div>
+        <div class="figure-legs">
+          <div class="figure-leg"></div>
+          <div class="figure-leg"></div>
+        </div>
+        <div class="spring-frame">
+          <div class="spring s1"></div>
+          <div class="spring s2"></div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--orange); font-size:0.9rem;">
+        <div class="arrow-down">↓</div>
+        <div style="font-weight:800">рама</div>
+        <div class="arrow-down">↓</div>
+        <div style="font-weight:800">в ноги</div>
+        <div class="arrow-down">↓</div>
+        <div style="font-weight:800">в землю</div>
+      </div>
+    </div>
+    <p class="force-path">Вес груза идёт в обход позвоночника прямо в землю — через жёсткую раму и пружины</p>
+  </div>
+
+  <div class="text-block cyan-block">
+    <p>Плюсы пассивного экзоскелета огромные: он <b>лёгкий</b> (килограммов 5-8), никогда не разряжается, стоит недорого и почти не ломается. Минус один — он <b>сам ничего не делает</b>. Он тебе помогает, только если ты сам двигаешься. Поднять стокилограммовый ящик он не поможет — это всё-таки не Железный человек.</p>
+    <p>Где такие реально используются прямо сейчас? На <b>заводах</b>. Рабочие на сборочных конвейерах <b>Ford, Hyundai, Boeing</b> уже много лет носят пассивные экзоскелеты — особенно те, кто весь день работает с руками выше головы (например, прикручивает что-то под крышей автомобиля). Экзоскелет держит вес их рук, и к вечеру плечи не болят.</p>
+  </div>
+
+  <details>
+    <summary>Как устроена пружина, которая «копит» энергию? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Обычная пружина — это завитушка из стали. Когда ты её сжимаешь, металл слегка деформируется, и внутри атомов запасается <b>потенциальная энергия</b> — как будто ты натянул резинку. Отпускаешь — пружина возвращается в исходную форму, а энергия выходит обратно как движение.</p>
+      <p>В современных экзоскелетах вместо металлических пружин чаще используют <b>газовые поршни</b> (как у крышки багажника в машине — она сама плавно поднимается) и <b>эластомеры</b> — специальную резину, которая возвращает до 90% энергии, вложенной в неё. Чем больше энергии пружина возвращает, тем легче тебе двигаться.</p>
+      <p>В идеальном мире пружина могла бы вернуть 100% энергии — но это невозможно: часть всегда уходит в тепло. Поэтому в пассивном экзоскелете ты всё равно <b>немного устаёшь</b>. Просто гораздо меньше, чем без него.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 4: АКТИВНЫЕ -->
+<section class="block container">
+  <span class="section-label label-4">Часть 4 · Активные экзоскелеты</span>
+  <h2>С моторами, датчиками и мозгами</h2>
+  <p class="lead">А теперь настоящий хай-тек. <b style="color:var(--purple)">Активный</b> экзоскелет — это робот, который надет на тебя. У него есть собственные моторы, датчики, компьютер и батарея. И он умеет <b>сам добавлять силу</b>, а не просто перенаправлять твою.</p>
+
+  <div class="text-block purple-block">
+    <p>Главная проблема активного экзоскелета — не «как двигаться», а «<b>как понять, куда хочет двигаться человек</b>». Потому что моторы у него мощные: если они будут дёргаться не туда, экзоскелет превратит тебя в поломанную куклу. Нужно, чтобы робот читал твои намерения <b>раньше</b>, чем ты успеешь двинуться.</p>
+    <p>Для этого в экзоскелет встроены три типа датчиков:</p>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--purple); margin-bottom:16px; font-size:1.2rem">Три способа прочитать, куда ты хочешь</h3>
+
+    <div class="text-block" style="border-left-color:var(--red); margin:12px 0">
+      <p><b style="color:var(--red)">1. Датчики силы.</b> Это как тоненькие весы на стыке твоего тела и рамы экзоскелета. Ты начинаешь двигать рукой — датчик чувствует, что ты давишь на раму. И в ту же миллисекунду мотор начинает двигать раму в ту же сторону — как будто угадывает.</p>
+    </div>
+
+    <div class="text-block" style="border-left-color:var(--yellow); margin:12px 0">
+      <p><b style="color:var(--orange)">2. Датчики угла.</b> В каждом суставе экзоскелета стоит крошечная линейка, которая измеряет угол — насколько согнут локоть, колено, бедро. Компьютер следит за тем, как эти углы меняются, и понимает: «Ага, колено сгибается — значит, человек делает шаг».</p>
+    </div>
+
+    <div class="text-block" style="border-left-color:var(--cyan); margin:12px 0">
+      <p><b style="color:var(--cyan)">3. ЭМГ — датчики сигналов с мышц.</b> Это самый крутой способ. На кожу над мышцей клеятся маленькие электроды. Они ловят <b>электрический импульс</b>, которым мозг отдаёт мышце команду «сократись!». Экзоскелет получает этот сигнал <b>на сотую долю секунды раньше</b>, чем мышца успеет сработать — и начинает двигаться одновременно с тобой.</p>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">⚡</div>
+    <div class="content">
+      <h5>А что такое ЭМГ?</h5>
+      <p>«ЭМГ» — сокращение от «электромиография». «Электро» — потому что мышцы управляются <b>электрическим сигналом</b> из мозга. Когда ты хочешь согнуть руку, мозг посылает по нервам маленький электрический импульс — и мышца сокращается. Электроды на коже ловят этот импульс, и экзоскелет узнаёт о твоём желании раньше, чем рука начинает двигаться.</p>
+    </div>
+  </div>
+
+  <a class="crosslink-card" href="lightning.html">
+    <div class="cl-icon">⚡</div>
+    <div class="cl-text">
+      <h5>Погоди — электричество в нервах?!</h5>
+      <p>Да-да. Нервы работают ровно так же, как провода в стене. Подробнее про электричество — в статье «Молния и электричество». Откроется в том же окне.</p>
+    </div>
+  </a>
+
+  <div class="diagram cyan-diagram">
+    <div class="diagram-title">Путь сигнала от мысли до движения</div>
+    <div class="signal-flow">
+      <div class="flow-box b1">
+        <span class="flow-emoji">🧠</span>
+        <h5>Мозг</h5>
+        <p>«Хочу согнуть руку!»</p>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box b2">
+        <span class="flow-emoji">💪</span>
+        <h5>Мышца</h5>
+        <p>Получает электрический импульс</p>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box b3">
+        <span class="flow-emoji">📡</span>
+        <h5>Датчик ЭМГ</h5>
+        <p>Ловит сигнал с кожи</p>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box b4">
+        <span class="flow-emoji">⚙️</span>
+        <h5>Мотор</h5>
+        <p>Двигает сустав вместе с тобой</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="emg-scene">
+    <div class="muscle-icon">
+      <div class="electrode e1"></div>
+      <div class="electrode e2"></div>
+    </div>
+    <div style="color:var(--cyan); font-size:1.6rem; font-weight:900">→</div>
+    <div class="emg-wave"></div>
+    <div style="color:var(--muted); font-size:0.85rem; max-width:180px; line-height:1.4">
+      Сокращение мышцы превращается в <b style="color:var(--cyan)">электрическую волну</b>, которую читает экзоскелет
+    </div>
+  </div>
+
+  <div class="text-block purple-block">
+    <p>Какие знаменитые активные экзоскелеты уже существуют? Их много, но вот самые крутые:</p>
+    <p><b>Sarcos Guardian XO</b> — американский экзоскелет для грузчиков. Он поднимает до 100 кг одной рукой. Рабочий внутри чувствует, будто несёт 5 кг.</p>
+    <p><b>Cyberdyne HAL</b> — японский экзоскелет. Читает сигналы с мышц через ЭМГ. Помогает пожилым людям ходить и рабочим таскать тяжести.</p>
+    <p><b>ExoAtlet</b> — российский медицинский экзоскелет. Помогает людям после инсульта снова научиться ходить.</p>
+  </div>
+
+  <div class="chain-box">
+    <h4>💡 Ключевая мысль</h4>
+    <p>Активный экзоскелет — это не машина, которая тебя возит. Это <b style="color:var(--text)">напарник</b>, который чувствует каждое твоё движение и добавляет мощности. Без тебя он стоит. А с тобой — ты становишься в несколько раз сильнее.</p>
+  </div>
+
+  <details>
+    <summary>А почему не сделать экзоскелет совсем лёгким? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Делают — и очень стараются. Но есть фундаментальная проблема: <b>батарея</b>. Чтобы моторы могли двигать твои ноги целый день, нужно много электричества. А электричество сегодня хранится в литиевых батареях — точно таких же, как в твоём телефоне, только больше.</p>
+      <p>Посчитаем. Один мотор, способный поднять ногу взрослого человека, тратит примерно <b>100 Вт</b> на шаг. За час активной ходьбы это 100 Ватт-часов. А в экзоскелете моторов минимум 6 — на бёдрах, коленях и лодыжках. За час — 600 Ватт-часов. Батарея такой ёмкости весит около <b>3 кг</b>. И это на 1-2 часа работы!</p>
+      <p>Плюс сами моторы. Один достаточно мощный электромотор весит 1-2 кг. Шесть моторов — 10 кг. Плюс рама, провода, компьютер, датчики. Итого экзоскелет получается <b>20-30 кг</b>. И вся эта «броня» висит на человеке.</p>
+      <p>Поэтому инженеры мечтают о новых источниках энергии (например, <b>водородных топливных элементах</b>) и о новых видах «мышц» — например, из полимеров, которые сжимаются и растягиваются под действием электричества без всяких моторов.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Почему Iron Man — это пока фантастика? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Железный Человек в фильмах летает часами, стреляет из рук, поднимает машины и бьёт как паровоз. Каждое из этих действий требует <b>гигантской</b> энергии. Посчитаем: чтобы летать со скоростью 100 км/ч за счёт реактивных двигателей, нужно примерно <b>200-300 кВт мощности</b>. Для сравнения, твой домашний чайник — 2 кВт.</p>
+      <p>Чтобы выдавать 300 кВт хотя бы час, нужна батарея весом в <b>тонну</b>. А костюм Старка весит около 100 кг в фильмах. Получается, в реальной физике такая батарея не поместится — она сама весит как маленькая машина.</p>
+      <p>Именно поэтому в фильме Старку пришлось придумать <b>вымышленный реактор</b> — «арк-реактор». Это просто физически невозможное устройство, где энергия якобы берётся из ниоткуда. В реальности нарушить закон сохранения энергии нельзя — откуда-то эта энергия должна прийти.</p>
+      <p>Но! Если когда-нибудь человечество научится хранить много энергии в маленьком объёме (например, через маленькие атомные батареи или миниатюрные термоядерные реакторы) — тогда Iron Man станет реальностью. Пока же — только игрушка.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 5: МЕДИЦИНА -->
+<section class="block container">
+  <span class="section-label label-5">Часть 5 · Медицина</span>
+  <h2>Как экзоскелет заставляет ходить парализованных</h2>
+  <p class="lead">Это, наверное, самое важное применение экзоскелетов. Есть люди, у которых после травмы позвоночника <b style="color:var(--pink)">ноги не двигаются вообще</b>. Мозг отдаёт команды, но они не доходят до мышц — как будто провод перерезан. Экзоскелет становится этим «пересаженным проводом».</p>
+
+  <div class="text-block pink-block">
+    <p>Когда человек <b>парализован</b> — это не значит, что его ноги сломаны. Это значит, что <b>сигнал от мозга не доходит</b> до мышц ног. Сами мышцы и кости в полном порядке. И если их двигать принудительно (например, моторами экзоскелета) — ноги будут двигаться.</p>
+    <p>Медицинский экзоскелет работает примерно так: человек надевает железные «штаны» с моторами в бёдрах и коленях. Нажимает кнопку на трости — делает шаг вперёд. Нажимает снова — ещё шаг. Постепенно учится управлять экзоскелетом мыслью через ЭМГ-датчики, которые ставят чуть выше места травмы (там, где сигналы от мозга ещё проходят).</p>
+    <p>Самое удивительное — тренировки с экзоскелетом иногда <b>частично восстанавливают способность ходить</b>. Когда ноги регулярно двигаются, нервы и мышцы не «забывают» свою работу, и в некоторых случаях удаётся частично возобновить передачу сигналов мимо повреждённого участка.</p>
+  </div>
+
+  <div class="analogy pink-analogy">
+    <div class="icon">🩼</div>
+    <div class="content">
+      <h5>Аналогия — костыли 2.0</h5>
+      <p>Обычные костыли помогают опереться, но не идут сами. Экзоскелет — это «костыли будущего»: он не просто держит тебя, а <b>сам шагает за тебя</b>. Представь костыли, у которых есть ноги и мозги. Вот это и есть медицинский экзоскелет.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--pink); margin-bottom:12px; font-size:1.15rem">Главные медицинские экзоскелеты</h3>
+    <ul style="list-style:none; padding-left:0">
+      <li style="padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.05);"><b style="color:var(--pink)">ReWalk</b> <span style="color:var(--muted)">— израильский, один из первых массовых. С ним люди с парализованными ногами впервые за многие годы встали на ноги.</span></li>
+      <li style="padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.05);"><b style="color:var(--pink)">Ekso Bionics</b> <span style="color:var(--muted)">— американский. Используется в больницах по всему миру для реабилитации после инсультов.</span></li>
+      <li style="padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.05);"><b style="color:var(--pink)">Rex Bionics</b> <span style="color:var(--muted)">— новозеландский. Умеет стоять сам без помощи рук — пациенту не нужны трости.</span></li>
+      <li style="padding:12px 0"><b style="color:var(--pink)">ExoAtlet</b> <span style="color:var(--muted)">— российский. Применяется в больницах для восстановления после травм и инсультов.</span></li>
+    </ul>
+  </div>
+
+  <!-- САМАЯ ИЗВЕСТНАЯ ИСТОРИЯ -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">⚽</div>
+      <div class="history-title">
+        <h3>Первый удар по мячу силой мысли</h3>
+        <div class="history-date">12 июня 2014, Сан-Паулу</div>
+      </div>
+    </div>
+    <p>На открытии Чемпионата мира по футболу 2014 в Бразилии произошло событие, которое смотрели миллиарды людей, но не все поняли, насколько оно потрясающее. На поле в экзоскелете вышел молодой бразилец по имени <b>Жулиано Пинто</b>. Он был парализован ниже пояса и уже несколько лет не мог ходить.</p>
+    <p>На нём был экзоскелет, разработанный командой учёных под руководством бразильского нейробиолога <b>Мигеля Николелиса</b>. К голове Жулиано был подключён шлем, читающий мозговые сигналы. Когда он подумал <b>«ударить по мячу»</b> — экзоскелет принял сигнал и сделал шаг, а потом ногой ударил по настоящему футбольному мячу.</p>
+    <p>Это был <b>первый в истории удар по мячу, сделанный силой мысли</b>. Парализованный подросток, которого 10 лет возили в инвалидной коляске, на глазах всего мира сделал то, что для здорового человека — простое движение. Стадион онемел, а потом взорвался аплодисментами. Это начало новой эры: экзоскелеты, управляемые мозгом.</p>
+  </div>
+
+  <details>
+    <summary>А как мысль превращается в команду для машины? <span class="tag-more">глубже</span></summary>
+    <div class="details-body">
+      <p>Это называется <b>BCI</b> — «brain-computer interface», мозг-компьютерный интерфейс. Идея такая: мозг — это электрическая машина. Когда ты думаешь «поднять руку», определённые клетки мозга (<b>нейроны</b>) «стреляют» электрическими импульсами. Каждое движение оставляет свой уникальный узор из этих импульсов.</p>
+      <p>Компьютер можно научить распознавать эти узоры. Ставим на голову электроды — они ловят электроактивность мозга через кожу и череп (это называется ЭЭГ). Или <b>вживляем</b> электроды прямо в мозг (как делает сейчас компания <b>Neuralink</b> Илона Маска) — сигнал получается гораздо чище.</p>
+      <p>Человека сажают перед экраном и просят думать «влево» и «вправо». Компьютер запоминает, как при каждой команде меняется узор импульсов. Через несколько тренировок он уже узнаёт команды с точностью 80-90%. И когда человек думает «шагнуть» — экзоскелет шагает.</p>
+      <p>Пока это работает не идеально: внешние электроды плохо видят сигнал сквозь череп, а вживлённые требуют сложной операции. Но технология быстро развивается. Возможно, через 20 лет парализованные люди смогут пользоваться экзоскелетами так же легко, как ты сейчас пользуешься пультом от телевизора.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ЧАСТЬ 6: АРМИЯ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 6 · Военные экзоскелеты</span>
+  <h2>Почему армии мечтают об экзоскелетах</h2>
+  <p class="lead">Солдат, который может нести <b style="color:var(--red)">100 кг как 20</b> и бежать весь день без усталости — мечта любой армии. Но в реальности до этого пока далеко. Самые крутые проекты то запускают, то сворачивают — и вот почему.</p>
+
+  <div class="text-block red-block">
+    <p>Обычный солдат несёт на себе примерно 30-40 кг снаряжения: бронежилет, каска, винтовка, патроны, вода, еда, аптечка, батареи для радио, запасные носки. После нескольких часов такого марша человек еле идёт, а в боевой ситуации — это смерть.</p>
+    <p>Идея военного экзоскелета проста: пусть груз несёт железный каркас, а человек остаётся свежим. В теории — идеально. На практике — очень сложно.</p>
+    <p>Проблемы всё те же: вес экзоскелета (20-30 кг — почти как сам рюкзак!), шум моторов (в бою надо быть тихим), небольшой запас батареи (1-2 часа), сложность починки в полевых условиях.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🎮</div>
+    <div class="content">
+      <h5>Call of Duty — не совсем правда</h5>
+      <p>В играх солдаты в экзоскелетах бегают по стенам, прыгают с крыш и мочат всех подряд. В реальности современный военный экзоскелет — это мужик в тяжёлой раме, который идёт не быстрее обычного и каждые пару часов должен менять батарею. Пока что реальность сильно отстаёт от игр.</p>
+    </div>
+  </div>
+
+  <div class="diagram" style="background:linear-gradient(135deg, rgba(255, 71, 87, 0.08), rgba(255, 140, 66, 0.06))">
+    <div class="diagram-title">Сколько ощущается на солдате</div>
+    <div class="weight-bar">
+      <div class="weight-row">
+        <div class="weight-label">Без экзоскелета</div>
+        <div class="weight-track">
+          <div class="weight-fill f-hard">100 кг</div>
+        </div>
+      </div>
+      <div class="weight-row">
+        <div class="weight-label">С экзоскелетом</div>
+        <div class="weight-track">
+          <div class="weight-fill f-easy">20 кг</div>
+        </div>
+      </div>
+    </div>
+    <p class="force-path" style="color:var(--cyan)">Экзоскелет «забирает» 80% веса на раму — остальное остаётся на солдате</p>
+  </div>
+
+  <div class="text-block red-block">
+    <p>Несмотря на трудности, у армий есть серьёзные проекты:</p>
+    <p><b>TALOS</b> — американский проект «Tactical Assault Light Operator Suit». В 2013 году США объявили, что хотят сделать «костюм Железного Человека» для спецназа. Работы шли до 2019 года, потом официально проект свернули. Но части костюма (бронежилет с системой охлаждения, шлем с AR-экраном) уже работают по отдельности.</p>
+    <p><b>HULC</b> — «Human Universal Load Carrier», тоже США. Помогал солдату нести до 90 кг. Проблема: когда батарея садилась, экзоскелет превращался в <b>мешок на плечах</b> — мешал больше, чем помогал. Поэтому в серию не пошёл.</p>
+    <p>А вот пассивные экзоскелеты в армии уже используются — для <b>операторов пулемётов</b>, <b>десантников с тяжёлыми ранцами</b> и <b>сапёров</b> в тяжёлых защитных костюмах.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 7: ИСТОРИЯ -->
+<section class="block container">
+  <span class="section-label label-7">Часть 7 · История</span>
+  <h2>Как люди пытались сделать экзоскелет 130 лет</h2>
+  <p class="lead">Идея, что можно надеть «железный костюм» и стать силачом, не новая. Люди пытаются это сделать уже больше столетия. Вот главные вехи — от смешных до серьёзных.</p>
+
+  <!-- 1890 -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🦘</div>
+      <div class="history-title">
+        <h3>Прыгающие ботинки Ягна</h3>
+        <div class="history-date">1890, Российская империя</div>
+      </div>
+    </div>
+    <p>Русский инженер <b>Николай Ягн</b> придумал «аппарат для облегчения ходьбы, бега и прыжков». Это были специальные ботинки со встроенными цилиндрами со <b>сжатым воздухом</b>. При каждом шаге воздух толкал ногу вперёд — и человек прыгал дальше обычного.</p>
+    <p>Ягн запатентовал своё изобретение и в России, и в США. Работало оно не ахти — воздух быстро расходовался, ботинки были тяжёлые. Но это был <b>первый в истории патент</b> на устройство, усиливающее движения человека. Можно считать — первый шажок к современному экзоскелету.</p>
+  </div>
+
+  <!-- 1965 -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🤖</div>
+      <div class="history-title">
+        <h3>Hardiman — монстр весом 680 кг</h3>
+        <div class="history-date">1965, США</div>
+      </div>
+    </div>
+    <p>Компания <b>General Electric</b> получила от армии США заказ: сделать экзоскелет, который позволит солдату поднимать 680 кг. Инженеры построили железного монстра с гидравлическими «мышцами» — и это было катастрофой.</p>
+    <p>Hardiman весил <b>680 килограммов</b> — больше, чем его грузоподъёмность! Более того, когда инженеры пытались в нём ходить, он начинал <b>неконтролируемо дёргаться</b>. Ни один человек так и не смог использовать весь костюм целиком — удалось только заставить работать одну руку.</p>
+    <p>Проект закрыли. Но именно после него учёные поняли: проблема не в моторах. Проблема в том, <b>как робот должен слушать человека</b>. Эта задача потребует ещё полвека разработок.</p>
+  </div>
+
+  <!-- 2000-е -->
+  <div class="history-card">
+    <div class="history-head">
+      <div class="history-emoji">🚀</div>
+      <div class="history-title">
+        <h3>Прорыв — 2000-е годы</h3>
+        <div class="history-date">2004 — наши дни</div>
+      </div>
+    </div>
+    <p>В 2000-х случились сразу три прорыва: <b>маленькие мощные моторы</b> (из индустрии электромобилей), <b>лёгкие литиевые батареи</b> (из мобильников) и <b>дешёвые датчики и микропроцессоры</b> (из смартфонов).</p>
+    <p>В 2004 году в Японии появился <b>Cyberdyne HAL</b> — первый массовый активный экзоскелет. В 2011-м — <b>ReWalk</b> для парализованных. В 2014-м — тот самый удар по мячу на чемпионате. А с 2018-го пассивные экзоскелеты массово используются на заводах Ford, Hyundai и Boeing.</p>
+    <p>За двадцать лет экзоскелеты прошли путь от дорогих прототипов в лабораториях до реального инструмента, которым пользуются сотни тысяч людей по всему миру.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 8: БУДУЩЕЕ -->
+<section class="block container">
+  <span class="section-label label-8">Часть 8 · Будущее</span>
+  <h2>Каким будет экзоскелет через 20 лет</h2>
+  <p class="lead">Сегодняшние экзоскелеты — как первые мобильники с антеннами: тяжёлые, медленные, дорогие. Но инженеры во всём мире работают над следующим поколением. Вот несколько направлений, которые изменят всё.</p>
+
+  <div class="text-block blue-block">
+    <p><b>Мягкие экзоскелеты.</b> Вместо жёсткой железной рамы — костюм из ткани с вшитыми тросиками. Трос идёт от мотора, через ткань, к ноге. Мотор тянет трос — нога поднимается. Такой «экзоскелет-костюм» весит всего 2-3 кг и надевается за минуту, как комбинезон. В Гарварде уже разработали прототипы для людей с болезнью Паркинсона и после инсультов.</p>
+  </div>
+
+  <div class="analogy orange-analogy">
+    <div class="icon">👕</div>
+    <div class="content">
+      <h5>Аналогия — умная футболка</h5>
+      <p>Представь себе спортивный костюм, в который вшиты тонкие нити. Нити — это искусственные «мышцы» из полимеров. Когда на них идёт ток — они сжимаются, как настоящая мышца. Никаких шестерёнок, никаких железных рам. Просто надел одежду — и стал сильнее. Звучит как сказка, но прототипы уже работают.</p>
+    </div>
+  </div>
+
+  <div class="text-block blue-block">
+    <p><b>Искусственные мышцы.</b> Это самый горячий тренд. Вместо тяжёлых электромоторов инженеры делают «мышцы» из специальных полимеров — материалов, которые сокращаются от электричества, тепла или давления воздуха. Такая мышца в 40 раз сильнее живой и весит в 10 раз меньше мотора той же мощности. Если получится — экзоскелеты станут лёгкими, как обычная одежда.</p>
+    <p><b>Интеграция с ИИ.</b> Нейросети уже умеют предсказывать движения человека на полсекунды вперёд, анализируя его походку. Это значит, экзоскелет сможет <b>угадывать</b>, куда ты пойдёшь, ещё до того, как сам начнёшь двигаться.</p>
+    <p><b>Прямые нейроинтерфейсы.</b> Компания Neuralink уже вживляет электроды в мозг. Через 10-20 лет такая операция может стать обычной для людей, потерявших подвижность. Подумал — шагнул. Без всяких кнопок и джойстиков.</p>
+  </div>
+
+  <div class="chain-box cyan-chain">
+    <h4>🔮 Куда всё идёт</h4>
+    <p>Экзоскелет будущего — это <b style="color:var(--text)">лёгкий мягкий костюм</b> с искусственными мышцами, который слушается твоей мысли. Он весит как обычная куртка, работает весь день на одной зарядке и стоит как подержанная машина. С ним старики смогут не уставать, рабочие — работать без травм, а парализованные — ходить как все.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 9: ГДЕ ВСТРЕЧАЕТСЯ -->
+<section class="block container">
+  <span class="section-label label-9">Часть 9 · Где это уже встречается</span>
+  <h2>Где носят экзоскелеты прямо сейчас</h2>
+  <p class="lead">Это не какие-то далёкие технологии будущего. Прямо в эту минуту, пока ты читаешь, тысячи людей по всему миру выполняют свою работу в экзоскелетах. Вот где их уже увидишь.</p>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">🏭</span>
+      <h4>Заводы</h4>
+      <p>На конвейерах Ford, Hyundai, Boeing. Рабочие в пассивных экзо делают сборку без усталости.</p>
+      <span class="tag tag-industry">Промышленность</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">🏥</span>
+      <h4>Реабилитация</h4>
+      <p>В больницах по всему миру люди после инсульта и травм учатся снова ходить с активным экзоскелетом.</p>
+      <span class="tag tag-medical">Медицина</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">🪖</span>
+      <h4>Армия</h4>
+      <p>Спецназ и десантники используют пассивные экзо для переноски тяжёлого снаряжения.</p>
+      <span class="tag tag-army">Армия</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">🏗</span>
+      <h4>Стройка</h4>
+      <p>Строители носят экзоскелеты для работы с пневмодрелью и при укладке плитки над головой.</p>
+      <span class="tag tag-industry">Промышленность</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">🚒</span>
+      <h4>Пожарные</h4>
+      <p>Несут баллоны с воздухом, оборудование и пострадавших — десятки килограмм. Экзо спасает спины.</p>
+      <span class="tag tag-rescue">Спасение</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">⛏</span>
+      <h4>Спасатели</h4>
+      <p>При разборе завалов после землетрясений и обвалов работа идёт сутками — экзоскелет даёт держаться.</p>
+      <span class="tag tag-rescue">Спасение</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">🏃</span>
+      <h4>Спорт</h4>
+      <p>Лыжники и бегуны используют пружинные экзо для тренировок. Энергия возвращается как трамплин.</p>
+      <span class="tag tag-sport">Спорт</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">👴</span>
+      <h4>Пожилые люди</h4>
+      <p>В Японии, где много стариков, выпускают лёгкие экзо для прогулок. С ними подниматься по лестнице — не подвиг.</p>
+      <span class="tag tag-medical">Медицина</span>
+    </div>
+
+    <div class="where-card">
+      <span class="where-emoji">🎮</span>
+      <h4>VR и игры</h4>
+      <p>Скоро в домашнем VR появятся экзо-костюмы с сопротивлением — почувствуешь вес виртуального меча на самом деле.</p>
+      <span class="tag tag-future">Будущее</span>
+    </div>
+  </div>
+</section>
+
+<!-- УДИВИТЕЛЬНЫЙ ФАКТ -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт</h3>
+    <p>Один из самых первых действительно полезных экзоскелетов был разработан... <b style="color:var(--yellow)">для доярок</b>. В 1960-х годах советские инженеры увидели, что женщины на фермах каждый день поднимают и таскают десятки тяжёлых вёдер с молоком. К 40 годам у многих была сорвана спина.</p>
+    <p>Поэтому для них создали простой пассивный экзоскелет — жёсткий пояс с рамой, которая передавала вес вёдер с плеч прямо на бёдра и в землю. Его называли «<b>механическая спина</b>». Это была скучная практичная работа, без космических кораблей и роботов — но именно она спасла позвоночники тысячам людей. Иногда самые революционные технологии рождаются не в лабораториях, а там, где у людей просто очень болит спина.</p>
+  </div>
+</section>
+
+<!-- НАЗАД НА ГЛАВНУЮ -->
+<section class="block container" style="text-align:center; padding-top:20px">
+  <a href="../index.html" class="back-home">← На главную</a>
+</section>
+
+<footer>
+  Сделано с <span class="heart">❤</span> для любопытных инженеров
+  <div class="signature">Kids Wiki · 19 апреля 2026</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

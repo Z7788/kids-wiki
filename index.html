@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>Kids Wiki — Объяснения сложных вещей простым языком</title>
 <meta name="description" content="Мини-википедия, где сложные темы объясняются простым языком, с картинками и аналогиями.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -306,6 +307,8 @@
   .wiki-card.c-lightning { --accent: linear-gradient(90deg, var(--yellow), var(--blue)); --border-hover: rgba(255, 217, 61, 0.4); --glow: rgba(255, 217, 61, 0.2); }
   .wiki-card.c-dna { --accent: linear-gradient(90deg, var(--cyan), var(--green), var(--purple)); --border-hover: rgba(78, 205, 196, 0.4); --glow: rgba(78, 205, 196, 0.2); }
   .wiki-card.c-immunity { --accent: linear-gradient(90deg, var(--green), var(--cyan), var(--red)); --border-hover: rgba(107, 207, 127, 0.4); --glow: rgba(107, 207, 127, 0.2); }
+  .wiki-card.c-rockets { --accent: linear-gradient(90deg, var(--orange), var(--red), var(--pink)); --border-hover: rgba(255, 140, 66, 0.4); --glow: rgba(255, 140, 66, 0.25); }
+  .wiki-card.c-exo { --accent: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple)); --border-hover: rgba(74, 158, 255, 0.4); --glow: rgba(74, 158, 255, 0.2); }
 
   .wiki-emoji {
     font-size: 3.4rem;
@@ -360,6 +363,8 @@
   .card-tag.t-energy { color: var(--orange); border-color: rgba(255, 140, 66, 0.2); background: rgba(255, 140, 66, 0.05); }
   .card-tag.t-time { color: var(--blue); border-color: rgba(74, 158, 255, 0.2); background: rgba(74, 158, 255, 0.05); }
   .card-tag.t-health { color: var(--green); border-color: rgba(107, 207, 127, 0.2); background: rgba(107, 207, 127, 0.05); }
+  .card-tag.t-tech { color: var(--blue); border-color: rgba(74, 158, 255, 0.2); background: rgba(74, 158, 255, 0.05); }
+  .card-tag.t-future { color: var(--purple); border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.05); }
 
   .wiki-meta {
     display: flex;
@@ -374,6 +379,18 @@
   }
 
   .wiki-meta .dot { color: var(--cyan); }
+
+  .wiki-meta .new-pill {
+    background: linear-gradient(135deg, var(--yellow), var(--orange));
+    color: #0a0e27;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-left: auto;
+    text-transform: uppercase;
+  }
 
   /* EMPTY STATE */
   .empty-state {
@@ -457,15 +474,15 @@
 
 <div class="toolbar">
   <div class="search-wrap">
-    <input type="text" id="search" class="search-input" placeholder="Ищи тему… например: «атом», «солнце», «вирус»" autocomplete="off">
+    <input type="text" id="search" class="search-input" placeholder="Ищи тему… например: «атом», «ракета», «вирус»" autocomplete="off">
     <button type="button" id="search-clear" class="search-clear" aria-label="Очистить">✕</button>
   </div>
 
   <div class="filter-pills" id="filters">
-    <button class="filter-btn active" data-category="all">Все <span class="count-badge" data-count="all">6</span></button>
-    <button class="filter-btn" data-category="space">🌌 Космос <span class="count-badge" data-count="space">2</span></button>
+    <button class="filter-btn active" data-category="all">Все <span class="count-badge" data-count="all">8</span></button>
+    <button class="filter-btn" data-category="space">🌌 Космос <span class="count-badge" data-count="space">3</span></button>
     <button class="filter-btn" data-category="earth">🌍 Земля <span class="count-badge" data-count="earth">2</span></button>
-    <button class="filter-btn" data-category="life">🧬 Жизнь <span class="count-badge" data-count="life">2</span></button>
+    <button class="filter-btn" data-category="life">🧬 Жизнь <span class="count-badge" data-count="life">3</span></button>
   </div>
 </div>
 
@@ -473,6 +490,46 @@
   <div class="results-info" id="results-info"></div>
 
   <div class="wiki-grid" id="grid">
+    <a class="wiki-card c-rockets"
+       href="articles/rockets.html"
+       data-category="space"
+       data-tags="ракета двигатель космос физика ньютон сопло циолковский ионный ядерный плазменный варп антиматерия солнечный парус spacex saturn союз falcon">
+      <span class="wiki-emoji">🚀</span>
+      <h3>Ракеты и их двигатели</h3>
+      <p>От надувного шарика и формулы Циолковского до ионных двигателей и варп-драйва из фантастики.</p>
+      <div class="card-tags">
+        <span class="card-tag t-space">космос</span>
+        <span class="card-tag t-physics">физика</span>
+        <span class="card-tag t-future">будущее</span>
+      </div>
+      <div class="wiki-meta">
+        <span>19 апр 2026</span>
+        <span class="dot">•</span>
+        <span>28 мин</span>
+        <span class="new-pill">new</span>
+      </div>
+    </a>
+
+    <a class="wiki-card c-exo"
+       href="articles/exoskeletons.html"
+       data-category="life"
+       data-tags="экзоскелет робот технологии человек медицина нейроинтерфейс мышцы эмг iron man реабилитация военные заводы">
+      <span class="wiki-emoji">🦾</span>
+      <h3>Экзоскелеты</h3>
+      <p>Как работают железные костюмы, которые усиливают тело — от заводских грузчиков до людей, снова научившихся ходить.</p>
+      <div class="card-tags">
+        <span class="card-tag t-tech">технологии</span>
+        <span class="card-tag t-human">человек</span>
+        <span class="card-tag t-future">будущее</span>
+      </div>
+      <div class="wiki-meta">
+        <span>19 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+        <span class="new-pill">new</span>
+      </div>
+    </a>
+
     <a class="wiki-card c-nuclear"
        href="articles/nuclear.html"
        data-category="space"
@@ -593,7 +650,7 @@
 </section>
 
 <footer>
-  Всего статей: <span class="count-pill" id="total-count">6</span>
+  Всего статей: <span class="count-pill" id="total-count">8</span>
   <div style="margin-top:14px">Сделано с <span class="heart">❤</span> для любопытных</div>
 </footer>
 
