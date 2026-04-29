@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>Металлы — откуда берутся и как их делают</title>
+<meta name="description" content="Из чего состоит металл, как его достают из земли, что такое плавка и сплавы, и почему сталь, бронза и алюминий поменяли всю жизнь людей.">
+<meta name="emoji" content="⚙️">
+<meta name="date" content="2026-04-29">
+<meta name="reading-time" content="22 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --silver: #c8d4e6;
+    --steel: #8a99b8;
+    --copper: #d97c4a;
+    --gold: #ffcf54;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 207, 84, 0.15);
+    border: 2px solid var(--gold);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    line-height: 1;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #c8d4e6, #ffcf54, #ff8c42, #d97c4a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(255, 207, 84, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* HERO VISUAL — расплавленный шарик и капли */
+  .hero-forge {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .ingot-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 110px; height: 110px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 30% 30%, #fff5cc, var(--gold), var(--orange), var(--red));
+    border-radius: 50%;
+    box-shadow: 0 0 40px var(--orange), 0 0 90px rgba(255, 140, 66, 0.5);
+    animation: lavaPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes lavaPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); filter: brightness(1); }
+    50% { transform: translate(-50%, -50%) scale(1.08); filter: brightness(1.2); }
+  }
+
+  .spark {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--yellow);
+    top: 50%; left: 50%;
+  }
+
+  .spark-1 { animation: spark1 2s linear infinite; }
+  .spark-2 { animation: spark2 2.4s linear infinite 0.3s; }
+  .spark-3 { animation: spark3 2.2s linear infinite 0.6s; }
+  .spark-4 { animation: spark1 2.6s linear infinite 0.9s; background: var(--orange); box-shadow: 0 0 12px var(--orange); }
+  .spark-5 { animation: spark2 2.1s linear infinite 1.2s; background: var(--orange); box-shadow: 0 0 12px var(--orange); }
+  .spark-6 { animation: spark3 2.5s linear infinite 1.5s; }
+
+  @keyframes spark1 {
+    0% { transform: translate(-50%, -50%) translate(0, 0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) translate(90px, -100px); opacity: 0; }
+  }
+  @keyframes spark2 {
+    0% { transform: translate(-50%, -50%) translate(0, 0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) translate(-95px, -90px); opacity: 0; }
+  }
+  @keyframes spark3 {
+    0% { transform: translate(-50%, -50%) translate(0, 0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) translate(80px, 95px); opacity: 0; }
+  }
+
+  .scroll-hint {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block { padding: 60px 20px; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-1 { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-2 { background: rgba(217, 124, 74, 0.15); color: var(--copper); }
+  .label-3 { background: rgba(255, 140, 66, 0.15); color: var(--orange); }
+  .label-4 { background: rgba(255, 207, 84, 0.15); color: var(--gold); }
+  .label-5 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-6 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-7 { background: rgba(74, 158, 255, 0.15); color: var(--blue); }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  section .lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 700px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--gold); }
+
+  .text-block.copper-block { border-color: var(--copper); }
+  .text-block.copper-block b { color: var(--copper); }
+
+  .text-block.orange-block { border-color: var(--orange); }
+  .text-block.orange-block b { color: var(--orange); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.blue-block { border-color: var(--blue); }
+  .text-block.blue-block b { color: var(--blue); }
+
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon { font-size: 2rem; flex-shrink: 0; }
+
+  .analogy .content h5 {
+    font-family: 'Fredoka', sans-serif;
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* СВОЙСТВА МЕТАЛЛА */
+  .props-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .prop-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .prop-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .prop-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .prop-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .prop-card.p-shine h4 { color: var(--gold); }
+  .prop-card.p-bend h4 { color: var(--cyan); }
+  .prop-card.p-conduct h4 { color: var(--blue); }
+  .prop-card.p-strong h4 { color: var(--orange); }
+
+  /* АТОМЫ ДЕРЖАТСЯ ЗА РУКИ */
+  .atom-grid-visual {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(74, 158, 255, 0.08));
+    border-radius: 16px;
+    padding: 30px 20px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .atom-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .metal-atom {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 30% 30%, var(--silver), var(--steel));
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(200, 212, 230, 0.5);
+    position: relative;
+    animation: jiggle 2.5s ease-in-out infinite;
+  }
+
+  .metal-atom:nth-child(2n) { animation-delay: 0.4s; }
+  .metal-atom:nth-child(3n) { animation-delay: 0.8s; }
+
+  @keyframes jiggle {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 1px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, 2px); }
+  }
+
+  /* РУДА → МЕТАЛЛ */
+  .ore-flow {
+    background: linear-gradient(135deg, rgba(217, 124, 74, 0.1), rgba(255, 140, 66, 0.1));
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 24px 0;
+  }
+
+  .flow-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .flow-step {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px 14px;
+    text-align: center;
+    border: 2px solid rgba(255,255,255,0.06);
+  }
+
+  .flow-step .flow-emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .flow-step h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .flow-step p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .flow-step.s-ore { border-color: var(--copper); }
+  .flow-step.s-ore h4 { color: var(--copper); }
+
+  .flow-step.s-furnace { border-color: var(--orange); }
+  .flow-step.s-furnace h4 { color: var(--orange); }
+
+  .flow-step.s-metal { border-color: var(--gold); }
+  .flow-step.s-metal h4 { color: var(--gold); }
+
+  .flow-arrow {
+    font-size: 28px;
+    color: var(--yellow);
+    font-weight: 900;
+    text-align: center;
+  }
+
+  /* ПЕЧЬ */
+  .furnace-visual {
+    background: linear-gradient(180deg, rgba(255, 71, 87, 0.15), rgba(255, 140, 66, 0.15) 50%, rgba(255, 217, 61, 0.1));
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .furnace-temp {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--red));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 10px 0;
+    animation: glow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 140, 66, 0.6)); }
+    50% { filter: drop-shadow(0 0 40px rgba(255, 217, 61, 0.9)); }
+  }
+
+  .furnace-visual .icon-row {
+    font-size: 3rem;
+    margin: 14px 0;
+    letter-spacing: 14px;
+  }
+
+  /* ВИДЫ МЕТАЛЛОВ */
+  .metals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .metal-card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 24px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-top: 4px solid var(--accent, var(--silver));
+    transition: transform 0.25s ease;
+  }
+
+  .metal-card:hover { transform: translateY(-4px); }
+
+  .metal-card.m-iron { --accent: var(--steel); }
+  .metal-card.m-copper { --accent: var(--copper); }
+  .metal-card.m-aluminum { --accent: var(--silver); }
+  .metal-card.m-gold { --accent: var(--gold); }
+  .metal-card.m-titanium { --accent: var(--cyan); }
+  .metal-card.m-mercury { --accent: var(--purple); }
+
+  .metal-emoji {
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .metal-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 6px;
+  }
+
+  .metal-card .metal-symbol {
+    display: inline-block;
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    padding: 2px 10px;
+    border-radius: 8px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .metal-card p {
+    color: var(--muted);
+    line-height: 1.55;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .metal-card .where {
+    font-size: 0.85rem;
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    padding: 8px 12px;
+    border-radius: 10px;
+    line-height: 1.5;
+  }
+
+  .metal-card .where b { color: var(--gold); }
+
+  /* СПЛАВЫ */
+  .alloy-mix {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+    background: var(--card);
+    border-radius: 18px;
+    padding: 24px 20px;
+    margin: 18px 0;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .alloy-ingredient {
+    text-align: center;
+  }
+
+  .alloy-ingredient .ai-emoji {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .alloy-ingredient .ai-name {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .alloy-ingredient .ai-percent {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .alloy-plus {
+    font-size: 1.6rem;
+    color: var(--yellow);
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .alloy-result {
+    text-align: center;
+    padding: 14px 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--res-bg-1, rgba(255, 207, 84, 0.15)), var(--res-bg-2, rgba(255, 140, 66, 0.15)));
+    border: 2px solid var(--res-border, var(--gold));
+  }
+
+  .alloy-result .ar-emoji {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .alloy-result .ar-name {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    color: var(--res-color, var(--gold));
+    font-size: 1rem;
+  }
+
+  .alloy-mix.bronze { --res-bg-1: rgba(217, 124, 74, 0.15); --res-bg-2: rgba(255, 140, 66, 0.15); --res-border: var(--copper); --res-color: var(--copper); }
+  .alloy-mix.steel { --res-bg-1: rgba(138, 153, 184, 0.2); --res-bg-2: rgba(200, 212, 230, 0.15); --res-border: var(--silver); --res-color: var(--silver); }
+  .alloy-mix.brass { --res-bg-1: rgba(255, 207, 84, 0.18); --res-bg-2: rgba(255, 217, 61, 0.12); --res-border: var(--gold); --res-color: var(--gold); }
+
+  .alloy-note {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .alloy-note b { color: var(--text); }
+
+  /* ИСТОРИЯ — ВЕКА */
+  .ages-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .age-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px 18px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .age-card .age-emoji {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .age-card h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .age-card .age-time {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .age-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .age-card.a-stone { border-top: 4px solid var(--steel); }
+  .age-card.a-stone h4 { color: var(--silver); }
+
+  .age-card.a-bronze { border-top: 4px solid var(--copper); }
+  .age-card.a-bronze h4 { color: var(--copper); }
+
+  .age-card.a-iron { border-top: 4px solid var(--orange); }
+  .age-card.a-iron h4 { color: var(--orange); }
+
+  /* ГДЕ ВСТРЕЧАЕТСЯ */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    transition: transform 0.3s;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* CHAIN BOX */
+  .chain-box {
+    background: rgba(255, 207, 84, 0.08);
+    border: 2px dashed rgba(255, 207, 84, 0.35);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+  }
+
+  .chain-box h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .chain-box p {
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 1rem;
+  }
+
+  .chain-box.copper {
+    background: rgba(217, 124, 74, 0.08);
+    border-color: rgba(217, 124, 74, 0.35);
+  }
+  .chain-box.copper h4 { color: var(--copper); }
+
+  /* РЖАВЧИНА */
+  .rust-visual {
+    background: linear-gradient(135deg, rgba(217, 124, 74, 0.12), rgba(255, 71, 87, 0.1));
+    border-radius: 18px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .rust-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin: 14px 0;
+  }
+
+  .rust-stage {
+    text-align: center;
+  }
+
+  .rust-stage .rs-emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .rust-stage .rs-label {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .rust-stage .rs-label b { color: var(--text); }
+
+  .rust-arrow {
+    font-size: 1.8rem;
+    color: var(--copper);
+    font-weight: 900;
+  }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 207, 84, 0.12), rgba(255, 140, 66, 0.12));
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 20px 100px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 700;
+    margin-right: 14px;
+  }
+
+  footer a:hover { text-decoration: underline; }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 700px) {
+    .flow-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .flow-arrow { transform: rotate(90deg); }
+    .alloy-mix {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .alloy-plus { transform: rotate(90deg); }
+    .ages-row { grid-template-columns: 1fr; }
+    .rust-row { gap: 10px; }
+    .rust-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">⚙️ Из земли в твои руки</span>
+  <h1>Металлы</h1>
+  <p>Откуда они берутся, как из камня делают чистый металл, и почему твой телефон, машина и кран на кухне — это всё одна большая история длиной в 5000 лет</p>
+
+  <div class="hero-forge">
+    <div class="ingot-glow"></div>
+    <div class="spark spark-1"></div>
+    <div class="spark spark-2"></div>
+    <div class="spark spark-3"></div>
+    <div class="spark spark-4"></div>
+    <div class="spark spark-5"></div>
+    <div class="spark spark-6"></div>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ЧАСТЬ 1: ЧТО ТАКОЕ МЕТАЛЛ -->
+<section class="block container">
+  <span class="section-label label-1">Часть 1</span>
+  <h2>Сначала — что такое металл вообще?</h2>
+  <p class="lead">Посмотри вокруг: ложка, ключи, кран, винтики, корпус телефона, монетки. Всё это — металл. Но что у них общего? Почему мы говорим «это металл», а про дерево или пластик — нет?</p>
+
+  <div class="text-block">
+    <p>Представь себе огромную толпу людей, которые крепко держатся за руки. Они стоят так плотно, что между ними не пролезть. Если кто-то снаружи попытается их растащить — рук они не отпустят, просто немного сдвинутся в сторону.</p>
+    <p>Вот примерно так и устроен металл. Только вместо людей — крошечные шарики, которые называются <b>атомы</b>. Эти атомы стоят рядышком и держатся друг за друга очень крепко. Они могут немного двигаться, но разорвать их связь почти невозможно.</p>
+    <p>И ещё одна важная штука: между этими атомами свободно бегают <b>электроны</b> — крошечные частички с минусом. Они не сидят на месте, а носятся по всему куску металла, как дети по школьному коридору. Именно поэтому металл такой особенный.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🤝</div>
+    <div class="content">
+      <h5>Аналогия</h5>
+      <p>Представь хоровод: дети крепко держатся за руки и кружатся. Толкни одного — он не упадёт и не оторвётся, просто весь хоровод немного качнётся. А внутри хоровода кто-то ещё бегает туда-сюда и носит шарики от одного к другому. Так живёт металл!</p>
+    </div>
+  </div>
+
+  <div class="atom-grid-visual">
+    <p style="color:var(--muted);margin-bottom:14px;font-size:0.95rem">Так выглядят атомы внутри куска металла:</p>
+    <div class="atom-row">
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+    </div>
+    <div class="atom-row">
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+    </div>
+    <div class="atom-row">
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+      <div class="metal-atom"></div>
+    </div>
+    <p style="color:var(--muted);margin-top:14px;font-size:0.9rem">Они немного дрожат — но никогда не отпускают друг друга</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 16px">Из-за этого у металла появляются 4 крутых свойства:</h3>
+
+  <div class="props-grid">
+    <div class="prop-card p-shine">
+      <span class="prop-emoji">✨</span>
+      <h4>Блестит</h4>
+      <p>Свет отражается от свободных электронов как от зеркала</p>
+    </div>
+    <div class="prop-card p-bend">
+      <span class="prop-emoji">🥄</span>
+      <h4>Гнётся, не ломаясь</h4>
+      <p>Атомы сдвигаются, но рук не отпускают — поэтому ложку можно согнуть</p>
+    </div>
+    <div class="prop-card p-conduct">
+      <span class="prop-emoji">⚡</span>
+      <h4>Проводит ток</h4>
+      <p>Свободные электроны несут электричество от одного конца к другому</p>
+    </div>
+    <div class="prop-card p-strong">
+      <span class="prop-emoji">💪</span>
+      <h4>Прочный</h4>
+      <p>Связи между атомами очень крепкие — металл трудно разорвать</p>
+    </div>
+  </div>
+
+  <div class="text-block cyan-block">
+    <p>Сравни с другими материалами. <b>Дерево</b> — атомы сцеплены жёстко в волокна, поэтому оно ломается, а не гнётся. <b>Стекло</b> — атомы тоже сцеплены жёстко, но без волокон, поэтому оно разбивается на осколки. <b>Пластмасса</b> — длинные цепочки атомов, поэтому она мягкая и гибкая, но не блестит и не проводит ток.</p>
+    <p>А у металла — особая «дружба» между атомами. Они держатся за руки, но руки эти могут чуть-чуть отпускаться и снова цепляться, если медленно тянуть. Поэтому из металла можно <b>ковать</b> — бить по нему молотком и придавать любую форму.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 2: ОТКУДА БЕРЁТСЯ -->
+<section class="block container">
+  <span class="section-label label-2">Часть 2</span>
+  <h2>А где он спрятан в природе?</h2>
+  <p class="lead">Главный сюрприз: чистого металла в природе почти нет. Он не лежит готовыми блестящими кусками, чтобы пришёл человек и подобрал. Чтобы добыть металл — надо его сначала <b>найти</b>, а потом <b>освободить</b> из камня.</p>
+
+  <div class="text-block copper-block">
+    <p>Земля — огромный шар, и внутри неё перемешано много всего: камни, песок, металлы. Очень-очень давно, когда Земля только образовалась, она была вся раскалённой и жидкой, как огромный котёл с супом. Тяжёлые металлы (например, железо) стекали вниз, к центру Земли, а вещества полегче поднимались кверху.</p>
+    <p>Поэтому в самом центре нашей планеты лежит огромный <b>железный шар</b> размером с Луну. Но достать его мы не можем — слишком глубоко (и слишком горячо). Зато ближе к поверхности тоже остался разный металл, перемешанный с обычными камнями. Такие камни с металлом внутри называются <b>рудой</b>.</p>
+    <p>Руда — это не металл. Это <b>смесь</b>: где-то железо перемешано с кислородом и стало похоже на ржавый камень, где-то медь связалась с серой, где-то алюминий — с другими веществами. Глазом часто и не скажешь, что внутри есть металл. Но опытный геолог видит: вот этот красноватый камень — железная руда, а этот зеленоватый — медная.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🍰</div>
+    <div class="content">
+      <h5>Представь себе так</h5>
+      <p>Руда — это как кекс с изюмом. Если ты хочешь съесть только изюм, тебе сначала надо <b>достать его из теста</b>. Просто кусать кекс целиком и думать «ну я же ем изюм» — не получится. Так и тут: чтобы получить чистое железо, надо вытащить его из камня.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:14px">Как руду достают из земли?</h3>
+    <p style="color:var(--muted);line-height:1.7;margin-bottom:16px">Есть два способа — зависит от того, насколько глубоко лежит руда:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+      <div style="background:rgba(217,124,74,0.08);padding:18px;border-radius:14px;border-left:4px solid var(--copper)">
+        <div style="font-size:2rem;margin-bottom:8px">🕳️</div>
+        <h4 style="color:var(--copper);margin-bottom:8px">Шахта</h4>
+        <p style="color:var(--text);font-size:0.95rem;line-height:1.6">Если руда лежит глубоко (километр и больше под землёй), то копают узкие <b>тоннели</b> вниз и вбок. Шахтёры спускаются на специальных лифтах и работают там в темноте.</p>
+      </div>
+      <div style="background:rgba(255,140,66,0.08);padding:18px;border-radius:14px;border-left:4px solid var(--orange)">
+        <div style="font-size:2rem;margin-bottom:8px">⛏️</div>
+        <h4 style="color:var(--orange);margin-bottom:8px">Карьер</h4>
+        <p style="color:var(--text);font-size:0.95rem;line-height:1.6">Если руда близко к поверхности, проще копать сверху огромную <b>яму</b> с уступами, как ступенька за ступенькой. Самые большие карьеры видны даже из космоса!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Когда руду достали — её везут на огромных самосвалах (колёса у которых выше человека!) на завод. И там начинается самое интересное — превращение камня в чистый металл.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 3: ПЛАВКА -->
+<section class="block container">
+  <span class="section-label label-3">Часть 3</span>
+  <h2>Главный фокус: как из камня сделать металл</h2>
+  <p class="lead">Этот трюк люди придумали примерно 6000 лет назад. И он до сих пор работает почти так же. Главный секрет — <b>огонь. Очень. Очень. Сильный. Огонь.</b></p>
+
+  <div class="text-block orange-block">
+    <p>Чтобы освободить металл из руды, его надо <b>расплавить</b>. То есть нагреть так сильно, что камень и металл внутри него превратятся в горячую жидкость — как будто превратятся в суп.</p>
+    <p>Когда руда становится жидкой, происходит чудо: <b>тяжёлые капли металла</b> стекают вниз, а лёгкая каменная «пенка» (она называется <b>шлак</b>) всплывает наверх. Прямо как в супе: жир сверху, а гуща опускается вниз.</p>
+    <p>После этого металл просто сливают через отверстие внизу — и получают чистый металл. Шлак выкидывают.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🍫</div>
+    <div class="content">
+      <h5>Представь себе так</h5>
+      <p>Возьми шоколадку с орехами и нагрей её в микроволновке. Шоколад растечётся, а орехи останутся. Если поставить её под наклоном — шоколад стечёт вниз отдельно, а орехи останутся сверху. Так и в печи: металл «стекает» отдельно от камня.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 14px">Путь руды в металл — три шага:</h3>
+
+  <div class="ore-flow">
+    <div class="flow-row">
+      <div class="flow-step s-ore">
+        <span class="flow-emoji">🪨</span>
+        <h4>Руда</h4>
+        <p>Камень с металлом внутри — то, что достали из земли</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s-furnace">
+        <span class="flow-emoji">🔥</span>
+        <h4>Печь</h4>
+        <p>Очень-очень горячо! Камень плавится, металл стекает вниз</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s-metal">
+        <span class="flow-emoji">🪙</span>
+        <h4>Чистый металл</h4>
+        <p>Сливают и охлаждают — получаются слитки</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <p>Главная печь, в которой сегодня плавят железо, называется <b>домна</b>. Это огромная башня высотой с 10-этажный дом. Внутрь сверху засыпают руду и <b>уголь</b> (специальный — кокс). А снизу подают воздух. Уголь горит, и в печи становится так горячо, что плавится не только металл, но и камень.</p>
+    <p>Уголь нужен не только для тепла. У него есть и второе важное дело: он умеет «отрывать» металл от того, с чем тот связался в руде. В железной руде железо «держится» за кислород — и уголь забирает кислород себе, а железо отпускает. Это называется <b>химия</b>, и про неё ты узнаешь больше, когда подрастёшь.</p>
+  </div>
+
+  <div class="furnace-visual">
+    <p style="color:var(--muted);margin-bottom:8px;font-size:0.95rem">Внутри домны:</p>
+    <div class="icon-row">🪨🔥💧</div>
+    <p style="color:var(--text);font-size:1rem">Камень → огонь → жидкий металл</p>
+    <div class="furnace-temp">1500 °C</div>
+    <p style="color:var(--muted);font-size:0.95rem">В 15 раз горячее, чем кипящая вода в чайнике</p>
+  </div>
+
+  <div class="chain-box copper">
+    <h4>🔥 Маленький секрет</h4>
+    <p>Самые первые металлы, которые научился добывать человек — это <b>медь</b>, <b>олово</b> и <b>свинец</b>. Их плавить легче всего: достаточно просто очень жаркого костра. А вот железо плавится только при 1500 градусах — простой костёр такого не даёт. Поэтому железо люди освоили намного позже, когда придумали особые печи с поддувом воздуха.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 4: ВИДЫ МЕТАЛЛОВ -->
+<section class="block container">
+  <span class="section-label label-4">Часть 4</span>
+  <h2>Каких металлов на Земле много?</h2>
+  <p class="lead">Металлов всего больше 80 разных видов. Но если посмотреть на то, что вокруг тебя в повседневной жизни — почти всё это шесть-семь главных героев.</p>
+
+  <div class="metals-grid">
+    <div class="metal-card m-iron">
+      <span class="metal-emoji">🔩</span>
+      <h3>Железо</h3>
+      <span class="metal-symbol">Fe</span>
+      <p>Самый главный, самый частый. Очень прочный и относительно дешёвый. Из него делают <b style="color:var(--orange)">сталь</b> — а из стали почти всё.</p>
+      <div class="where"><b>Где:</b> машины, мосты, рельсы, ножи, гвозди, скрепки</div>
+    </div>
+
+    <div class="metal-card m-copper">
+      <span class="metal-emoji">🟠</span>
+      <h3>Медь</h3>
+      <span class="metal-symbol">Cu</span>
+      <p>Красновато-оранжевая. Лучше всех (после серебра) проводит ток и тепло. Поэтому из неё делают <b style="color:var(--copper)">провода</b>.</p>
+      <div class="where"><b>Где:</b> провода в стенах, монетки, кастрюли</div>
+    </div>
+
+    <div class="metal-card m-aluminum">
+      <span class="metal-emoji">🥫</span>
+      <h3>Алюминий</h3>
+      <span class="metal-symbol">Al</span>
+      <p>Очень лёгкий, в 3 раза легче железа. И почти не ржавеет. Из него делают всё, что должно быть лёгким.</p>
+      <div class="where"><b>Где:</b> банки колы, фольга, самолёты, рамы окон</div>
+    </div>
+
+    <div class="metal-card m-gold">
+      <span class="metal-emoji">🏆</span>
+      <h3>Золото</h3>
+      <span class="metal-symbol">Au</span>
+      <p>Никогда не ржавеет и не темнеет — поэтому украшения из золота сияют тысячи лет. И его в природе очень мало, поэтому оно дорогое.</p>
+      <div class="where"><b>Где:</b> украшения, контакты в смартфоне, медали</div>
+    </div>
+
+    <div class="metal-card m-titanium">
+      <span class="metal-emoji">🚀</span>
+      <h3>Титан</h3>
+      <span class="metal-symbol">Ti</span>
+      <p>Прочный как сталь, но в 2 раза легче. И не ржавеет. Идеален для ракет и самолётов. Но плавить его трудно, поэтому он дорогой.</p>
+      <div class="where"><b>Где:</b> ракеты, самолёты, протезы внутри людей</div>
+    </div>
+
+    <div class="metal-card m-mercury">
+      <span class="metal-emoji">💧</span>
+      <h3>Ртуть</h3>
+      <span class="metal-symbol">Hg</span>
+      <p>Единственный металл, который при комнатной температуре <b style="color:var(--purple)">жидкий</b>! Серебристая капля, как маленькое зеркало. Очень ядовитая, поэтому почти не используется.</p>
+      <div class="where"><b>Где:</b> старые градусники (сейчас — почти нигде)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 5: СПЛАВЫ -->
+<section class="block container">
+  <span class="section-label label-5">Часть 5 · Самое классное</span>
+  <h2>Сплавы — когда смешать два металла</h2>
+  <p class="lead">А теперь представь: у тебя есть железо. Оно прочное, но мягковатое и быстро ржавеет. У тебя есть углерод (кусочек угля). Он сам по себе вообще не металл. <b>А если их смешать?</b> Получится новый материал, который намного лучше каждого по отдельности!</p>
+
+  <div class="text-block green-block">
+    <p>Когда металл расплавили и он стал жидким — в него можно <b>добавить</b> что-нибудь ещё. Чуть-чуть другого металла, или немного угля, или щепотку какого-нибудь редкого элемента. Получится новая жидкость — смешанная.</p>
+    <p>Когда такая смесь застывает, она становится <b>не просто железом</b> и <b>не просто углем</b>. Это что-то третье — со своими свойствами. Часто — намного лучше, чем каждый ингредиент по отдельности.</p>
+    <p>Эта смесь и называется <b>сплав</b>. От слова «сплавить» — то есть смешать в жидком виде. Сплавы — это, наверное, самое важное открытие в истории людей. Без них не было бы ни машин, ни ракет, ни даже хорошего ножа на кухне.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🥣</div>
+    <div class="content">
+      <h5>Представь себе так</h5>
+      <p>Сплав — как тесто для блинов. Если есть только мука — это не еда. Если только молоко — это просто молоко. Но смешай их с яйцом — и получишь блины! Совсем другое, чем ингредиенты по отдельности. Так же и со сплавами: смешав два металла, ты получаешь что-то новое.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:28px 0 16px">Три самых знаменитых сплава:</h3>
+
+  <div class="alloy-mix bronze">
+    <div class="alloy-ingredient">
+      <span class="ai-emoji">🟠</span>
+      <div class="ai-name">Медь</div>
+      <div class="ai-percent">~88%</div>
+    </div>
+    <div class="alloy-plus">+</div>
+    <div class="alloy-ingredient">
+      <span class="ai-emoji">⚪</span>
+      <div class="ai-name">Олово</div>
+      <div class="ai-percent">~12%</div>
+    </div>
+    <div class="alloy-plus">=</div>
+    <div class="alloy-result">
+      <span class="ar-emoji">🛡️</span>
+      <div class="ar-name">БРОНЗА</div>
+    </div>
+  </div>
+  <p class="alloy-note">Первый сплав в истории. <b>Бронза прочнее меди в 3 раза.</b> 5000 лет назад из неё делали мечи, щиты, топоры. Целая эпоха человечества называется «Бронзовый век».</p>
+
+  <div class="alloy-mix steel">
+    <div class="alloy-ingredient">
+      <span class="ai-emoji">🔩</span>
+      <div class="ai-name">Железо</div>
+      <div class="ai-percent">~99%</div>
+    </div>
+    <div class="alloy-plus">+</div>
+    <div class="alloy-ingredient">
+      <span class="ai-emoji">⚫</span>
+      <div class="ai-name">Углерод</div>
+      <div class="ai-percent">~1%</div>
+    </div>
+    <div class="alloy-plus">=</div>
+    <div class="alloy-result">
+      <span class="ar-emoji">⚔️</span>
+      <div class="ar-name">СТАЛЬ</div>
+    </div>
+  </div>
+  <p class="alloy-note">Самый важный сплав <b>в истории человечества</b>. Чистое железо — мягковатое, гнётся. Но добавь чуть-чуть углерода — и получится <b>сталь</b>, очень твёрдая и прочная. Из стали сегодня делают почти всё: машины, дома, ножи, рельсы.</p>
+
+  <div class="alloy-mix brass">
+    <div class="alloy-ingredient">
+      <span class="ai-emoji">🟠</span>
+      <div class="ai-name">Медь</div>
+      <div class="ai-percent">~70%</div>
+    </div>
+    <div class="alloy-plus">+</div>
+    <div class="alloy-ingredient">
+      <span class="ai-emoji">🪨</span>
+      <div class="ai-name">Цинк</div>
+      <div class="ai-percent">~30%</div>
+    </div>
+    <div class="alloy-plus">=</div>
+    <div class="alloy-result">
+      <span class="ar-emoji">🎺</span>
+      <div class="ar-name">ЛАТУНЬ</div>
+    </div>
+  </div>
+  <p class="alloy-note">Жёлтая, похожа на золото. Из неё делают <b>духовые инструменты</b> (трубы, саксофоны), краны на кухне и красивые дверные ручки. Звучит звонко — поэтому и инструменты.</p>
+
+  <div class="text-block purple-block">
+    <p>Сплавов сегодня тысячи. Например, есть <b>нержавеющая сталь</b> — это сталь, в которую добавили хром и никель. Из неё делают столовые приборы, потому что она вообще не ржавеет (отсюда и название). Есть <b>дюраль</b> — алюминий с медью, очень лёгкий и прочный, из него делают самолёты. Есть супер-секретные сплавы для ракет, которые выдерживают температуру в 1000 градусов.</p>
+    <p>Учёные до сих пор изобретают новые сплавы. Каждый — это как новый рецепт супа: чуть больше одного, чуть меньше другого, и получаются совсем разные свойства. Один — твёрже алмаза, другой — гнётся, как пружина. Третий помнит свою форму: согни его, нагрей — и он сам выпрямится обратно!</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 6: ИСТОРИЯ -->
+<section class="block container">
+  <span class="section-label label-6">Часть 6 · История</span>
+  <h2>Как металл изменил людей</h2>
+  <p class="lead">Историки делят всю древнюю историю человечества на эпохи — и называют их по тому, <b>из чего люди делали инструменты</b>. Сначала всё было каменное. Потом — бронзовое. Потом — железное. И каждая эпоха — это огромный скачок вперёд.</p>
+
+  <div class="ages-row">
+    <div class="age-card a-stone">
+      <span class="age-emoji">🪨</span>
+      <h4>Каменный век</h4>
+      <div class="age-time">до ~3500 г. до н.э.</div>
+      <p>Топор, нож, наконечник стрелы — всё из камня. Камень крепкий, но хрупкий и тупой. Сделать из него что-то сложное — почти невозможно.</p>
+    </div>
+    <div class="age-card a-bronze">
+      <span class="age-emoji">🛡️</span>
+      <h4>Бронзовый век</h4>
+      <div class="age-time">~3500–1200 до н.э.</div>
+      <p>Люди научились плавить медь и смешивать её с оловом. Бронза стала прочнее камня. Появились настоящие мечи, щиты, плуги. Кто владел бронзой — побеждал.</p>
+    </div>
+    <div class="age-card a-iron">
+      <span class="age-emoji">⚔️</span>
+      <h4>Железный век</h4>
+      <div class="age-time">с ~1200 до н.э.</div>
+      <p>Научились плавить железо (это было трудно — нужны очень горячие печи). Железо везде, его много, и оно прочнее бронзы. Дальше — пошли паровозы, машины, небоскрёбы.</p>
+    </div>
+  </div>
+
+  <div class="text-block blue-block">
+    <p>Подумай: до металла у человека был только камень, дерево и кость. Невозможно было построить большой корабль (нечем сбить доски), нельзя было пахать большое поле (плуг ломался), нельзя было сделать тонкую иголку. С появлением металла — вдруг стало можно <b>всё</b>.</p>
+    <p>Металл — это, можно сказать, главное изобретение человечества. Без него не было бы ни компьютеров, ни самолётов, ни больниц, ни даже простой кухни. Каждый раз, когда ты берёшь ложку или открываешь кран — ты пользуешься тем, что люди придумали тысячи лет назад в раскалённой печи.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 7: РЖАВЧИНА -->
+<section class="block container">
+  <span class="section-label label-7">Часть 7</span>
+  <h2>А почему металл иногда ржавеет?</h2>
+  <p class="lead">Ты, наверное, видел старый велосипед или забор, на котором появились рыжие пятна. Это <b>ржавчина</b>. И тут есть забавный факт: ржавчина — это, по сути, металл, который <b>хочет вернуться обратно в руду</b>.</p>
+
+  <div class="text-block">
+    <p>Помнишь, мы говорили: в руде железо «связано» с кислородом? Чтобы получить чистое железо, в печи мы это кислород «оторвали». Но кислород — он повсюду в воздухе. И он <b>очень хочет</b> снова прицепиться к железу.</p>
+    <p>Если оставить железку на улице, под дождём — кислород из воздуха и воды постепенно проникает в металл и снова с ним соединяется. Получается <b>оксид железа</b> — рыжее, рассыпающееся вещество. Это и есть ржавчина. По сути, это та же самая железная руда, из которой когда-то и сделали металл.</p>
+    <p>Получается, что природа всё время пытается «отыграть назад»: вернуть металл туда, где он был. А мы, люди, всё время боремся, чтобы железо оставалось железом. Поэтому металлы красят, покрывают другими металлами (например, цинком), смазывают маслом — лишь бы не пускать к ним кислород.</p>
+  </div>
+
+  <div class="rust-visual">
+    <div class="rust-row">
+      <div class="rust-stage">
+        <span class="rs-emoji">🔩</span>
+        <div class="rs-label"><b>Железо</b><br>чистое и блестящее</div>
+      </div>
+      <div class="rust-arrow">→</div>
+      <div class="rust-stage">
+        <span class="rs-emoji">💧</span>
+        <div class="rs-label"><b>Вода + воздух</b><br>несут кислород</div>
+      </div>
+      <div class="rust-arrow">→</div>
+      <div class="rust-stage">
+        <span class="rs-emoji">🟫</span>
+        <div class="rs-label"><b>Ржавчина</b><br>железо + кислород</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🔄</div>
+    <div class="content">
+      <h5>Представь себе так</h5>
+      <p>Это как если бы ты собрал классный замок из LEGO, а кубики потом всё время хотели разъехаться обратно в коробку. Тебе приходится их склеивать или прятать от ветра. Так и с металлом: природа хочет его «разобрать», а мы — сохранить как есть.</p>
+    </div>
+  </div>
+
+  <div class="chain-box">
+    <h4>💡 Почему золото никогда не ржавеет?</h4>
+    <p>Потому что золото — настолько «ленивое», что вообще не хочет соединяться с кислородом. Ему нравится быть чистым металлом. Вот почему золотые монеты, которые лежали в земле 3000 лет, до сих пор блестят как новые — а железные гвозди рассыпаются за 100 лет. Та же история с серебром, платиной — это все «благородные» металлы. Дороги они не из-за красоты, а потому что их в природе мало <b>и они не портятся</b>.</p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 8: ГДЕ ВСТРЕЧАЕТСЯ -->
+<section class="block container">
+  <span class="section-label label-5">Где это в твоей жизни</span>
+  <h2>Открой глаза — металл везде</h2>
+  <p class="lead">Попробуй пройтись по дому и сосчитать, сколько вещей сделано из металла. Спорим, ты собьёшься со счёта на 50-й вещи.</p>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">🚗</span>
+      <h4>Машина</h4>
+      <p>Кузов и двигатель — сталь. Колёса внутри — сталь. Электропроводка — медь. Корпус двигателя часто — алюминий.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">📱</span>
+      <h4>Телефон</h4>
+      <p>Корпус — алюминий или сталь. Внутри — медь, серебро и даже немножко золота на самых важных контактах.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🏗️</span>
+      <h4>Здания</h4>
+      <p>Внутри стен спрятан стальной «скелет». Без него высокий дом просто не устоял бы.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🍳</span>
+      <h4>Кухня</h4>
+      <p>Кастрюля — сталь или алюминий. Нож — стальной. Вилка-ложка — нержавеющая сталь. Кран — латунь.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🚂</span>
+      <h4>Поезда и рельсы</h4>
+      <p>Сами рельсы — сталь. Колёса поездов — сталь. Поезд весит сотни тонн, и держит его всё это.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">✈️</span>
+      <h4>Самолёты</h4>
+      <p>Алюминий и титан — лёгкие, но прочные. Если бы делали из стали, самолёт был бы слишком тяжёлый, чтобы взлететь.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🪙</span>
+      <h4>Монеты</h4>
+      <p>Раньше — серебро и золото. Сейчас — сплавы (никель, медь, сталь). Но монета всё равно металлическая, потому что прочная и звонкая.</p>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🔌</span>
+      <h4>Розетка</h4>
+      <p>Контакты внутри — медь или латунь. Только металл может проводить электричество к твоей зарядке.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACT -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>А вот это чтобы упало с табуретки</h3>
+    <p>Всё золото, которое есть на Земле — на твоём колечке, на медалях, в банковских хранилищах — родилось <b style="color:var(--gold)">не на нашей планете</b>. Оно прилетело из космоса. Когда-то очень давно где-то во вселенной столкнулись две <b style="color:var(--orange)">нейтронные звёзды</b> — это самые плотные объекты на свете. От такого взрыва родились новые тяжёлые металлы (золото, платина, уран), и облака этой пыли разлетелись по галактике. Часть этой пыли потом собралась в Землю. Так что когда в следующий раз увидишь золотое украшение — знай: это пыль <b style="color:var(--gold)">взорвавшихся звёзд</b>, которой 4,5 миллиарда лет 🌟</p>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html">← На главную</a>
+  Сделано с <span class="heart">❤</span> для любопытных
+</footer>
+
+<script src="../nav.js" defer></script>
+
+<script>
+  // Плавная анимация появления секций при скролле
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

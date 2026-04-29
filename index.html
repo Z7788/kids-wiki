@@ -309,6 +309,7 @@
   .wiki-card.c-immunity { --accent: linear-gradient(90deg, var(--green), var(--cyan), var(--red)); --border-hover: rgba(107, 207, 127, 0.4); --glow: rgba(107, 207, 127, 0.2); }
   .wiki-card.c-rockets { --accent: linear-gradient(90deg, var(--orange), var(--red), var(--pink)); --border-hover: rgba(255, 140, 66, 0.4); --glow: rgba(255, 140, 66, 0.25); }
   .wiki-card.c-exo { --accent: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple)); --border-hover: rgba(74, 158, 255, 0.4); --glow: rgba(74, 158, 255, 0.2); }
+  .wiki-card.c-metals { --accent: linear-gradient(90deg, #c8d4e6, #ffcf54, #ff8c42, #d97c4a); --border-hover: rgba(255, 207, 84, 0.4); --glow: rgba(255, 207, 84, 0.2); }
 
   .wiki-emoji {
     font-size: 3.4rem;
@@ -526,9 +527,9 @@
   </div>
 
   <div class="filter-pills" id="filters">
-    <button class="filter-btn active" data-category="all">Все <span class="count-badge" data-count="all">8</span></button>
+    <button class="filter-btn active" data-category="all">Все <span class="count-badge" data-count="all">9</span></button>
     <button class="filter-btn" data-category="space">🌌 Космос <span class="count-badge" data-count="space">3</span></button>
-    <button class="filter-btn" data-category="earth">🌍 Земля <span class="count-badge" data-count="earth">2</span></button>
+    <button class="filter-btn" data-category="earth">🌍 Земля <span class="count-badge" data-count="earth">3</span></button>
     <button class="filter-btn" data-category="life">🧬 Жизнь <span class="count-badge" data-count="life">3</span></button>
   </div>
 </div>
@@ -537,6 +538,26 @@
   <div class="results-info" id="results-info"></div>
 
   <div class="wiki-grid" id="grid">
+    <a class="wiki-card c-metals"
+       href="articles/metals.html"
+       data-category="earth"
+       data-tags="металл железо медь алюминий золото титан ртуть руда плавка домна шахта карьер сплав сталь бронза латунь нержавейка ржавчина история технологии">
+      <span class="wiki-emoji">⚙️</span>
+      <h3>Металлы и сплавы</h3>
+      <p>Откуда берутся железо, медь и золото, как из камня делают чистый металл, и почему смесь двух металлов часто лучше каждого по отдельности.</p>
+      <div class="card-tags">
+        <span class="card-tag t-earth">земля</span>
+        <span class="card-tag t-tech">технологии</span>
+        <span class="card-tag t-history">история</span>
+      </div>
+      <div class="wiki-meta">
+        <span>29 апр 2026</span>
+        <span class="dot">•</span>
+        <span>22 мин</span>
+        <span class="new-pill">new</span>
+      </div>
+    </a>
+
     <a class="wiki-card c-rockets"
        href="articles/rockets.html"
        data-category="space"
@@ -553,7 +574,6 @@
         <span>19 апр 2026</span>
         <span class="dot">•</span>
         <span>28 мин</span>
-        <span class="new-pill">new</span>
       </div>
     </a>
 
@@ -573,7 +593,6 @@
         <span>19 апр 2026</span>
         <span class="dot">•</span>
         <span>25 мин</span>
-        <span class="new-pill">new</span>
       </div>
     </a>
 
@@ -697,7 +716,7 @@
 </section>
 
 <footer>
-  Всего статей: <span class="count-pill" id="total-count">8</span>
+  Всего статей: <span class="count-pill" id="total-count">9</span>
   <div style="margin-top:14px">Сделано с <span class="heart">❤</span> для любопытных</div>
 </footer>
 
