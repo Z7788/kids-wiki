@@ -499,6 +499,35 @@
     50% { transform: scale(1.2); }
   }
 
+  /* BRAND NEW BADGE — для статей, которые ребёнок ещё не открывал */
+  .brand-new-badge {
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    background: linear-gradient(135deg, var(--red), var(--orange), var(--yellow));
+    color: white;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 18px rgba(255, 71, 87, 0.55), 0 0 30px rgba(255, 217, 61, 0.35);
+    transform: rotate(8deg);
+    animation: brandNewPulse 1.5s ease-in-out infinite;
+    z-index: 5;
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    border: 2px solid rgba(255,255,255,0.35);
+    white-space: nowrap;
+  }
+
+  @keyframes brandNewPulse {
+    0%, 100% { transform: rotate(8deg) scale(1); }
+    50% { transform: rotate(8deg) scale(1.1); }
+  }
+
   @media (max-width: 700px) {
     .hero { min-height: 40vh; padding: 50px 20px 20px; }
     .wiki-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -507,6 +536,7 @@
     .wiki-card h3 { font-size: 1.2rem; }
     .filter-pills { gap: 8px; }
     .filter-btn { padding: 8px 14px; font-size: 0.85rem; }
+    .brand-new-badge { top: 10px; right: 10px; padding: 6px 11px; font-size: 0.74rem; }
   }
 </style>
 </head>
@@ -554,7 +584,6 @@
         <span>29 апр 2026</span>
         <span class="dot">•</span>
         <span>22 мин</span>
-        <span class="new-pill">new</span>
       </div>
     </a>
 
@@ -878,6 +907,60 @@
     }
 
     slot.appendChild(container);
+  })();
+
+  // --- Большая плашка "🆕 НОВОЕ" на статьях, которые ребёнок ещё не открывал ---
+  (function showNewBadges() {
+    const SEEN_KEY = 'kidsWikiSeenSlugs';
+    // Слаги статей, существовавших в момент введения этой фичи (29 апр 2026).
+    // Когда добавляется новая статья (не из этого списка) — она автоматически
+    // получает плашку "НОВОЕ" для всех, кто уже бывал на сайте.
+    const PRE_EXISTING = ['nuclear','black-holes','tectonics','lightning','dna','immunity','rockets','exoskeletons'];
+
+    const slugMap = new Map();
+    cards.forEach(card => {
+      const href = card.getAttribute('href') || '';
+      const m = href.match(/articles\/(.+)\.html$/);
+      if (m) slugMap.set(card, m[1]);
+    });
+
+    let seen;
+    try { seen = JSON.parse(localStorage.getItem(SEEN_KEY)); } catch {}
+
+    if (!Array.isArray(seen)) {
+      // Первая инициализация. Если ребёнок раньше уже бывал на сайте
+      // (есть имя или прогресс) — старые статьи считаем знакомыми,
+      // а новые (например, "metals") получат плашку.
+      // Если совсем первый визит — плашек нет (всё новое = ничего не выделяем).
+      const wasHereBefore = !!(localStorage.getItem('kidsWikiProgress') || localStorage.getItem('kidsWikiName'));
+      if (wasHereBefore) {
+        seen = PRE_EXISTING.slice();
+      } else {
+        seen = Array.from(slugMap.values());
+      }
+      localStorage.setItem(SEEN_KEY, JSON.stringify(seen));
+    }
+
+    const seenSet = new Set(seen);
+
+    slugMap.forEach((slug, card) => {
+      if (!seenSet.has(slug)) {
+        const badge = document.createElement('span');
+        badge.className = 'brand-new-badge';
+        badge.textContent = '🆕 НОВОЕ';
+        card.appendChild(badge);
+      }
+
+      const markSeen = () => {
+        if (!seenSet.has(slug)) {
+          seenSet.add(slug);
+          localStorage.setItem(SEEN_KEY, JSON.stringify(Array.from(seenSet)));
+        }
+      };
+      // pointerdown срабатывает раньше навигации — записываем гарантированно
+      card.addEventListener('pointerdown', markSeen);
+      card.addEventListener('click', markSeen);
+    });
   })();
 </script>
 
