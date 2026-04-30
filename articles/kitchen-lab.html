@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>Кухонная лаборатория: 3 эксперимента</title>
+<meta name="description" content="Три домашних опыта с молоком, крахмалом и дрожжами — и физика с химией, которая стоит за каждым «вау».">
+<meta name="emoji" content="🧪">
+<meta name="date" content="2026-04-30">
+<meta name="reading-time" content="18 мин">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e27;
+    --bg-2: #141a3c;
+    --card: #1a2150;
+    --yellow: #ffd93d;
+    --orange: #ff8c42;
+    --red: #ff4757;
+    --pink: #ff6b9d;
+    --cyan: #4ecdc4;
+    --green: #6bcf7f;
+    --purple: #a78bfa;
+    --blue: #4a9eff;
+    --text: #f1f5ff;
+    --muted: #a5b0d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(2px 2px at 90% 50%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.4), transparent),
+      linear-gradient(180deg, #0a0e27 0%, #141a3c 50%, #0a0e27 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 300%;
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .series-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.18), rgba(74, 158, 255, 0.18));
+    border: 1.5px solid rgba(78, 205, 196, 0.5);
+    padding: 6px 16px;
+    border-radius: 50px;
+    color: var(--cyan);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .series-badge .dot { color: var(--muted); opacity: 0.6; }
+  .series-badge .part-num { color: var(--yellow); }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 217, 61, 0.15);
+    border: 2px solid var(--yellow);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--yellow);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 1;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange), var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(255, 140, 66, 0.3));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero p {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 34px;
+    line-height: 1.55;
+  }
+
+  /* HERO VISUAL — летающие пузыри/капли */
+  .hero-flask {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    margin: 10px 0 20px;
+  }
+
+  .flask-body {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 150px;
+    background: linear-gradient(180deg, rgba(78, 205, 196, 0.15), rgba(167, 139, 250, 0.35), rgba(255, 107, 157, 0.45));
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: none;
+    border-radius: 0 0 70px 70px;
+    overflow: hidden;
+  }
+
+  .flask-neck {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 50px;
+    background: linear-gradient(180deg, transparent, rgba(78, 205, 196, 0.1));
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+    border-right: 3px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .flask-rim {
+    position: absolute;
+    bottom: 197px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(255,255,255,0.1));
+    animation: rise 3s ease-in infinite;
+  }
+
+  .b1 { width: 14px; height: 14px; left: 30%; animation-delay: 0s; }
+  .b2 { width: 10px; height: 10px; left: 55%; animation-delay: 0.6s; }
+  .b3 { width: 18px; height: 18px; left: 70%; animation-delay: 1.2s; }
+  .b4 { width: 8px; height: 8px; left: 20%; animation-delay: 1.8s; }
+  .b5 { width: 12px; height: 12px; left: 45%; animation-delay: 2.4s; }
+
+  @keyframes rise {
+    0% { bottom: 5px; opacity: 0; transform: scale(0.5); }
+    10% { opacity: 1; transform: scale(1); }
+    90% { opacity: 0.8; }
+    100% { bottom: 145px; opacity: 0; transform: scale(0.7); }
+  }
+
+  .splash {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem;
+    animation: pop 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pop {
+    0%, 100% { transform: translateX(-50%) scale(1) rotate(0); opacity: 0.85; }
+    50% { transform: translateX(-50%) scale(1.18) rotate(8deg); opacity: 1; }
+  }
+
+  .scroll-hint {
+    margin-top: 30px;
+    color: var(--muted);
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section.block {
+    padding: 50px 20px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .label-intro { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .label-safe { background: rgba(255, 71, 87, 0.15); color: var(--red); }
+  .label-1 { background: rgba(255, 107, 157, 0.15); color: var(--pink); }
+  .label-2 { background: rgba(78, 205, 196, 0.15); color: var(--cyan); }
+  .label-3 { background: rgba(107, 207, 127, 0.15); color: var(--green); }
+  .label-where { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+
+  section h2 {
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  section .lead {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* TEXT BLOCK */
+  .text-block {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin: 22px 0;
+  }
+
+  .text-block p {
+    color: var(--text);
+    font-size: 1.04rem;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .text-block p:last-child { margin-bottom: 0; }
+
+  .text-block b { color: var(--yellow); }
+
+  .text-block.pink-block { border-color: var(--pink); }
+  .text-block.pink-block b { color: var(--pink); }
+
+  .text-block.cyan-block { border-color: var(--cyan); }
+  .text-block.cyan-block b { color: var(--cyan); }
+
+  .text-block.green-block { border-color: var(--green); }
+  .text-block.green-block b { color: var(--green); }
+
+  .text-block.purple-block { border-color: var(--purple); }
+  .text-block.purple-block b { color: var(--purple); }
+
+  .text-block.red-block { border-color: var(--red); }
+  .text-block.red-block b { color: var(--orange); }
+
+  /* ANALOGY */
+  .analogy {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(74, 158, 255, 0.1));
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .analogy .icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+  }
+
+  .analogy .content h5 {
+    color: var(--purple);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .analogy .content p {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* SAFETY BLOCK */
+  .safety-block {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.08), rgba(255, 140, 66, 0.08));
+    border: 2px solid rgba(255, 140, 66, 0.4);
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+
+  .safety-block h3 {
+    color: var(--orange);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+  }
+
+  .safety-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .safety-list li {
+    padding: 8px 0 8px 32px;
+    position: relative;
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 1rem;
+  }
+
+  .safety-list li::before {
+    content: '⚠️';
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* EXPERIMENT CARDS */
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 24px 0;
+  }
+
+  .exp-card {
+    background: rgba(26, 33, 80, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .exp-card h4 {
+    font-size: 1.15rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .exp-card.need h4 { color: var(--cyan); }
+  .exp-card.steps h4 { color: var(--yellow); }
+
+  .exp-card ol, .exp-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exp-card li {
+    padding: 9px 0 9px 36px;
+    position: relative;
+    color: var(--text);
+    line-height: 1.55;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .exp-card li:last-child { border-bottom: none; }
+
+  .exp-card.need li::before {
+    content: attr(data-emoji);
+    position: absolute;
+    left: 0;
+    top: 7px;
+    font-size: 1.3rem;
+  }
+
+  .exp-card.steps {
+    counter-reset: steps;
+  }
+
+  .exp-card.steps li {
+    counter-increment: steps;
+  }
+
+  .exp-card.steps li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 26px;
+    height: 26px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange));
+    color: #0a0e27;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+
+  /* VISUAL — for each experiment */
+  .visual-box {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.08), rgba(167, 139, 250, 0.08));
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 22px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .visual-caption {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  /* MILK EXPLOSION VISUAL */
+  .milk-plate {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff8ee 0%, #ede0c8 100%);
+    position: relative;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.1), 0 8px 30px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+
+  .color-drop {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    margin: -11px 0 0 -11px;
+    animation: explode 3s ease-out infinite;
+  }
+
+  .cd-red { background: radial-gradient(circle at 30% 30%, #ff8da5, #ff4757); --tx: -75px; --ty: -40px; animation-delay: 0s; }
+  .cd-blue { background: radial-gradient(circle at 30% 30%, #7dc4ff, #4a9eff); --tx: 70px; --ty: -50px; animation-delay: 0s; }
+  .cd-green { background: radial-gradient(circle at 30% 30%, #8de0a0, #6bcf7f); --tx: -65px; --ty: 60px; animation-delay: 0s; }
+  .cd-yellow { background: radial-gradient(circle at 30% 30%, #ffe07a, #ffd93d); --tx: 75px; --ty: 55px; animation-delay: 0s; }
+
+  @keyframes explode {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    50% { transform: translate(calc(var(--tx) * 0.6), calc(var(--ty) * 0.6)) scale(1.4); opacity: 0.8; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0.6); opacity: 0; }
+  }
+
+  .soap-spot {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    margin: -15px 0 0 -15px;
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
+    animation: soap-pulse 3s ease-out infinite;
+  }
+
+  @keyframes soap-pulse {
+    0% { transform: scale(0); opacity: 0; }
+    20% { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  /* OOBLECK VISUAL */
+  .ooblek-box {
+    width: 280px;
+    height: 180px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, rgba(167, 139, 250, 0.1), rgba(78, 205, 196, 0.2));
+    border-radius: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ooblek-fluid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, #d6c4ff, #a78bfa);
+    border-radius: 0 0 17px 17px;
+  }
+
+  .ooblek-fluid::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background: #a78bfa;
+    border-radius: 50%;
+    animation: wobble 2.5s ease-in-out infinite;
+  }
+
+  @keyframes wobble {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(0.92) scaleY(1.1); }
+  }
+
+  .fist {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    animation: punch 2.5s ease-in-out infinite;
+  }
+
+  @keyframes punch {
+    0%, 60%, 100% { top: 10px; }
+    70% { top: 60px; }
+    80% { top: 10px; }
+  }
+
+  .oob-splash {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.4rem;
+    color: var(--yellow);
+    opacity: 0;
+    animation: splash 2.5s ease-out infinite;
+  }
+
+  @keyframes splash {
+    0%, 65%, 100% { opacity: 0; }
+    70%, 75% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+  }
+
+  /* TOOTHPASTE VISUAL */
+  .bottle-stand {
+    width: 280px;
+    height: 220px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .bottle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 110px;
+    background: linear-gradient(180deg, rgba(78, 205, 196, 0.2), rgba(74, 158, 255, 0.4));
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px 8px 14px 14px;
+  }
+
+  .bottle::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .foam {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at 30% 30%, #fff8ee, #ffd93d);
+    border-radius: 50%;
+    animation: foam-up 2.5s ease-out infinite;
+    box-shadow:
+      -20px 10px 0 -5px rgba(255, 248, 238, 0.95),
+      20px 10px 0 -5px rgba(255, 248, 238, 0.95),
+      0 25px 0 0 rgba(255, 217, 61, 0.85),
+      -30px 30px 0 -8px rgba(255, 240, 200, 0.9),
+      30px 30px 0 -8px rgba(255, 240, 200, 0.9),
+      -15px 50px 0 -3px rgba(255, 230, 180, 0.85),
+      15px 50px 0 -3px rgba(255, 230, 180, 0.85),
+      0 60px 0 -7px rgba(255, 220, 160, 0.8);
+  }
+
+  @keyframes foam-up {
+    0% { bottom: 100px; opacity: 0; transform: translateX(-50%) scale(0.3); }
+    20% { opacity: 1; }
+    100% { bottom: 200px; opacity: 0.6; transform: translateX(-50%) scale(1.4); }
+  }
+
+  /* CTA TO PART 2 */
+  .cta-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.15), rgba(74, 158, 255, 0.15));
+    border: 2px solid var(--cyan);
+    border-radius: 20px;
+    padding: 22px 26px;
+    margin: 24px 0;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.25s ease;
+  }
+
+  .cta-link:hover {
+    transform: translateY(-3px);
+    border-color: var(--yellow);
+    box-shadow: 0 8px 30px rgba(78, 205, 196, 0.3);
+  }
+
+  .cta-link .cta-text { flex: 1; }
+
+  .cta-link .cta-label {
+    color: var(--cyan);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .cta-link .cta-title {
+    color: var(--text);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .cta-link .cta-arrow {
+    font-size: 2rem;
+    color: var(--yellow);
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+
+  .cta-link:hover .cta-arrow { transform: translateX(6px); }
+
+  /* TIME TAG */
+  .time-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 217, 61, 0.12);
+    color: var(--yellow);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-left: 10px;
+  }
+
+  /* WHERE GRID */
+  .where-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+
+  .where-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    transition: transform 0.3s;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .where-card:hover { transform: translateY(-4px); }
+
+  .where-emoji {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .where-card h4 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .where-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .where-card .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .tag-physics { background: rgba(255, 107, 157, 0.2); color: var(--pink); }
+  .tag-chemistry { background: rgba(107, 207, 127, 0.2); color: var(--green); }
+  .tag-mech { background: rgba(78, 205, 196, 0.2); color: var(--cyan); }
+
+  /* FUN FACT */
+  .fun-fact {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 140, 66, 0.1));
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .fun-fact .emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact h3 {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .fun-fact p {
+    color: var(--text);
+    font-size: 1.08rem;
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  footer a {
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  footer a:hover { color: var(--yellow); }
+
+  footer .heart {
+    color: var(--red);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    .exp-grid { grid-template-columns: 1fr; }
+    .milk-plate { width: 220px; height: 220px; }
+    .ooblek-box { width: 260px; }
+    .cta-link { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .cta-link .cta-arrow { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="series-badge">🔮 Серия <span class="dot">·</span> Невидимые силы <span class="dot">·</span> <span class="part-num">Часть 1</span></span>
+  <span class="hero-badge">🧪 Эксперименты для дома</span>
+  <h1>Кухонная<br>лаборатория</h1>
+  <p>Три фокуса — с молоком, крахмалом и дрожжами. На вид магия, на самом деле — физика и химия. Сейчас покажем оба.</p>
+
+  <div class="hero-flask">
+    <div class="splash">✨</div>
+    <div class="flask-rim"></div>
+    <div class="flask-neck"></div>
+    <div class="flask-body">
+      <div class="bubble b1"></div>
+      <div class="bubble b2"></div>
+      <div class="bubble b3"></div>
+      <div class="bubble b4"></div>
+      <div class="bubble b5"></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</div>
+
+<!-- ВВЕДЕНИЕ -->
+<section class="block container">
+  <span class="section-label label-intro">Перед стартом</span>
+  <h2>Что нам понадобится знать про молекулы</h2>
+  <p class="lead">Чтобы понять, почему в опытах происходит что-то невероятное — давай быстро вспомним одну главную вещь.</p>
+
+  <div class="text-block purple-block">
+    <p>Всё на свете — вода, воздух, молоко, крахмал, твоя рука, экран, на котором ты это читаешь — состоит из <b>молекул</b>. Это очень-очень маленькие штучки, которых не видно ни глазом, ни в обычный микроскоп. Но их триллионы в каждой капле воды.</p>
+    <p>Молекулы постоянно <b>двигаются</b> и <b>взаимодействуют</b> друг с другом — притягиваются, отталкиваются, цепляются. Большинство «волшебных» эффектов в наших опытах — это и есть невидимое движение и притяжение молекул, которое мы вдруг увидели глазами.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🧱</div>
+    <div class="content">
+      <h5>Если совсем по-простому</h5>
+      <p>Представь LEGO-кирпичик. Он состоит из ещё более мелких пупырышков — это атомы. Несколько кирпичиков вместе — это молекула. Из таких молекул-кирпичиков собрано всё. Только в реальной жизни эти кирпичики невидимые и ужасно подвижные — они скачут, кружатся, цепляются и расцепляются миллионы раз в секунду.</p>
+    </div>
+  </div>
+</section>
+
+<!-- БЕЗОПАСНОСТЬ -->
+<section class="block container">
+  <span class="section-label label-safe">Перед опытами</span>
+  <h2>Сначала — про безопасность</h2>
+  <p class="lead">Все опыты ниже — безопасные, но три простых правила выполнить надо. Настоящий учёный всегда так делает.</p>
+
+  <div class="safety-block">
+    <h3>⚙️ Три правила лаборатории</h3>
+    <ul class="safety-list">
+      <li><b>Делай это вместе со взрослым.</b> Не потому, что опасно, а потому что вместе веселее, и кто-то уберёт, если что-то прольётся.</li>
+      <li><b>Ничего не пробуй на вкус.</b> Молоко с краской, пероксид и пена — не еда, даже если вкусно пахнет.</li>
+      <li><b>Накрой стол газетой</b> или делай в раковине. Третий опыт дико пенится — лучше заранее.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ЭКСПЕРИМЕНТ 1 -->
+<section class="block container">
+  <span class="section-label label-1">Эксперимент 1 <span class="time-tag">⏱ 2 минуты</span></span>
+  <h2>Цветной взрыв в молоке</h2>
+  <p class="lead">Льёшь молоко в тарелку, капаешь четыре краски, тыкаешь ватной палочкой с мылом — и краски разбегаются по тарелке, как испуганные муравьи. Эффект длится секунд 30 — глаз не оторвать.</p>
+
+  <div class="exp-grid">
+    <div class="exp-card need">
+      <h4>🛒 Что нужно</h4>
+      <ul>
+        <li data-emoji="🥛"><b>Молоко</b> — обычное, цельное (чем жирнее, тем эффектнее)</li>
+        <li data-emoji="🍽"><b>Плоская тарелка</b> с бортиком</li>
+        <li data-emoji="🎨"><b>Пищевые красители</b> — 3–4 разных цвета</li>
+        <li data-emoji="🧼"><b>Жидкое мыло</b> для посуды (чуть-чуть)</li>
+        <li data-emoji="🦴"><b>Ватная палочка</b></li>
+      </ul>
+    </div>
+
+    <div class="exp-card steps">
+      <h4>🎬 Что делать</h4>
+      <ol>
+        <li>Налей молока в тарелку, чтобы дно было закрыто.</li>
+        <li>Капни в центр и по краям 4 капли разных красителей — близко друг к другу, но не сливая.</li>
+        <li>Подожди 5 секунд — краски замерли.</li>
+        <li>Ватную палочку макни в каплю мыла.</li>
+        <li>Аккуратно ткни палочкой в центр тарелки и держи 5 секунд.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="visual-box">
+    <div class="milk-plate">
+      <div class="soap-spot"></div>
+      <div class="color-drop cd-red"></div>
+      <div class="color-drop cd-blue"></div>
+      <div class="color-drop cd-green"></div>
+      <div class="color-drop cd-yellow"></div>
+    </div>
+    <p class="visual-caption">Краски разбегаются от точки, куда ты ткнул мылом</p>
+  </div>
+
+  <div class="text-block pink-block">
+    <p><b>Что увидишь:</b> через секунду после касания мылом краски не просто перемешаются — они <b>понесутся</b> от центра к краям тарелки, закручиваясь, разделяясь, делая узоры. Если ткнуть мылом в другую точку — там начнётся новый «взрыв».</p>
+  </div>
+
+  <div class="text-block">
+    <p><b>Почему так:</b> молоко — это вода + капельки жира. Молекулы воды на поверхности «держатся за руки» — это называется <b>поверхностное натяжение</b>. Капля краски просто лежит сверху и ничего не делает.</p>
+    <p>Но мыло — особенное вещество. Его молекулы любят и воду, и жир одновременно. Когда мыло касается молока, оно <b>разрывает</b> хватку молекул воды в одной точке и набрасывается на капельки жира. Молекулы воды тянут плёнку к себе, в стороны от мыла — и краску несёт вместе с ними.</p>
+    <p>Это как если бы куча людей крепко держалась за руки в круге, а ты вдруг разжал руки одного из них. Все остальные дёрнулись бы в противоположные стороны — и любая лёгкая вещь у них на руках полетела бы вместе с ними.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🤝</div>
+    <div class="content">
+      <h5>Аналогия покороче</h5>
+      <p>Натянутая на барабан плёнка. Если в одном месте резко её ослабить, остальная часть с силой натянется в стороны. Краска — просто пассажир на этой плёнке.</p>
+    </div>
+  </div>
+
+  <a class="cta-link" href="surface-tension.html">
+    <div class="cta-text">
+      <div class="cta-label">🔬 Часть 2 серии</div>
+      <div class="cta-title">Хочешь понять, как именно молекулы воды «держатся за руки» и почему мыло их разнимает?</div>
+    </div>
+    <div class="cta-arrow">→</div>
+  </a>
+</section>
+
+<!-- ЭКСПЕРИМЕНТ 2 -->
+<section class="block container">
+  <span class="section-label label-2">Эксперимент 2 <span class="time-tag">⏱ 5 минут</span></span>
+  <h2>Жидкость, которая твердеет от удара</h2>
+  <p class="lead">Смешай кукурузный крахмал с водой — и получишь странную штуку. Если медленно опустишь руку — пройдёт сквозь, как через кисель. Если ударишь кулаком — будет твёрдо, как доска. У этой жидкости даже названия нормального нет — её зовут просто <b>«ублек»</b>.</p>
+
+  <div class="exp-grid">
+    <div class="exp-card need">
+      <h4>🛒 Что нужно</h4>
+      <ul>
+        <li data-emoji="🌽"><b>Кукурузный крахмал</b> — 1 стакан</li>
+        <li data-emoji="💧"><b>Вода</b> — примерно полстакана (добавляй понемногу)</li>
+        <li data-emoji="🥣"><b>Миска</b> побольше</li>
+        <li data-emoji="🥄"><b>Ложка</b> для размешивания</li>
+        <li data-emoji="🎨"><b>Краситель</b> (необязательно, но веселее)</li>
+      </ul>
+    </div>
+
+    <div class="exp-card steps">
+      <h4>🎬 Что делать</h4>
+      <ol>
+        <li>В миску высыпь крахмал.</li>
+        <li>Подливай воду по чуть-чуть и размешивай.</li>
+        <li>Останавливайся, когда смесь стала «странной»: течёт, но если ткнуть — сопротивляется.</li>
+        <li>Если хочешь — капни краситель и перемешай.</li>
+        <li>Теперь — медленно погрузи руку. А потом резко ударь.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="visual-box">
+    <div class="ooblek-box">
+      <div class="fist">👊</div>
+      <div class="oob-splash">⚡ ТОК!</div>
+      <div class="ooblek-fluid"></div>
+    </div>
+    <p class="visual-caption">Бьёшь — твёрдое. Опускаешь медленно — жидкое.</p>
+  </div>
+
+  <div class="text-block cyan-block">
+    <p><b>Что увидишь:</b> если катать комочек в ладонях — он будет как пластилин, держит форму. Стоит остановиться — потечёт между пальцами как кисель. По нему можно даже бегать, если налить в большой таз (взрослые так делают на YouTube — ищи «running on oobleck»).</p>
+  </div>
+
+  <div class="text-block">
+    <p><b>Почему так:</b> в обычной жидкости (вода, молоко, чай) молекулы свободно скользят друг мимо друга — поэтому она и течёт. А в нашей смеси кроме воды ещё плавают миллионы крошечных <b>зёрнышек крахмала</b>.</p>
+    <p>Когда ты двигаешься <b>медленно</b>, у зёрнышек есть время уступить дорогу — они мирно расступаются, и твоя рука проходит сквозь. Когда ты бьёшь <b>резко</b>, зёрнышки не успевают расступиться. Они врезаются друг в друга, сцепляются — и в этот миг смесь превращается в твёрдое тело.</p>
+    <p>Учёные называют такие штуки <b>неньютоновскими жидкостями</b> — потому что Исаак Ньютон, когда придумывал свои законы про текучесть, такие странные смеси не учитывал. А они, оказывается, бывают.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🚶‍♂️</div>
+    <div class="content">
+      <h5>Представь толпу в метро</h5>
+      <p>Если идёшь медленно и вежливо — все расступаются. Если рванул напролом — упрёшься в людей лбом, как в стену. Зёрнышки крахмала — это та же толпа, только из миллионов крошечных «человечков».</p>
+    </div>
+  </div>
+</section>
+
+<!-- ЭКСПЕРИМЕНТ 3 -->
+<section class="block container">
+  <span class="section-label label-3">Эксперимент 3 <span class="time-tag">⏱ 3 минуты</span></span>
+  <h2>Слоновья зубная паста</h2>
+  <p class="lead">Из горлышка бутылки прёт фонтан тёплой пены. Реально много — заранее поставь бутылку в большую миску. Эту штуку называют «слоновьей зубной пастой», потому что выглядит так, будто слон выдавил себе на щётку.</p>
+
+  <div class="exp-grid">
+    <div class="exp-card need">
+      <h4>🛒 Что нужно</h4>
+      <ul>
+        <li data-emoji="💧"><b>Перекись водорода 3%</b> (из аптеки) — полбутылки 0,5 л</li>
+        <li data-emoji="🍞"><b>Сухие дрожжи</b> — 1 пакетик (7 г)</li>
+        <li data-emoji="🥄"><b>Тёплая вода</b> — 3 ложки</li>
+        <li data-emoji="🧼"><b>Жидкое мыло</b> или средство для посуды — 2 ложки</li>
+        <li data-emoji="🍾"><b>Пустая пластиковая бутылка</b> 0,5 л + большой поднос</li>
+      </ul>
+    </div>
+
+    <div class="exp-card steps">
+      <h4>🎬 Что делать</h4>
+      <ol>
+        <li>Поставь бутылку на поднос (пены будет МНОГО).</li>
+        <li>Налей в неё перекись водорода и мыло. Чуть взболтай.</li>
+        <li>В чашке смешай дрожжи с тёплой водой. Подожди 30 секунд.</li>
+        <li>Быстро вылей дрожжи в бутылку и отойди.</li>
+        <li>Смотри. Не трогай — пена тёплая.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="visual-box">
+    <div class="bottle-stand">
+      <div class="foam"></div>
+      <div class="bottle"></div>
+    </div>
+    <p class="visual-caption">Из бутылки лезет столб тёплой пены — секунды три на разгон, потом фонтан</p>
+  </div>
+
+  <div class="text-block green-block">
+    <p><b>Что увидишь:</b> через 2–3 секунды из горлышка попрёт густая пена, как из взбесившегося огнетушителя. Если потрогать бутылку — она тёплая. Это значит, что в ней <b>выделилась энергия</b>. На воздухе пена постепенно осядет в обычное мыло.</p>
+  </div>
+
+  <div class="text-block">
+    <p><b>Почему так:</b> перекись водорода — это вода (H₂O), но с лишним атомом кислорода (H₂O₂). Этот лишний кислород еле держится — перекись и так сама по себе медленно разваливается на воду и кислород. Но это очень-очень медленно, годами.</p>
+    <p>Дрожжи — это маленькие живые грибы. В них есть особое вещество, которое называется <b>катализатор</b>. Катализатор не вступает в реакцию сам, но он <b>ускоряет</b> её в тысячи раз. Вместо того, чтобы разваливаться годами, перекись начинает бурно отдавать кислород за секунды.</p>
+    <p>Этот кислород — газ, ему нужно куда-то деваться. Он раздувает мыло в миллионы крошечных пузырьков — и получается пена. А энергия, которая до этого «спала» в перекиси, выделяется как тепло. Поэтому пена тёплая.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="icon">🎢</div>
+    <div class="content">
+      <h5>Катализатор — это толкач</h5>
+      <p>Представь, что куча людей робко стоит перед горкой и не решается прыгнуть в воду. Они бы и сами прыгнули, но через час. А катализатор — это весёлый друг, который подходит и просто слегка подталкивает каждого. Сам не прыгает, но все вокруг него летят. Дрожжи — такой толкач для перекиси.</p>
+    </div>
+  </div>
+
+  <div class="text-block green-block">
+    <p>Кстати: в твоей крови работает похожий катализатор — он называется <b>каталаза</b>. Если капнуть перекисью на ранку, она зашипит и вспенится — это каталаза в крови очень быстро разлагает перекись на воду и кислород. Точно так же, как в нашей бутылке. Только без мыла и в маленьких количествах.</p>
+  </div>
+</section>
+
+<!-- ГДЕ В ЖИЗНИ -->
+<section class="block container">
+  <span class="section-label label-where">Часть 4 · Где это встречается</span>
+  <h2>Где эти эффекты прячутся в жизни</h2>
+  <p class="lead">Все три «фокуса» — не сами по себе. Это те же законы, которые работают в природе и в технике. Давай посмотрим, где.</p>
+
+  <div class="where-grid">
+    <div class="where-card">
+      <span class="where-emoji">🪲</span>
+      <h4>Водомерки</h4>
+      <p>Бегают по поверхности пруда, как по стеклу — не тонут благодаря тому самому поверхностному натяжению, что и в опыте с молоком.</p>
+      <span class="tag tag-physics">Опыт 1</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🛁</span>
+      <h4>Любое мыло</h4>
+      <p>Грязь и жир не растворяются в воде сами. Мыло «разнимает» молекулы воды и сцепляется с жиром — и тот смывается.</p>
+      <span class="tag tag-physics">Опыт 1</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🏖</span>
+      <h4>Зыбучие пески</h4>
+      <p>Это та же неньютоновская жидкость, только из песка и воды. Бьёшь — твёрдо. Стоишь спокойно — медленно проваливаешься.</p>
+      <span class="tag tag-mech">Опыт 2</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🦺</span>
+      <h4>Жидкие бронежилеты</h4>
+      <p>Учёные сделали ткань, пропитанную неньютоновской жидкостью. От пули она в долю секунды твердеет, а в обычной жизни мягкая, как одежда.</p>
+      <span class="tag tag-mech">Опыт 2</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🍞</span>
+      <h4>Тесто на дрожжах</h4>
+      <p>Те же дрожжи, что в нашем опыте, в тесте едят сахар и выделяют пузырьки газа. Вот почему хлеб пышный.</p>
+      <span class="tag tag-chemistry">Опыт 3</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🩸</span>
+      <h4>Перекись на ранке</h4>
+      <p>Шипит и пенится из-за каталазы в крови — катализатора, который мгновенно разлагает перекись. Точно как дрожжи в опыте.</p>
+      <span class="tag tag-chemistry">Опыт 3</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🚗</span>
+      <h4>Двигатель машины</h4>
+      <p>Бензин сам по себе горит лениво. Внутри двигателя его заставляют гореть быстро и сильно — а в выхлопной трубе стоит катализатор, который чистит дым.</p>
+      <span class="tag tag-chemistry">Опыт 3</span>
+    </div>
+    <div class="where-card">
+      <span class="where-emoji">🍃</span>
+      <h4>Лист лотоса</h4>
+      <p>Капли воды скатываются с него, как шарики — потому что листья «не дружат» с водой. Это поверхностное натяжение во всей красе.</p>
+      <span class="tag tag-physics">Опыт 1</span>
+    </div>
+  </div>
+</section>
+
+<!-- УДИВИТЕЛЬНЫЙ ФАКТ -->
+<section class="block container">
+  <div class="fun-fact">
+    <div class="emoji">🤯</div>
+    <h3>Удивительный факт</h3>
+    <p>Если бы ты налил воду в стакан в космосе — она бы не растеклась и не пролилась. Она бы свернулась в идеальный <b style="color:var(--yellow)">шар</b> и плавала в воздухе. Поверхностное натяжение всегда хочет сделать жидкость как можно более «компактной», а самая компактная форма — шар. На Земле этому мешает гравитация, и вода растекается. А в невесомости — становится круглой.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom:14px">Это была <b style="color:var(--yellow)">Часть 1</b> серии «Невидимые силы».<br>Дальше — глубокий разбор того, как работают молекулы воды.</p>
+  <a class="cta-link" href="surface-tension.html" style="max-width:600px;margin:14px auto 24px">
+    <div class="cta-text">
+      <div class="cta-label">↪ Часть 2</div>
+      <div class="cta-title">Поверхностное натяжение: почему водомерка не тонет</div>
+    </div>
+    <div class="cta-arrow">→</div>
+  </a>
+  <div style="margin-top:14px"><a href="../index.html">← На главную</a></div>
+  <div style="margin-top:14px">Сделано с <span class="heart">❤</span> для любопытных учёных</div>
+</footer>
+
+<script>
+  // Smooth fade-in для секций при прокрутке
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.block').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(30px)';
+      s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+<script src="../nav.js" defer></script>
+
+</body>
+</html>

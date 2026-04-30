@@ -310,6 +310,8 @@
   .wiki-card.c-rockets { --accent: linear-gradient(90deg, var(--orange), var(--red), var(--pink)); --border-hover: rgba(255, 140, 66, 0.4); --glow: rgba(255, 140, 66, 0.25); }
   .wiki-card.c-exo { --accent: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple)); --border-hover: rgba(74, 158, 255, 0.4); --glow: rgba(74, 158, 255, 0.2); }
   .wiki-card.c-metals { --accent: linear-gradient(90deg, #c8d4e6, #ffcf54, #ff8c42, #d97c4a); --border-hover: rgba(255, 207, 84, 0.4); --glow: rgba(255, 207, 84, 0.2); }
+  .wiki-card.c-kitchen { --accent: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan), var(--green)); --border-hover: rgba(167, 139, 250, 0.4); --glow: rgba(167, 139, 250, 0.25); }
+  .wiki-card.c-surface { --accent: linear-gradient(90deg, #7dc4ff, var(--cyan), #aef0ea); --border-hover: rgba(78, 205, 196, 0.4); --glow: rgba(78, 205, 196, 0.25); }
 
   .wiki-emoji {
     font-size: 3.4rem;
@@ -366,6 +368,8 @@
   .card-tag.t-health { color: var(--green); border-color: rgba(107, 207, 127, 0.2); background: rgba(107, 207, 127, 0.05); }
   .card-tag.t-tech { color: var(--blue); border-color: rgba(74, 158, 255, 0.2); background: rgba(74, 158, 255, 0.05); }
   .card-tag.t-future { color: var(--purple); border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.05); }
+  .card-tag.t-chemistry { color: var(--green); border-color: rgba(107, 207, 127, 0.2); background: rgba(107, 207, 127, 0.05); }
+  .card-tag.t-experiments { color: var(--pink); border-color: rgba(255, 107, 157, 0.2); background: rgba(255, 107, 157, 0.05); }
 
   .wiki-meta {
     display: flex;
@@ -557,10 +561,11 @@
   </div>
 
   <div class="filter-pills" id="filters">
-    <button class="filter-btn active" data-category="all">Все <span class="count-badge" data-count="all">9</span></button>
+    <button class="filter-btn active" data-category="all">Все <span class="count-badge" data-count="all">11</span></button>
     <button class="filter-btn" data-category="space">🌌 Космос <span class="count-badge" data-count="space">3</span></button>
     <button class="filter-btn" data-category="earth">🌍 Земля <span class="count-badge" data-count="earth">3</span></button>
     <button class="filter-btn" data-category="life">🧬 Жизнь <span class="count-badge" data-count="life">3</span></button>
+    <button class="filter-btn" data-category="experiments">🧪 Эксперименты <span class="count-badge" data-count="experiments">2</span></button>
   </div>
 </div>
 
@@ -568,6 +573,44 @@
   <div class="results-info" id="results-info"></div>
 
   <div class="wiki-grid" id="grid">
+    <a class="wiki-card c-kitchen"
+       href="articles/kitchen-lab.html"
+       data-category="experiments"
+       data-tags="эксперименты опыты химия физика молоко крахмал дрожжи перекись мыло слон ублек неньютоновская поверхностное натяжение катализатор кухня дом серия">
+      <span class="wiki-emoji">🧪</span>
+      <h3>Кухонная лаборатория</h3>
+      <p>Три домашних опыта с молоком, крахмалом и дрожжами — и физика с химией, которая стоит за каждым «вау». Часть 1 серии «Невидимые силы».</p>
+      <div class="card-tags">
+        <span class="card-tag t-experiments">эксперименты</span>
+        <span class="card-tag t-physics">физика</span>
+        <span class="card-tag t-chemistry">химия</span>
+      </div>
+      <div class="wiki-meta">
+        <span>30 апр 2026</span>
+        <span class="dot">•</span>
+        <span>18 мин</span>
+      </div>
+    </a>
+
+    <a class="wiki-card c-surface"
+       href="articles/surface-tension.html"
+       data-category="experiments"
+       data-tags="эксперименты опыты физика вода молекулы поверхностное натяжение водомерка скрепка мыло пузыри лотос капля гидрофобный сурфактант серия">
+      <span class="wiki-emoji">💧</span>
+      <h3>Поверхностное натяжение</h3>
+      <p>Как молекулы воды держатся друг за друга, почему водомерка не тонет, что делает мыло и почему дождь скатывается с лотоса. Часть 2 серии.</p>
+      <div class="card-tags">
+        <span class="card-tag t-experiments">эксперименты</span>
+        <span class="card-tag t-physics">физика</span>
+        <span class="card-tag t-nature">природа</span>
+      </div>
+      <div class="wiki-meta">
+        <span>30 апр 2026</span>
+        <span class="dot">•</span>
+        <span>25 мин</span>
+      </div>
+    </a>
+
     <a class="wiki-card c-metals"
        href="articles/metals.html"
        data-category="earth"
@@ -745,7 +788,7 @@
 </section>
 
 <footer>
-  Всего статей: <span class="count-pill" id="total-count">9</span>
+  Всего статей: <span class="count-pill" id="total-count">11</span>
   <div style="margin-top:14px">Сделано с <span class="heart">❤</span> для любопытных</div>
 </footer>
 
